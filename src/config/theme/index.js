@@ -1,0 +1,42 @@
+const Fonts = {
+  IM: "PTSans-Regular",
+  IR: "PTSans-Regular",
+  IS: "PTSans-Bold",
+};
+
+const Colors = {
+  CouponView: "#bceeff",
+  BadgeRed: "#E32628",
+  inActiveDot: "#D9D9D9",
+  Black: "#1E1E22",
+  tabDefault: "#292D32",
+  text: "#878889",
+  White: "#ffffff",
+  primary: "#1CB4E9",
+  Theme_Blue: "#0B183C",
+  Mid_blue: "#1f6bb6",
+  Cloudly_blue: "#bcc1c8",
+  Toast_success: "#DFF2BF",
+  Success_text: "#4F8A10",
+  Toast_error: "#FFD2D2",
+  Error_text: "#D8000C",
+  Toast_info: "#BDE5F8",
+  Info_text: "#00529B",
+  Red: "red",
+  textInputView: "#F4F4F4",
+  dullgrey: "#F8F8F8",
+  LightGrey: "#C1C1C1",
+  placeholderTextColor: "rgba(65,65,65,0.6)",
+  pendingText: "#FF9900",
+  cancelledText: "#FF0000",
+  completedText: "#0FBB59",
+  onholdText: "#5200FF",
+  pending: "rgba(255, 153, 0, 0.15)",
+  cancelled: "rgba(255, 15, 15, 0.15);",
+  completed: "rgba(15, 187, 89, 0.15)",
+  onhold: "rgba(82, 0, 255, 0.15)",
+  lightPurple: "#DCDCFA",
+  inputBG: "#EDEDED",
+};
+
+export { Fonts, Colors };
