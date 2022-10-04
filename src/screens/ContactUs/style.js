@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     marginLeft: metrix.HorizontalSize(20),
   },
   headerText: {
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     marginLeft: metrix.HorizontalSize(15),
     // textAlign: "center",
   },
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: metrix.VerticalSize(10),
     fontFamily: Fonts.IS,
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
   },
   buttonStyle: {
     width: "37%",
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     // height: metrix.VerticalSize(100),
   },
   catText: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     textAlign: "center",
   },
 });

@@ -17,7 +17,7 @@ export default styles = StyleSheet.create({
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
     marginBottom: metrix.VerticalSize(20),
   },
@@ -31,14 +31,14 @@ export default styles = StyleSheet.create({
     marginTop: metrix.VerticalSize(30),
   },
   forgotPWText: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     color: Colors.primary,
     textDecorationLine: "underline",
     fontFamily: Fonts.IR,
   },
   subText: {
     textAlign: "center",
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IR,
     lineHeight: metrix.VerticalSize(20),
     width: metrix.HorizontalSize(320),

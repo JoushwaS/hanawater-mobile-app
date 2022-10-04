@@ -6,10 +6,54 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.White,
-    // paddingHorizontal: metrix.HorizontalSize(15),
+    paddingHorizontal: metrix.HorizontalSize(18),
+    paddingVertical: metrix.VerticalSize(25),
   },
-  ContainerPadding: {
-    paddingHorizontal: metrix.HorizontalSize(15),
+  clearCart: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: metrix.VerticalSize(10),
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    paddingVertical: metrix.VerticalSize(5),
+    paddingHorizontal: metrix.HorizontalSize(8),
+  },
+  clearIcon: {
+    tintColor: Colors.primary,
+    width: metrix.VerticalSize(25),
+    height: metrix.VerticalSize(25),
+    marginLeft: metrix.HorizontalSize(5),
+  },
+  loaderContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.White,
+  },
+  image: {
+    width: metrix.VerticalSize(400),
+    height: metrix.VerticalSize(365),
+    alignSelf: "center",
+    marginTop: metrix.VerticalSize(65),
+  },
+  heading: {
+    fontSize: metrix.CustomFontSize(24 + 2),
+    marginTop: metrix.VerticalSize(26),
+    marginBottom: metrix.VerticalSize(43),
+    alignSelf: "center",
+    fontFamily: Fonts.IM,
+    color: Colors.primary,
+  },
+  button: {
+    alignSelf: "center",
+  },
+  subHeading: {
+    fontSize: metrix.CustomFontSize(20 + 2),
+    marginBottom: metrix.VerticalSize(50),
+    marginTop: metrix.VerticalSize(26),
+
+    alignSelf: "center",
   },
   coverImage: {
     height: metrix.VerticalSize(300),
@@ -17,27 +61,32 @@ export const styles = StyleSheet.create({
   },
   enterPromo: {
     color: Colors.primary,
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     textDecorationLine: "underline",
     fontFamily: Fonts.IM,
     marginVertical: metrix.VerticalSize(10),
     alignSelf: "flex-end",
   },
   modalHeading: {
-    fontSize: metrix.CustomFontSize(16),
-    fontFamily: Fonts.IM,
+    fontSize: metrix.CustomFontSize(18 + 2),
+    fontFamily: Fonts.IR,
+    marginHorizontal: metrix.HorizontalSize(5),
   },
   modalText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IM,
     marginVertical: metrix.VerticalSize(10),
   },
   selectedPromoText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IS,
     marginRight: metrix.HorizontalSize(5),
   },
-
+  emptyText: {
+    fontSize: metrix.CustomFontSize(18 + 2),
+    fontFamily: Fonts.IM,
+    textAlign: "center",
+  },
   plus: {
     height: metrix.VerticalSize(24),
     width: metrix.VerticalSize(24),
@@ -89,17 +138,17 @@ export const styles = StyleSheet.create({
   productname: {
     color: Colors.text,
     marginBottom: metrix.VerticalSize(5),
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   productprice: {
     color: Colors.text,
     opacity: 0.7,
     marginBottom: metrix.VerticalSize(5),
 
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   productQuantity: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   cartImage: {
     height: metrix.VerticalSize(100),
@@ -118,9 +167,6 @@ export const styles = StyleSheet.create({
     padding: metrix.VerticalSize(10),
     // height: metrix.VerticalSize(43),
     backgroundColor: Colors.dullgrey,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
   },
   arrowIcon: {
     height: metrix.VerticalSize(12),
@@ -129,11 +175,10 @@ export const styles = StyleSheet.create({
   bottomRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: metrix.VerticalSize(20),
+    alignItems: "center",
+    paddingBottom: metrix.VerticalSize(50),
   },
-  buttonStyle: {
-    width: "47%",
-  },
+  buttonStyle: {},
   row: {
     flexDirection: "row",
     marginTop: metrix.VerticalSize(25),
@@ -171,7 +216,7 @@ export const styles = StyleSheet.create({
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IM,
   },
   rowContainer: {
@@ -207,5 +252,65 @@ export const styles = StyleSheet.create({
   cancelPromo: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  totalBox: {
+    backgroundColor: Colors.dullgrey,
+    width: metrix.HorizontalSize(349),
+    // height: metrix.VerticalSize(161),
+    borderRadius: metrix.VerticalSize(5),
+    alignSelf: "flex-end",
+    paddingVertical: metrix.VerticalSize(18),
+    paddingHorizontal: metrix.HorizontalSize(18),
+    // marginTop: metrix.VerticalSize(15),
+  },
+  totalRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginTop: metrix.VerticalSize(16),
+    marginBottom: metrix.VerticalSize(85),
+    marginHorizontal: metrix.HorizontalSize(10),
+  },
+  totalTextRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  totalText: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+    fontFamily: Fonts.IR,
+    marginBottom: metrix.VerticalSize(12),
+  },
+  totalTextVal: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+    fontFamily: Fonts.IS,
+    marginLeft: metrix.HorizontalSize(35),
+    marginBottom: metrix.VerticalSize(12),
+  },
+  total: {
+    fontSize: metrix.CustomFontSize(18 + 2),
+    fontFamily: Fonts.IR,
+    color: Colors.primary,
+  },
+  freeText: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+    fontFamily: Fonts.IR,
+    color: Colors.primary,
+    alignSelf: "flex-end",
+    marginTop: metrix.VerticalSize(10),
+  },
+  warningModalView: {
+    width: metrix.HorizontalSize(300),
+    height: metrix.VerticalSize(230),
+    backgroundColor: Colors.White,
+    borderRadius: metrix.VerticalSize(10),
+    paddingVertical: metrix.VerticalSize(25),
+    paddingHorizontal: metrix.HorizontalSize(35),
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowRadius: 15,
+    elevation: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

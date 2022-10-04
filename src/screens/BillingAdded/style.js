@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     width: metrix.HorizontalSize(250),
   },
   addnewAddress: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     fontFamily: Fonts.IR,
     color: Colors.primary,
     textDecorationLine: "underline",
@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
     marginLeft: metrix.HorizontalSize(2),
     fontFamily: Fonts.IM,
     marginBottom: metrix.VerticalSize(10),
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
   },
   terms: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
     fontFamily: Fonts.IR,
     color: Colors.primary,
     textDecorationLine: "underline",
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
     borderWidth: metrix.VerticalSize(2),
   },
   shipping: {
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     marginBottom: metrix.VerticalSize(15),
     marginTop: metrix.VerticalSize(10),
     fontFamily: Fonts.IS,
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   paymentText: {
     textAlign: "left",
     marginLeft: metrix.HorizontalSize(20),
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
   },
   input: {
     height: metrix.VerticalSize(50),
@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
   },
 });

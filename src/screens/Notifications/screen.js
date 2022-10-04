@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState, useRef } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import {
   TouchableOpacity,
   ScrollView,

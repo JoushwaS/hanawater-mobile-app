@@ -54,11 +54,10 @@ function Index({
 const styles = StyleSheet.create({
   button: {
     textAlign: "center",
-    padding: metrix.VerticalSize(10),
+    padding: metrix.VerticalSize(12),
     borderRadius: metrix.VerticalSize(25),
     alignItems: "center",
     justifyContent: "center",
-    // height: metrix.VerticalSize(40),
     borderColor: Colors.primary,
   },
   textStyle: {

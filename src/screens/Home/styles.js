@@ -1,0 +1,251 @@
+import { StyleSheet } from "react-native";
+import { Colors, Fonts } from "../../config/theme";
+import metrix from "../../config/metrix";
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.White,
+  },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: metrix.VerticalSize(25),
+    marginHorizontal: metrix.HorizontalSize(18),
+  },
+
+  rowButton: {
+    marginHorizontal: metrix.HorizontalSize(10),
+    height: metrix.VerticalSize(41),
+    justifyContent: "center",
+  },
+  tabText: {
+    fontSize: metrix.CustomFontSize(21),
+    fontFamily: Fonts.IR,
+    fontWeight: "bold",
+  },
+  card: {
+    height: metrix.VerticalSize(180),
+    width: metrix.HorizontalSize(392),
+    alignSelf: "center",
+    paddingVertical: metrix.VerticalSize(30),
+    paddingHorizontal: metrix.HorizontalSize(25),
+    marginBottom: metrix.VerticalSize(25),
+  },
+  cardHeading: {
+    fontSize: metrix.CustomFontSize(27 + 2),
+    color: Colors.White,
+    marginVertical: metrix.VerticalSize(10),
+  },
+  cardPriceText: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+    color: Colors.White,
+  },
+  cardImage: {
+    height: metrix.VerticalSize(180),
+    width: metrix.HorizontalSize(120),
+    position: "absolute",
+    right: 0,
+  },
+  badge: {
+    backgroundColor: Colors.BadgeRed,
+    width: metrix.HorizontalSize(115),
+    paddingHorizontal: metrix.HorizontalSize(15),
+    paddingVertical: metrix.VerticalSize(5),
+    borderRadius: metrix.VerticalSize(5),
+    alignItems: "center",
+  },
+  badgeText: {
+    fontSize: metrix.CustomFontSize(14 + 2),
+    color: Colors.White,
+  },
+  heartIcon: {
+    tintColor: Colors.White,
+    height: metrix.VerticalSize(23),
+    width: metrix.HorizontalSize(23),
+  },
+  cardRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  Carouselimg: {
+    resizeMode: "cover",
+    width: metrix.HorizontalSize(396),
+    height: metrix.VerticalSize(220),
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: metrix.VerticalSize(20),
+  },
+  arrowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: metrix.HorizontalSize(370),
+    justifyContent: "space-between",
+  },
+  arrowViewContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: metrix.HorizontalSize(375),
+  },
+  leftarrowicon: {
+    resizeMode: "contain",
+    width: metrix.HorizontalSize(20),
+    height: metrix.VerticalSize(20),
+  },
+  categoryTextContainer: {
+    marginBottom: metrix.VerticalSize(20),
+    position: "absolute",
+    bottom: 0,
+    marginLeft: metrix.HorizontalSize(10),
+  },
+  Catimg: {
+    resizeMode: "cover",
+    alignItems: "flex-end",
+    marginTop: metrix.VerticalSize(1),
+    justifyContent: "flex-end",
+    width: metrix.HorizontalSize(380),
+    height: metrix.VerticalSize(170),
+  },
+  Catimgrow: {
+    resizeMode: "cover",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    width: metrix.HorizontalSize(187),
+    height: metrix.VerticalSize(200),
+  },
+  catCon: {
+    width: metrix.HorizontalSize(200),
+    // height: metrix.HorizontalSize(200),
+  },
+  flatlistStyle: {
+    marginTop: metrix.VerticalSize(20),
+    paddingBottom: metrix.VerticalSize(150),
+  },
+  dot: {
+    width: metrix.VerticalSize(39),
+    height: metrix.VerticalSize(9),
+    borderRadius: metrix.VerticalSize(4.5),
+    backgroundColor: Colors.primary,
+  },
+  containerpadding: {
+    marginTop: metrix.VerticalSize(25),
+    paddingBottom: metrix.VerticalSize(80),
+  },
+  categoryViewStyle: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: metrix.VerticalSize(3),
+  },
+  paginationstyle: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: metrix.VerticalSize(-70),
+  },
+  inactiveDot: {
+    width: metrix.VerticalSize(9),
+    height: metrix.VerticalSize(9),
+    borderRadius: metrix.VerticalSize(4.5),
+    // borderWidth: metrix.HorizontalSize(4),
+    backgroundColor: Colors.inActiveDot,
+  },
+  headerText: {
+    fontSize: metrix.CustomFontSize(18 + 2),
+    marginLeft: metrix.HorizontalSize(15),
+    // textAlign: "center",
+  },
+  viewCon: {
+    width: metrix.HorizontalSize(100),
+    marginLeft: metrix.HorizontalSize(10),
+  },
+  catText: {
+    fontSize: metrix.CustomFontSize(14 + 2),
+    marginRight: metrix.HorizontalSize(40),
+    marginBottom: metrix.HorizontalSize(20),
+    color: Colors.White,
+  },
+  carouselText: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+    marginRight: metrix.HorizontalSize(40),
+    color: Colors.White,
+  },
+  carouselsecondText: {
+    fontSize: metrix.CustomFontSize(20 + 2),
+    marginRight: metrix.HorizontalSize(40),
+    color: Colors.White,
+  },
+  tab: {
+    height: metrix.VerticalSize(45),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mapView: {
+    height: metrix.VerticalSize(230),
+    backgroundColor: "lightgrey",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: metrix.CustomFontSize(25 + 2),
+    fontWeight: "bold",
+    color: Colors.primary,
+  },
+  mosqueItem: {
+    paddingVertical: metrix.VerticalSize(20),
+    paddingHorizontal: metrix.HorizontalSize(20),
+    borderBottomWidth: metrix.VerticalSize(1),
+    borderBottomColor: Colors.LightGrey,
+    flexDirection: "row",
+  },
+  mosqueName: {
+    fontSize: metrix.CustomFontSize(20),
+    marginBottom: metrix.VerticalSize(14),
+    fontFamily: Fonts.IS,
+    color: Colors.primary,
+  },
+  mosqueAddress: {
+    fontSize: metrix.CustomFontSize(16 + 2),
+  },
+  inputView: {
+    flexDirection: "row",
+    height: metrix.VerticalSize(60),
+    marginHorizontal: metrix.HorizontalSize(21),
+    borderRadius: metrix.VerticalSize(5),
+    backgroundColor: Colors.White,
+    marginTop: metrix.VerticalSize(15),
+  },
+  input: {
+    paddingVertical: metrix.VerticalSize(15),
+    paddingHorizontal: metrix.HorizontalSize(15),
+    flex: 2,
+    color: Colors.text,
+  },
+  iconButton: {
+    flex: 1,
+    marginRight: metrix.HorizontalSize(10),
+    height: metrix.VerticalSize(30),
+    width: metrix.HorizontalSize(30),
+  },
+  mosqueImg: {
+    height: metrix.VerticalSize(90),
+    width: metrix.HorizontalSize(120),
+    flex: 0.8,
+    borderRadius: metrix.VerticalSize(8),
+    borderWidth: 2,
+    borderColor: Colors.primary,
+  },
+  warningModalView: {
+    width: metrix.HorizontalSize(300),
+    height: metrix.VerticalSize(230),
+    backgroundColor: Colors.White,
+    borderRadius: metrix.VerticalSize(10),
+    paddingVertical: metrix.VerticalSize(25),
+    paddingHorizontal: metrix.HorizontalSize(35),
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowRadius: 15,
+    elevation: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

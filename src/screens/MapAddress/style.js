@@ -5,29 +5,26 @@ import metrix from "../../config/metrix";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.White,
   },
-
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
   },
   image: {
-    height: metrix.VerticalSize(40),
-    width: metrix.HorizontalSize(40),
-    resizeMode: "contain",
+    height: metrix.VerticalSize(30),
+    width: metrix.HorizontalSize(30),
+    marginRight: metrix.HorizontalSize(16),
   },
   branchesContainer: {
     position: "absolute",
     bottom: metrix.VerticalSize(0),
-    // marginStart: metrix.HorizontalSize(20),
   },
   searchAddress: {
     position: "absolute",
     top: metrix.VerticalSize(0),
-
-    // marginStart: metrix.HorizontalSize(20),
   },
   rowpadding: {
     paddingHorizontal: metrix.HorizontalSize(10),
@@ -50,38 +47,50 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   subheadingText: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     fontFamily: Fonts.IR,
     lineHeight: metrix.VerticalSize(20),
     marginTop: metrix.VerticalSize(10),
   },
 
   time: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     marginLeft: metrix.VerticalSize(10),
-
     fontFamily: Fonts.IM,
   },
   header: {
     textAlign: "center",
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
     color: Colors.primary,
   },
   box: {
     width: metrix.HorizontalSize(380),
-    backgroundColor: "#ffffff",
+    backgroundColor: Colors.White,
     padding: metrix.VerticalSize(20),
     marginTop: metrix.VerticalSize(10),
   },
   searchbox: {
-    width: metrix.HorizontalSize(300),
-    backgroundColor: "#EDEDED",
-    // padding: metrix.VerticalSize(6),
-    marginTop: metrix.VerticalSize(10),
+    width: metrix.HorizontalSize(385),
+    backgroundColor: Colors.White,
+    position: "absolute",
+    justifyContent: "center",
+    marginTop: metrix.VerticalSize(19),
+    borderRadius: metrix.VerticalSize(5),
+    alignSelf: "center",
   },
   Viewcontainer: {
     alignItems: "center",
+  },
+  markerFixed: {
+    width: metrix.VerticalSize(45),
+    height: metrix.VerticalSize(45),
+    zIndex: 1,
+    left: "50%",
+    marginLeft: -24,
+    marginTop: -48,
+    position: "absolute",
+    top: "50%",
   },
   newsImg: {
     resizeMode: "contain",
@@ -91,7 +100,7 @@ export const styles = StyleSheet.create({
   subscribeText: {
     // textAlign: "center",
     marginTop: metrix.VerticalSize(10),
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     fontFamily: Fonts.IR,
   },
   bottomRow: {
@@ -100,7 +109,9 @@ export const styles = StyleSheet.create({
     marginVertical: metrix.VerticalSize(30),
   },
   buttonStyle: {
-    width: "50%",
+    alignSelf: "center",
+    position: "absolute",
+    bottom: metrix.VerticalSize(92),
   },
   contentPadding: {
     paddingHorizontal: metrix.HorizontalSize(20),
@@ -114,7 +125,7 @@ export const styles = StyleSheet.create({
     marginLeft: metrix.VerticalSize(10),
     color: Colors.primary,
 
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IS,
   },
   rowContainer: {

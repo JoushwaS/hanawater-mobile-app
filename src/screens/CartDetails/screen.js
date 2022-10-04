@@ -1,189 +1,186 @@
-import React, { useRef, useState, Fragment } from "react";
+import React, { useRef } from "react";
 import {
   TouchableOpacity,
-  Image,
   View,
-  TextInput,
   FlatList,
+  Image,
+  ScrollView,
 } from "react-native";
-import { Text, Button, CustomInput, CustomInputCoupon } from "../../components";
-// import { showToast } from "../../utils";
-// import { useDispatch } from "react-redux";
-import { IMAGES } from "../../assets/images";
+import { Text, CustomButton, IconButton, Card } from "../../components";
 import { styles } from "./style";
-import { CartItem, IconButton } from "../../components";
 import Navigation from "../../navigation/root";
-import Modal from "../../screens/ProductsListing/modal";
 import { SCREENS } from "../../config/constants/screens";
+import { IMAGES } from "../../assets/images";
+import { Colors, Fonts } from "../../config/theme";
+import { useTranslation } from "react-i18next";
+import { clearCart } from "../../store/actions";
+import { useDispatch } from "react-redux";
+import { Modal } from "../../components";
+import metrix from "../../config/metrix";
 
-function Index(props) {
-  // const dispatch = useDispatch();
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [activeindex, setActiveIndex] = useState(-1);
-  const [selectedPromo, setSelectedPromo] = useState("");
+function Index({
+  noProducts = false,
+  cartData = [],
+  totalData = {
+    totals: [],
+    freeDelivery: {},
+  },
+  handleCheckout = () => {},
+  modalVisible,
+  setModalVisible,
+}) {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const viewRef = useRef(null);
-
-  const promoOptions = [
-    "EID15 - 15% Off",
-    "MJ22 - 22% Off",
-    "14AUG - PKR 200 Off",
-    "MJ77 - Free Delivery",
-  ];
-  const cartDetails = [
-    {
-      image: IMAGES.product1,
-      quantity: 0,
-      name: "Coin Pocket Bi-Fold Wallet",
-      price: "Rs. 5,600",
-      variation: "Color: Tan & Black",
-    },
-    {
-      image: IMAGES.product1,
-      quantity: 0,
-      name: "Coin Pocket Bi-Fold Wallet",
-      price: "Rs. 5,600",
-      variation: "Color: Tan & Black",
-    },
-  ];
 
   const touchableProps = {
     activeOpacity: 0.5,
   };
-
-  const handleRemovePromo = () => {
-    setSelectedPromo("");
-    setActiveIndex(-1);
-  };
-
-  const footer = () => {
-    return (
-      <View>
-        {selectedPromo ? (
-          <View style={styles.selectedPromo}>
-            <Text>Selected Promo Added</Text>
-            <View style={styles.cancelPromo}>
-              <Text style={styles.selectedPromoText}>
-                {selectedPromo.split("-")[0]}
-              </Text>
-              <IconButton
-                style={styles.closeIcon}
-                icon={IMAGES.closeIcon}
-                onPress={handleRemovePromo}
-              />
-            </View>
-          </View>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setModalVisible(true)}
-            {...touchableProps}
-          >
-            <Text style={styles.enterPromo}>Select Promo Code</Text>
-          </TouchableOpacity>
-        )}
-
-        {/* <CustomInputCoupon placeholder="MJJ2" /> */}
-        <View style={styles.cartSummaryView}>
-          <View style={styles.cartSummaryContainer}>
-            <Text>Sub Total</Text>
-            <Text>Rs. 37,750</Text>
-          </View>
-          {selectedPromo ? (
-            <Fragment>
-              <View style={styles.cartSummaryContainer}>
-                <Text>Discount</Text>
-                <Text>-Rs. 7,750</Text>
-              </View>
-              <View style={styles.cartSummaryContainer}>
-                <Text>Total</Text>
-                <Text>Rs. 30,000</Text>
-              </View>
-            </Fragment>
-          ) : null}
-        </View>
-        <View style={styles.bottomRow}>
-          <Button
-            onPress={() => Navigation.goBack()}
-            buttonStyle={styles.buttonStyle}
-            variant="outlined"
-          >
-            Continue Shopping
-          </Button>
-          <Button
-            onPress={() => Navigation.navigate(SCREENS.CHECKOUT_SCREEN)}
-            buttonStyle={styles.buttonStyle}
-            variant="filled"
-          >
-            Checkout
-          </Button>
-        </View>
-      </View>
-    );
-  };
-
-  const renderItem = ({ item, index }) => {
-    return (
-      <CartItem data={item} index={index} onPress={handlePrintMyNamePress} />
-    );
-  };
-
-  const handlePrintMyNamePress = () => {
-    Navigation.navigate(SCREENS.PRINT_NAME_SCREEN);
-  };
-
-  const handlePromoCodePress = (item, i) => {
-    setSelectedPromo(item);
-    setActiveIndex(i);
-    setModalVisible(false);
-  };
-
+  console.log(modalVisible, "modalVisible");
   return (
     <View style={styles.container}>
-      <View style={styles.ContainerPadding}>
-        <Text style={styles.headingText}>View Cart</Text>
-        <Modal
-          viewRef={viewRef}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        >
-          <View style={styles.variationView}>
-            <View style={styles.headerRow}>
-              <Text style={styles.modalHeading}>Select Promocode</Text>
-              <IconButton
-                style={styles.closeIcon}
-                icon={IMAGES.closeIcon}
-                onPress={() => setModalVisible(false)}
-              />
-            </View>
-            {promoOptions.map((item, i) => (
+      <Modal
+        viewRef={viewRef}
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      >
+        <View style={styles.warningModalView}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              marginBottom: metrix.VerticalSize(25),
+            }}
+          >
+            Minimum quantity to place order is 4, Please add more items!
+          </Text>
+          <CustomButton onPress={() => setModalVisible(false)}>Ok</CustomButton>
+        </View>
+      </Modal>
+      {noProducts ? (
+        <View>
+          <Image
+            resizeMode={"contain"}
+            style={styles.image}
+            source={IMAGES.emptycart}
+          ></Image>
+          <Text style={styles.subHeading}>{t("empty_cart")}</Text>
+          <CustomButton
+            style={styles.button}
+            type="large"
+            onPress={() => {
+              Navigation.goBack();
+            }}
+            variant="filled"
+          >
+            {t("continue_shopping")}
+          </CustomButton>
+        </View>
+      ) : (
+        <>
+          <FlatList
+            data={cartData}
+            contentContainerStyle={{}}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={() => Math.random().toString()}
+            ListHeaderComponent={() => (
               <TouchableOpacity
-                {...touchableProps}
-                onPress={() => handlePromoCodePress(item, i)}
-                key={i.toString()}
-                style={styles.rowContainer}
+                style={styles.clearCart}
+                onPress={() => {
+                  dispatch(clearCart());
+                }}
+                activeOpacity={0.5}
               >
-                <View style={styles.circle}>
-                  {activeindex === i && (
-                    <View style={styles.innerCircle}></View>
-                  )}
-                </View>
-                <Text key={i.toString()} style={styles.modalText}>
-                  {item}
+                <Text
+                  style={{
+                    color: Colors.primary,
+                  }}
+                >
+                  Clear Cart
+                </Text>
+                <Image
+                  resizeMode="contain"
+                  style={styles.clearIcon}
+                  source={IMAGES.closeIcon}
+                ></Image>
+              </TouchableOpacity>
+            )}
+            renderItem={({ item, index }) => (
+              <Card isCart item={item} index={index} />
+            )}
+          />
+          <View style={styles.totalBox}>
+            <View style={styles.totalTextRow}>
+              <View style={{ alignItems: "flex-start" }}>
+                <Text style={styles.totalText}>
+                  {totalData?.totals[0]?.title || ""}
+                </Text>
+                <Text style={styles.totalText}>{"VAT"}</Text>
+                {/* <Text style={styles.totalText}>
+                  {totalData?.totals[2]?.title || ""}
+                </Text> */}
+                <Text style={styles.totalText}>
+                  {totalData?.totals[3]?.title || ""}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.totalTextVal}>
+                  {totalData?.totals[0]?.format || ""}
+                </Text>
+                <Text style={styles.totalTextVal}>
+                  {totalData?.totals[1]?.format || ""}
+                </Text>
+                {/* <Text style={styles.totalTextVal}>
+                  {totalData?.totals[2]?.format || ""}
+                </Text> */}
+                <Text style={styles.totalTextVal}>
+                  {totalData?.totals[3]?.format || ""}
+                </Text>
+              </View>
+            </View>
+            {totalData?.freeDelivery?.isFree ? (
+              <Text style={styles.freeText}>{t("delivery_is_free")}</Text>
+            ) : (
+              <TouchableOpacity
+                onPress={() => Navigation.navigate(SCREENS.HOME_SCREEN)}
+                {...touchableProps}
+              >
+                <Text style={styles.freeText}>
+                  Want free delivery? Add SR{" "}
+                  {totalData?.freeDelivery?.remainingAmount || ""} more
                 </Text>
               </TouchableOpacity>
-            ))}
+            )}
           </View>
-        </Modal>
-        <FlatList
-          data={cartDetails}
-          contentContainerStyle={{}}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={footer()}
-          keyExtractor={() => Math.random().toString()}
-          renderItem={renderItem}
-        ></FlatList>
-      </View>
+          <View style={styles.totalRow}>
+            <Text style={styles.modalHeading}>
+              {totalData?.totals[4]?.title || ""}
+            </Text>
+            <Text style={styles.total}>
+              {" "}
+              {totalData?.totals[4]?.format || ""}
+            </Text>
+          </View>
+          <View style={styles.bottomRow}>
+            <CustomButton
+              type="large"
+              onPress={() => Navigation.goBack()}
+              style={styles.buttonStyle}
+              variant="filled"
+            >
+              {t("continue_shopping")}
+            </CustomButton>
+            <CustomButton
+              type="large"
+              onPress={handleCheckout}
+              style={styles.buttonStyle}
+              textStyle={{ color: Colors.primary }}
+              variant="outlined"
+            >
+              {t("checkout")}
+            </CustomButton>
+          </View>
+        </>
+      )}
     </View>
   );
 }

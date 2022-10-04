@@ -9,7 +9,6 @@ import reduxThunk from "redux-thunk";
 const persistConfig = {
   key: "root:hanawater",
   storage: AsyncStorage,
-  whitelist: ["auth"],
 };
 
 // initialize persist reducer

@@ -1,22 +1,14 @@
-import React, { useState, useRef } from "react";
-import { Image, View, FlatList } from "react-native";
+import React from "react";
+import { Platform, View, Linking } from "react-native";
 import { ICONS } from "../../assets/icons";
-import { Colors } from "../../config/theme";
-import { Home, Whatsapp, WishlistScreen, Cart, Profile } from "../../screens";
+import { FavouritesScreen, Profile, CartDetails } from "../../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "./styles";
 import HomeNavigator from "../HomeStack";
-import CategoryNavigator from "../CategoryStack";
-
-import { Tooltip } from "react-native-elements";
-import CategoryCard from "../../components/CategoryCard";
-import IconButton from "../../components/IconButton";
-import { Text } from "../../components";
-import metrix from "../../config/metrix";
-import { IMAGES } from "../../assets/images";
+import { IconButton, Text } from "../../components";
 import { SCREENS } from "../../config/constants/screens";
-import { useDispatch } from "react-redux";
-import { opneModal } from "../../store/actions";
+import { useSelector } from "react-redux";
+import metrix from "../../config/metrix";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,128 +20,93 @@ const tabRoutes = [
   },
   {
     id: "T002",
-    name: "Whatsapp",
+    name: SCREENS.CART_DETAILS_SCREEN,
     image: ICONS.tab2,
   },
+
   {
-    id: "T004",
-    name: "Categories",
-    image: ICONS.tab3,
+    id: "T003",
+    name: SCREENS.PROFILE,
+    image: ICONS.tab4,
   },
   {
     id: "T004",
-    name: SCREENS.WISHLIST_SCREEN,
-    image: ICONS.heartIcon,
-  },
-  {
-    id: "T005",
     name: SCREENS.PROFILE,
     image: ICONS.tab5,
   },
 ];
-const data = [
-  {
-    name: "Women",
-    image: IMAGES.cat1,
-    id: 1,
-  },
-  {
-    name: "Men",
-    image: IMAGES.cat2,
-    id: 2,
-  },
-  {
-    name: "Office",
-    image: IMAGES.cat3,
-    id: 3,
-  },
-  {
-    name: "Office",
-    image: IMAGES.cat3,
-    id: 3,
-  },
-  {
-    name: "Office",
-    image: IMAGES.cat3,
-    id: 3,
-  },
-  {
-    name: "Office",
-    image: IMAGES.cat3,
-    id: 3,
-  },
-];
-// const [toolTipVisible, settoolTipVisible] = useState(true);
 
 function HomeTabNavigator(props) {
+  const { items } = useSelector((state) => state.cart);
   return (
     <Tab.Navigator
       tabBarVisible={true}
-      // barStyle={{ backgroundColor: "red", borderRadius: 20 }}
       screenOptions={{
         headerShown: false,
       }}
-      tabBar={(tabProps) => <MyTabBar {...tabProps} {...props} />}
+      tabBar={(tabProps) => (
+        <MyTabBar
+          items={items?.length ? items?.length : 0}
+          {...tabProps}
+          {...props}
+        />
+      )}
     >
-      <Tab.Screen name="HomeNavigator" component={HomeNavigator} />
-      <Tab.Screen name="Whatsapp" component={Whatsapp} />
-      <Tab.Screen name="Categories" component={CategoryNavigator} />
-      <Tab.Screen name={SCREENS.WISHLIST_SCREEN} component={WishlistScreen} />
+      <Tab.Screen name={SCREENS.HOME_NAVIGATOR} component={HomeNavigator} />
+      <Tab.Screen name={SCREENS.CART_DETAILS_SCREEN} component={CartDetails} />
+      {/* <Tab.Screen name={SCREENS.WISHLIST_SCREEN} component={FavouritesScreen} /> */}
       <Tab.Screen name={SCREENS.PROFILE} component={Profile} />
     </Tab.Navigator>
   );
 }
 
-const MyTabBar = ({ state, navigation }) => {
-  const tooltipRef = useRef(null);
-  const dispatch = useDispatch();
-  // const [toolTipVisible, settoolTipVisible] = useState(true);
-
+const MyTabBar = ({ state, navigation, items }) => {
+  const handleOnPress = (route, index) => {
+    if (index === 3) {
+      let url = "whatsapp://send?text=&phone=966115208680";
+      Linking.openURL(url)
+        .then((data) => {
+          console.log("WhatsApp Opened");
+        })
+        .catch(() => {
+          if (Platform.OS == "android") {
+            Linking.openURL("market://details?id=com.whatsapp");
+          } else if (Platform.OS === "ios") {
+            Linking.openURL("itms-apps://itunes.apple.com/app/id310633997");
+          }
+        });
+    } else {
+      navigation.navigate(route.name);
+    }
+  };
   return (
     <View style={styles.container}>
       {tabRoutes.map((route, index) => {
-        const isFocused = state.index === index;
-
-        const handleonPress = () => {
-          if (!isFocused) {
-            if (route.name == "Categories") {
-              console.log("if", route.name);
-              // dispatch(opneModal());
-              // tooltipRef.current.toggleTooltip();
-              navigation.navigate(route.name);
-            } else {
-              dispatch(opneModal());
-              console.log("else", route.name);
-
-              navigation.navigate(route.name);
-            }
-          }
-        };
-        if (isFocused) {
-          return (
-            <View key={index.toString()} style={{ alignItems: "center" }}>
-              <IconButton
-                icon={route.image}
-                onPress={handleonPress}
-                iconStyle={{ tintColor: Colors.primary }}
-              />
-              <View style={styles.circle}></View>
-            </View>
-          );
-        } else {
-          return (
-            <View key={index.toString()} style={{ alignItems: "center" }}>
-              <IconButton
-                icon={route.image}
-                onPress={handleonPress}
-                iconStyle={{ tintColor: Colors.tabDefault }}
-              />
-              <View
-                style={[styles.circle, { backgroundColor: Colors.White }]}
-              ></View>
-            </View>
-          );
-        }
+        const isFocused = state.index == index;
+        return (
+          <View
+            key={index.toString()}
+            style={{
+              // backgroundColor: "red",
+              alignItems: "center",
+              justifyContent: "center",
+              width: metrix.VerticalSize(38),
+              height: metrix.VerticalSize(38),
+            }}
+          >
+            <IconButton
+              icon={route.image}
+              onPress={() => handleOnPress(route, index)}
+              iconStyle={{ ...styles.icon }}
+            />
+            {index === 1 && (
+              <View style={styles.cartView}>
+                <Text style={styles.cartText}>{items}</Text>
+              </View>
+            )}
+            {isFocused && <View style={styles.circle} />}
+          </View>
+        );
       })}
     </View>
   );

@@ -4,21 +4,23 @@ import { Colors, Fonts } from "../../config/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: Colors.White,
     flex: 1,
+    alignItems: "center",
   },
   headingText: {
     textAlign: "center",
     fontFamily: Fonts.IS,
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
   },
   topContainer: {
     marginTop: metrix.VerticalSize(10),
   },
-  locationtextStyle: {
-    marginLeft: metrix.HorizontalSize(10),
-    width: metrix.HorizontalSize(250),
+  icon: {
+    width: metrix.HorizontalSize(35),
+    height: metrix.HorizontalSize(35),
+    marginBottom: metrix.VerticalSize(50),
   },
   textStyle: {
     marginLeft: metrix.HorizontalSize(10),
@@ -29,10 +31,10 @@ export const styles = StyleSheet.create({
     borderRadius: metrix.VerticalSize(5),
     backgroundColor: Colors.primary,
   },
-  name: {
-    fontSize: metrix.CustomFontSize(15),
-    color: Colors.primary,
-    fontFamily: Fonts.IM,
+  locationtextStyle: {
+    fontSize: metrix.CustomFontSize(22),
+    fontFamily: Fonts.IR,
+    width: "90%",
   },
   address: {
     fontFamily: Fonts.IR,
@@ -43,24 +45,19 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: metrix.VerticalSize(20),
-
     borderRadius: metrix.VerticalSize(10),
     borderColor: Colors.primary,
     borderWidth: metrix.VerticalSize(2),
   },
   rowContainer: {
     flexDirection: "row",
-    // alignItems: "center",
-
-    // marginBottom: metrix.VerticalSize(10),
-    // justifyContent: "space-between",
-    // width: metrix.HorizontalSize(200),
   },
   shippingBox: {
-    padding: metrix.VerticalSize(10),
-    width: metrix.HorizontalSize(300),
-    marginLeft: metrix.HorizontalSize(10),
-    marginBottom: metrix.VerticalSize(20),
+    paddingVertical: metrix.VerticalSize(16),
+    paddingHorizontal: metrix.HorizontalSize(22),
+    width: metrix.HorizontalSize(346),
+    marginLeft: metrix.HorizontalSize(20),
+    marginBottom: metrix.VerticalSize(15),
     borderRadius: metrix.HorizontalSize(5),
     backgroundColor: Colors.textInputView,
   },
@@ -69,20 +66,22 @@ export const styles = StyleSheet.create({
     borderColor: "transparent",
     marginBottom: metrix.VerticalSize(20),
   },
-  ContainerPadding: {
-    // paddingHorizontal: metrix.HorizontalSize(15),
-    alignItems: "center",
-  },
   checkedIcon: {
     width: metrix.VerticalSize(16),
     height: metrix.VerticalSize(16),
     resizeMode: "contain",
   },
   deleteIcon: {
-    width: metrix.VerticalSize(16),
-    height: metrix.VerticalSize(16),
+    width: metrix.VerticalSize(20),
+    height: metrix.VerticalSize(20),
     marginLeft: metrix.HorizontalSize(10),
     resizeMode: "contain",
+    tintColor: Colors.primary,
+  },
+  delete: {
+    position: "absolute",
+    right: metrix.HorizontalSize(15),
+    top: metrix.VerticalSize(10),
   },
   rowContainerSpace: {
     flexDirection: "row",

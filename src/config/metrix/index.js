@@ -2,12 +2,15 @@ import { Dimensions, PixelRatio, Platform } from "react-native";
 import { isIphoneX } from "./isIPhoneX";
 let { height, width } = Dimensions.get("window");
 
-height -= Platform.OS == "ios" ? (isIphoneX() ? 70 : 20) : 24;
+const DESIGN_HEIGHT = 1002;
+const DESIGN_WIDTH = 428;
 
-const scale = height / 812;
+height -= Platform.OS === "ios" ? (isIphoneX() ? 70 : 20) : 24;
 
-const VerticalSize = (size = 812) => (size / 812) * height;
-const HorizontalSize = (size = 375) => (size / 375) * width;
+const scale = height / DESIGN_HEIGHT;
+
+const VerticalSize = (size = DESIGN_HEIGHT) => (size / DESIGN_HEIGHT) * height;
+const HorizontalSize = (size = DESIGN_WIDTH) => (size / DESIGN_WIDTH) * width;
 
 const normalize = (size) => {
   const _size = size * scale;

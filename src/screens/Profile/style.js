@@ -1,68 +1,56 @@
 import { StyleSheet } from "react-native";
 import metrix from "../../config/metrix";
-import { Fonts } from "../../config/theme";
+import { Colors, Fonts } from "../../config/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
-
+    paddingHorizontal: metrix.HorizontalSize(20),
+    backgroundColor: Colors.White,
     flex: 1,
-  },
-  Catimg: {
-    resizeMode: "cover",
-    width: metrix.HorizontalSize(100),
-    height: metrix.VerticalSize(100),
   },
   editicon: {
     resizeMode: "contain",
     width: metrix.HorizontalSize(20),
     height: metrix.VerticalSize(20),
+    tintColor: Colors.primary,
+    alignSelf: "flex-end",
   },
-  profileicon: {
-    resizeMode: "contain",
-    width: metrix.HorizontalSize(80),
-    height: metrix.VerticalSize(80),
+  sortOption: {
+    marginVertical: metrix.VerticalSize(5),
+    paddingVertical: metrix.VerticalSize(5),
+    paddingHorizontal: metrix.HorizontalSize(15),
   },
-  circle: {
-    width: metrix.VerticalSize(28),
-    alignItems: "center",
-    justifyContent: "center",
-    height: metrix.VerticalSize(28),
-    borderRadius: metrix.VerticalSize(14),
-    backgroundColor: "#F1F1F1",
-    position: "absolute",
-    bottom: 0,
-    right: 0,
+  sortOptions: {
+    borderRadius: metrix.HorizontalSize(5),
+    maxHeight: metrix.VerticalSize(240),
+    backgroundColor: Colors.White,
   },
-  catCon: {
-    marginLeft: metrix.HorizontalSize(20),
+  editIconContainer: {
+    alignSelf: "flex-end",
   },
-  headerText: {
-    fontSize: metrix.CustomFontSize(18),
-    marginLeft: metrix.HorizontalSize(15),
-    // textAlign: "center",
-  },
-  contentPadding: {
-    paddingHorizontal: metrix.HorizontalSize(20),
-    marginTop: metrix.VerticalSize(30),
-  },
-  headingText: {
-    textAlign: "center",
-    marginVertical: metrix.VerticalSize(10),
-    fontFamily: Fonts.IS,
-    fontSize: metrix.CustomFontSize(18),
+  input: {
+    marginTop: metrix.VerticalSize(25),
   },
   buttonStyle: {
-    width: "37%",
+    alignSelf: "center",
+    marginTop: metrix.VerticalSize(25),
+    width: metrix.HorizontalSize(100),
+  },
+  text: {
+    fontSize: metrix.CustomFontSize(14 + 2),
+    fontFamily: Fonts.IM,
+    marginTop: metrix.VerticalSize(25),
+  },
+  addressContainer: {
+    height: metrix.VerticalSize(50),
+    borderRadius: metrix.VerticalSize(5),
+    backgroundColor: Colors.inputBG,
     marginTop: metrix.VerticalSize(10),
   },
-  viewCon: {
-    width: metrix.HorizontalSize(100),
-    marginLeft: metrix.HorizontalSize(10),
-    // height: metrix.VerticalSize(100),
-  },
-  catText: {
-    fontSize: metrix.CustomFontSize(15),
+  emptyText: {
+    fontSize: metrix.CustomFontSize(18 + 2),
+    fontFamily: Fonts.IM,
     textAlign: "center",
+    marginBottom: metrix.VerticalSize(15),
   },
 });

@@ -16,7 +16,6 @@ import { ICONS } from "../../assets/icons";
 import CustomInput from "../../components/CustomInput";
 import { styles } from "./style";
 import metrix from "../../config/metrix";
-import Modal from "./modal";
 import Navigation from "../../navigation/root";
 import { SCREENS } from "../../config/constants/screens";
 import FilterModal from "../../components/FilterModal";
@@ -274,43 +273,6 @@ function Index(props) {
           setActiveFilters={setActiveFilters}
           activeFilters={activeFilters}
         />
-        <Modal
-          viewRef={viewRef}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        >
-          <View style={styles.variationView}>
-            <View style={styles.headerRow}>
-              <Text style={styles.modalText}>Product Variations</Text>
-              <IconButton
-                style={styles.closeIcon}
-                icon={IMAGES.closeIcon}
-                onPress={() => setModalVisible(false)}
-              />
-            </View>
-            <FlatList
-              data={productVariations}
-              numColumns={3}
-              contentContainerStyle={{}}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={() => Math.random().toString()}
-              renderItem={(item, index) => (
-                <TouchableOpacity
-                  style={styles.variationCard}
-                  {...TouchableProps}
-                  onPress={handleVariationPress}
-                >
-                  <Image
-                    style={styles.variationImg}
-                    resizeMode="contain"
-                    source={require("../../assets/images/Bag1.png")}
-                  />
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </Modal>
         {/* {Header()} */}
         <FlatList
           data={data}

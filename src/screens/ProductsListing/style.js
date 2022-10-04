@@ -15,12 +15,12 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: Fonts.IS,
     marginTop: metrix.VerticalSize(10),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
   },
   currencyText: {
     textAlign: "center",
     fontFamily: Fonts.IR,
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
   },
   arrowDown: {
     height: metrix.VerticalSize(12),
@@ -83,11 +83,11 @@ export const styles = StyleSheet.create({
     marginLeft: metrix.HorizontalSize(10),
   },
   catText: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
     color: Colors.text,
   },
   catPrice: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
     color: "#939393",
     marginTop: metrix.VerticalSize(4),
   },
@@ -151,7 +151,7 @@ export const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   modalText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     color: "#939393",
   },
 });

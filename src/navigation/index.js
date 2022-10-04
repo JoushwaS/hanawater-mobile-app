@@ -1,126 +1,79 @@
 import React from "react";
-import { useColorScheme, Image, View } from "react-native";
+// import { useColorScheme } from "react-native";
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
-import IconButton from "../components/IconButton";
 import {
   NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
+  // DarkTheme,
+  // DefaultTheme,
 } from "@react-navigation/native";
 import Navigator from "./root";
-// import { MyTabBar } from "./BottomTabs";
-import { IMAGES } from "../assets/images";
-import { styles } from "./styles";
-import { ICONS } from "../assets/icons";
-import { Colors } from "../config/theme";
 import DrawerNavigator from "./DrawerNavigator";
 import AuthStack from "./AuthStack";
-import {
-  ProductDetail,
-  PrintName,
-  CartDetails,
-  Checkout,
-  AddMoreAddress,
-  LeatherCare,
-  MapAddress,
-  BillingAdded,
-} from "../screens";
 import { SCREENS } from "../config/constants/screens";
+import {
+  EditProfile,
+  SelectLang,
+  AddMoreAddress,
+  MapAddress,
+  Checkout,
+  ThankYou,
+  OrderStatus,
+  RateUs,
+  OrderHistory,
+  WebPayment,
+  OrderDetails,
+} from "../screens";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const tabRoutes = [
-  {
-    id: "T001",
-    name: "Home",
-    image: ICONS.tab1,
-  },
-  {
-    id: "T002",
-    name: "Whatsapp",
-    image: ICONS.tab2,
-  },
-  {
-    id: "T004",
-    name: "Categories",
-    image: ICONS.tab3,
-  },
-  {
-    id: "T004",
-    name: "Cart",
-    image: ICONS.tab4,
-  },
-  {
-    id: "T005",
-    name: "Profile",
-    image: ICONS.tab5,
-  },
-];
-
-const MainStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS,
-      }}
-    >
-      {/* <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} /> */}
-      <Stack.Screen name="AuthStack" component={AuthStack} />
-      <Stack.Screen name={SCREENS.LEATHER_CARE} component={LeatherCare} />
-      <Stack.Screen
-        name={SCREENS.PRODUCT_DETAIL_SCREEN}
-        component={ProductDetail}
-      />
-      <Stack.Screen name={SCREENS.PRINT_NAME_SCREEN} component={PrintName} />
-      <Stack.Screen
-        name={SCREENS.CART_DETAILS_SCREEN}
-        component={CartDetails}
-      />
-      <Stack.Screen name={SCREENS.CHECKOUT_SCREEN} component={Checkout} />
-      <Stack.Screen name={SCREENS.BILLING_ADDED} component={BillingAdded} />
-
-      <Stack.Screen name={SCREENS.MAP_ADDRESS} component={MapAddress} />
-
-      {/* <Stack.Screen name="ProductDetail" component={ProductDetail} /> */}
-    </Stack.Navigator>
-  );
-};
-
-// function MainDrawer() {
-// 	return (
-// 		<Stack.Navigator
-// 			screenOptions={{
-// 				headerShown: false,
-// 				...TransitionPresets.SlideFromRightIOS,
-// 			}}
-// 			initialRouteName="home">
-// 			<Stack.Screen name="home" component={MainTab} />
-// 		</Stack.Navigator>
-// 	);
-// }
 
 function Navigation() {
-  const scheme = useColorScheme();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const scheme = useColorScheme();
+  const { lang } = useSelector((state) => state.common);
+
   return (
-    <NavigationContainer
-      ref={(ref) => Navigator.setTopLevelNavigator(ref)}
-      theme={scheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer ref={(ref) => Navigator.setTopLevelNavigator(ref)}>
       <SafeAreaView
         style={{
           flex: 1,
         }}
       >
-        {MainStack()}
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
+        >
+          {!lang ? (
+            <Stack.Screen name={SCREENS.SELECT_LANG} component={SelectLang} />
+          ) : (
+            <Stack.Screen
+              name={SCREENS.MAIN_DRAWER}
+              component={DrawerNavigator}
+            />
+          )}
+          <Stack.Screen name={SCREENS.AUTH_STACK} component={AuthStack} />
+          <Stack.Screen name={SCREENS.EDIT_PROFILE} component={EditProfile} />
+          <Stack.Screen
+            name={SCREENS.ADD_MORE_ADDRESS_SCREEN}
+            component={AddMoreAddress}
+          />
+          <Stack.Screen name={SCREENS.MAP_ADDRESS} component={MapAddress} />
+          <Stack.Screen name={SCREENS.CHECKOUT_SCREEN} component={Checkout} />
+          <Stack.Screen
+            name={SCREENS.WEBPAYMENT_SCREEN}
+            component={WebPayment}
+          />
+          <Stack.Screen name={SCREENS.THANK_YOU} component={ThankYou} />
+          <Stack.Screen name={SCREENS.ORDER_STATUS} component={OrderStatus} />
+          <Stack.Screen name={SCREENS.ORDER_HISTORY} component={OrderHistory} />
+          <Stack.Screen name={SCREENS.RATE_US} component={RateUs} />
+          <Stack.Screen name={SCREENS.ORDER_DETAILS} component={OrderDetails} />
+        </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
   );

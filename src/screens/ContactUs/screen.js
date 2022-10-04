@@ -40,7 +40,7 @@ function Index(props) {
           <TextInput
             placeholder="Enter Message"
             containLabel
-            Viewstyle={styles.textContainer}
+            viewStyle={styles.textContainer}
             textInputStyle={styles.textArea}
             label="Message"
             multiline={true}

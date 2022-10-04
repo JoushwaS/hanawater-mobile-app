@@ -7,7 +7,7 @@ import { Header } from "../../components";
 function Index(props) {
   return (
     <View style={styles.container}>
-      <Header text="Login" backButton />
+      <Header backButton backText />
       <Screen {...props} />
     </View>
   );

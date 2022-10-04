@@ -10,17 +10,17 @@ export const styles = StyleSheet.create({
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
   },
   subheadingText: {
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
     marginTop: metrix.VerticalSize(10),
   },
   faqsDetails: {
     // marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     marginTop: metrix.VerticalSize(10),
     lineHeight: metrix.VerticalSize(20),
     fontFamily: Fonts.IR,
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     paddingBottom: metrix.VerticalSize(80),
   },
   title: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     width: metrix.HorizontalSize(280),
     lineHeight: metrix.VerticalSize(22),
     fontFamily: Fonts.IS,

@@ -11,7 +11,6 @@ import { styles } from "./style";
 import Navigation from "../../navigation/root";
 
 import metrix from "../../config/metrix";
-import OrderCompleted from "../OrderCompletedPopup/screen";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ICONS } from "../../assets/icons";
 import { Colors } from "../../config/theme";
@@ -184,12 +183,6 @@ function Index(props) {
   };
   return (
     <View style={styles.container}>
-      <OrderCompleted
-        modalVisible={filterVisible}
-        setModalVisible={setFilterVisible}
-        moveToShopping={() => Navigation.navigate(SCREENS.HOME_SCREEN)}
-      />
-
       <KeyboardAwareScrollView>
         <View style={styles.ContainerPadding}>
           <Text style={styles.headingText}>Check Out</Text>

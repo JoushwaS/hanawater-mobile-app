@@ -1,180 +1,256 @@
-import React, { useState } from "react";
-import { Image, View, ImageBackground, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Image,
+  View,
+  Animated,
+  TouchableOpacity,
+  I18nManager,
+  ScrollView,
+} from "react-native";
 import { ICONS } from "../../assets/icons";
-import Animated from "react-native-reanimated";
 import styles from "./styles";
-import { Text } from "..";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import DrawerButton from "../DrawerButton";
 import Navigation from "../../navigation/root";
 import { SCREENS } from "../../config/constants/screens";
-
-const routeOrders = [
-  {
-    name: "Home",
-    routeName: SCREENS.HOME_SCREEN,
-    icon: ICONS.drawer1,
-  },
-  {
-    name: "Categories",
-    routeName: "BookmarkNavigator",
-    icon: ICONS.drawer2,
-    children: [
-      {
-        name: "Women",
-        routeName: SCREENS.CATEGORY_SCREEN,
-      },
-      {
-        name: "Men",
-        routeName: SCREENS.CATEGORY_SCREEN,
-      },
-      {
-        name: "Office",
-        routeName: SCREENS.CATEGORY_SCREEN,
-      },
-      {
-        name: "Travel",
-        routeName: SCREENS.CATEGORY_SCREEN,
-      },
-      {
-        name: "Gift Sets",
-        routeName: SCREENS.CATEGORY_SCREEN,
-      },
-    ],
-  },
-  {
-    name: "Store Locator",
-    routeName: "STORE_LOCATOR",
-    icon: ICONS.drawer3,
-  },
-  {
-    name: "About",
-    routeName: SCREENS.OUR_HISTORY,
-    children: [
-      {
-        name: "History",
-        routeName: SCREENS.OUR_HISTORY,
-      },
-    ],
-    icon: ICONS.drawer4,
-  },
-
-  {
-    name: "Help",
-    routeName: "BuyAndRenew",
-    children: [
-      {
-        name: "FAQ",
-        routeName: "Faqs",
-      },
-      {
-        name: "Leather Care",
-        routeName: "LEATHER_CARE",
-      },
-      {
-        name: "Privacy Policy",
-        routeName: "PrivacyPolicy",
-      },
-      {
-        name: "Terms & Conditions",
-        routeName: "TermsAndCondition",
-      },
-    ],
-    icon: ICONS.drawer10,
-  },
-  {
-    name: "My Account",
-    routeName: "BuyAndRenew",
-    children: [
-      {
-        name: "Edit Profile",
-        routeName: SCREENS.PROFILE,
-      },
-      {
-        name: "Order History",
-        routeName: SCREENS.ORDER_HISTORY,
-      },
-      {
-        name: "Address",
-        routeName: SCREENS.ADD_MORE_ADDRESS_SCREEN,
-      },
-      {
-        name: "Wishlist",
-        routeName: SCREENS.WISHLIST_SCREEN,
-      },
-      {
-        name: "NewsLetter Subscription",
-        routeName: SCREENS.NEWSLETTER_SUBSCRIPTION,
-      },
-    ],
-    icon: ICONS.drawer12,
-  },
-  {
-    name: "Contact Us",
-    routeName: SCREENS.CONTACT_US,
-    icon: ICONS.drawer11,
-  },
-  {
-    name: "Notifications",
-    routeName: SCREENS.NOTIFICATION_SCREEN,
-    icon: ICONS.drawer6,
-  },
-  {
-    name: "Cooperate Enquiry",
-    routeName: SCREENS.COOPERATE_ENQUIRY,
-    icon: ICONS.drawer6,
-  },
-
-  {
-    name: "Log In",
-    routeName: "AuthStack",
-    icon: ICONS.drawer7,
-  },
-];
+import { userLogout } from "../../store/actions";
+import { Switch, Modal, IconButton, Text } from "../../components";
+import metrix from "../../config/metrix";
+import { Colors } from "../../config/theme";
+import { CONSTANTS, getItem } from "../../utils";
+import { setLang } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import RNRestart from "react-native-restart";
+import { IMAGES } from "../../assets/images";
+import { getTerms } from "../../config/api/promotions";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const DrawerContent = (props) => {
-  const [support, openSupport] = useState(true);
-
-  const progress = 1;
-  const opacity = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [-5, 1],
-  });
-
-  const handleOnDrawerItemPress = (routeName, opensupport) => {
-    Navigation.navigate(routeName);
+  const touchableProps = {
+    activeOpacity: 0.5,
+    style: {
+      marginLeft: metrix.HorizontalSize(51),
+    },
+    hitSlop: {
+      top: 10,
+      bottom: 10,
+      left: 10,
+      right: 10,
+    },
   };
 
-  const handleOnLogout = () => {
-    props.navigation.navigate("AuthStack", {
-      screen: "InitialScreen",
-    });
+  const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
+  const viewRef = useRef(null);
+  const { t, i18n } = useTranslation();
+  const { lang } = useSelector((state) => state.common);
+  const { isAuthenticated, customer } = useSelector((state) => state.auth);
+  const [terms, setTerms] = useState("");
+
+  const loggedInrouteOrders = [
+    {
+      name: t("home"),
+      routeName: SCREENS.HOME_SCREEN,
+      icon: ICONS.tab1,
+    },
+    {
+      name: t("Orders"),
+      routeName: SCREENS.ORDER_HISTORY,
+      icon: ICONS.tab2,
+    },
+    {
+      name: t("profile"),
+      routeName: SCREENS.PROFILE,
+      icon: ICONS.tab4,
+    },
+    {
+      name: t("Addresses"),
+      routeName: SCREENS.ADD_MORE_ADDRESS_SCREEN,
+      icon: ICONS.drawer4,
+    },
+    {
+      name: isAuthenticated ? t("Logout") : t("sign_in"),
+      routeName: SCREENS.AUTH_STACK,
+      icon: ICONS.drawer7,
+    },
+  ];
+  const routeOrders = [
+    {
+      name: t("home"),
+      routeName: SCREENS.HOME_SCREEN,
+      icon: ICONS.tab1,
+    },
+
+    {
+      name: isAuthenticated ? t("Logout") : t("sign_in"),
+      routeName: SCREENS.AUTH_STACK,
+      icon: ICONS.drawer7,
+    },
+  ];
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [value, setValue] = useState(new Animated.Value(0));
+
+  const getTerms = async () => {
+    const terms = await getItem("terms");
+    // console.log("terms", terms);
+    setTerms(terms);
+  };
+  useEffect(() => {
+    getTerms();
+  }, [lang]);
+
+  const handleToggle = () => {
+    setIsEnabled((prevState) => !prevState);
+    isEnabled
+      ? Animated.spring(value, {
+          toValue: metrix.HorizontalSize(2),
+          duration: 400,
+          useNativeDriver: false,
+        }).start()
+      : Animated.timing(value, {
+          toValue: metrix.HorizontalSize(28),
+          duration: 220,
+          useNativeDriver: false,
+        }).start();
+    dispatch(setLang(i18n.language === "en" ? CONSTANTS.AR : CONSTANTS.EN));
+    i18n
+      .changeLanguage(i18n.language === "en" ? CONSTANTS.AR : CONSTANTS.EN)
+      .then(I18nManager.forceRTL(i18n.language === "ar"))
+      .then(() => {
+        RNRestart.Restart();
+      });
+  };
+
+  const handleOnDrawerItemPress = (item) => {
+    // console.log("draweritemitem", item);
+    if (item.name == t("Logout") && isAuthenticated) {
+      dispatch(userLogout());
+      Navigation.toggleDrawer();
+    } else {
+      Navigation.closeDrawer();
+      if (item.name == t("sign_in")) {
+        Navigation.navigate(item.routeName, {
+          screen: SCREENS.REGISTER_SCREEN,
+          params: {
+            cart: false,
+          },
+        });
+      } else {
+        Navigation.navigate(item.routeName);
+      }
+    }
+  };
+
+  const handleTermsPress = () => {
+    Navigation.toggleDrawer();
+    setModalVisible(true);
   };
 
   return (
     <DrawerContentScrollView {...props} showsVerticalScrollIndicator={false}>
-      <Animated.View style={[styles.container]}>
-        <Animated.View style={{ opacity: opacity }}>
-          <View style={styles.colContainer}>
-            <Image source={ICONS.avatar} style={styles.avatarimg} />
-            <Text style={styles.nameText}>Guest</Text>
+      <View style={{ ...styles.container, opacity: modalVisible ? 0.3 : 1 }}>
+        <Modal
+          viewRef={viewRef}
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+        >
+          <View style={styles.modalView}>
+            <IconButton
+              buttonStyle={styles.closeIcon}
+              icon={IMAGES.closeIcon}
+              onPress={() => setModalVisible(false)}
+            />
+            <Text style={styles.modalHeading}>Terms & Conditions</Text>
+            <View style={{ flex: 1 }}>
+              <ScrollView
+                scrollEnabled
+                contentContainerStyle={{
+                  flexGrow: 1,
+                }}
+                style={{ flexGrow: 1 }}
+              >
+                <Text style={[styles.modalText, {}]}>{terms}</Text>
+              </ScrollView>
+            </View>
           </View>
-        </Animated.View>
-        <Animated.View style={styles.routeContainer}>
-          {routeOrders.map((item, index) => {
-            return (
-              <DrawerButton
-                key={index.toString()}
-                index={index}
-                showSupport={support}
-                onPress={handleOnDrawerItemPress}
-                item={item}
-              />
-            );
-          })}
-        </Animated.View>
-      </Animated.View>
+        </Modal>
+        <View style={styles.colContainer}>
+          <Image source={ICONS.avatar} style={styles.avatarimg} />
+          <Text style={styles.nameText}>
+            {isAuthenticated ? customer?.firstName : t("MyAccount")}
+          </Text>
+        </View>
+        <View style={styles.routeContainer}>
+          {isAuthenticated
+            ? loggedInrouteOrders.map((item, index) => (
+                <DrawerButton
+                  key={index.toString()}
+                  onPress={handleOnDrawerItemPress}
+                  item={item}
+                />
+              ))
+            : routeOrders.map((item, index) => (
+                <DrawerButton
+                  key={index.toString()}
+                  onPress={handleOnDrawerItemPress}
+                  item={item}
+                />
+              ))}
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            marginVertical: metrix.VerticalSize(15),
+          }}
+        >
+          <Text style={styles.nameText}>{t("Change Language")}</Text>
+          <View style={styles.languageRow}>
+            <Text style={styles.langText}>
+              {I18nManager.isRTL ? t("Arabic") : t("English")}
+            </Text>
+            <Switch
+              handleToggle={handleToggle}
+              value={value}
+              isActive={isEnabled}
+              bgColor={Colors.White}
+              dotColor={Colors.primary}
+            />
+            <Text style={styles.langText}>
+              {I18nManager.isRTL ? t("English") : t("Arabic")}
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          {...touchableProps}
+          onPress={handleTermsPress}
+          // style={{ alignItems: I18nManager.isRTL && "center" }}
+        >
+          <Text
+            style={[
+              styles.bottomText,
+              { textAlign: I18nManager.isRTL ? "center" : "left" },
+            ]}
+          >
+            {t("Terms_and_conditions")}
+          </Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
+          {...touchableProps}
+        >
+          <Text
+            style={[
+              styles.bottomText,
+              { textAlign: I18nManager.isRTL ? "center" : "left" },
+            ]}
+          >
+            {t("Privacy Policy")}
+          </Text>
+        </TouchableOpacity> */}
+      </View>
     </DrawerContentScrollView>
   );
 };
+
 export default DrawerContent;

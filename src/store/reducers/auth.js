@@ -6,15 +6,13 @@ import {
   LOGOUT,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
-} from '../types';
+  REFRESH_USER_TOKEN,
+  UPDATE_USER_DATA,
+} from "../types";
 
 const initialState = {
-  profileImage: '',
-  email: '',
-  createdAt: '',
-  updatedAt: '',
-  username: '',
-  password: '',
+  codes: {},
+  customer: {},
   isAuthenticated: false,
 };
 
@@ -22,8 +20,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
-        ...state,
         ...action.payload,
+      };
+    case UPDATE_USER_DATA:
+      return {
+        codes: {
+          ...state.codes,
+        },
+        customer: {
+          ...action.payload,
+        },
+        isAuthenticated: state.isAuthenticated,
       };
     case SIGNUP:
       return {
@@ -33,7 +40,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        ...action.payload,
       };
 
     case SIGNUP_FAIL:
@@ -42,13 +48,24 @@ export default (state = initialState, action) => {
       };
     case LOGOUT:
       return {
-        ...state,
+        codes: {},
+        customer: {},
+        isAuthenticated: false,
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
         ...action.payload,
+      };
+
+    case REFRESH_USER_TOKEN:
+      return {
+        ...state,
+        customer: {
+          ...state.customer,
+          ...action.payload,
+        },
       };
 
     case LOGOUT_FAIL:

@@ -41,17 +41,17 @@ export const styles = StyleSheet.create({
   productname: {
     color: Colors.text,
     marginBottom: metrix.VerticalSize(5),
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   productprice: {
     color: Colors.text,
     opacity: 0.7,
     marginBottom: metrix.VerticalSize(5),
 
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   productQuantity: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
   },
   cartImage: {
     height: metrix.VerticalSize(100),

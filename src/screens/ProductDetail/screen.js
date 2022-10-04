@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import { Text, Button } from "../../components";
-import { showToast } from "../../utils";
+// import { showToast } from "../../utils";
 import { useDispatch } from "react-redux";
 import { IMAGES } from "../../assets/images";
 import { styles } from "./style";

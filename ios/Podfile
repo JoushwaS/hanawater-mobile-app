@@ -24,6 +24,12 @@ target 'hanawater' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'hanawaterTests' do
     inherit! :complete
     # Pods for testing
@@ -38,5 +44,10 @@ target 'hanawater' do
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+      installer.pods_project.targets.each do |target|
+      if target.name == "React-Core-AccessibilityResources"
+        target.remove_from_project
+      end
+    end
   end
 end

@@ -1,105 +1,117 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  I18nManager,
+} from "react-native";
 import { Text } from ".";
 import Navigation from "../navigation/root";
 import Metrix from "../config/metrix";
 import { IMAGES } from "../assets/images";
 import { SCREENS } from "../config/constants/screens";
-import { Colors } from "../config/theme";
-import metrix from "../config/metrix";
+import { Colors, Fonts } from "../config/theme";
 import { ICONS } from "../assets/icons";
+import metrix from "../config/metrix";
+import { useTranslation } from "react-i18next";
 
 function Index({
   containerStyle = {},
-  textStyle = {},
-  text = null,
+  text = "",
+  fromOTP = false,
   showSearch = false,
   onRightPress = () => {},
   backButton = false,
   rightIcon = null,
   leftIcon = null,
+  backText = false,
+  orderstatus,
+  back,
+  icon,
 }) {
+  const { t } = useTranslation();
   const touchableProps = {
     activeOpacity: 0.5,
+    hitSlop: {
+      top: 20,
+      bottom: 20,
+      left: 20,
+      right: 20,
+    },
   };
 
   const handleLeftPress = () => {
-    backButton ? Navigation.goBack() : Navigation.toggleDrawer();
+    if (backButton) {
+      if (fromOTP) {
+        Navigation.navigate(SCREENS.CART_DETAILS_SCREEN);
+      }
+      // if (orderstatus) {
+      //   Navigation.navigate(SCREENS.HOME_SCREEN);
+      // }
+      else {
+        Navigation.goBack();
+      }
+    } else {
+      Navigation.toggleDrawer();
+    }
   };
 
-  const handleSearchPress = () => {
-    Navigation.navigate(SCREENS.SEARCH_SCREEN);
-  };
-  const handleCartDetailsPress = () => {
-    Navigation.navigate(SCREENS.CART_DETAILS_SCREEN);
-  };
+  // const handleSearchPress = () => {
+  //   Navigation.navigate(SCREENS.SEARCH_SCREEN);
+  // };
+  // const handleCartDetailsPress = () => {
+  //   Navigation.navigate(SCREENS.CART_DETAILS_SCREEN);
+  // };
 
-  const handleNotificationPress = () => {
-    Navigation.navigate(SCREENS.NOTIFICATION_SCREEN);
-  };
+  // const handleNotificationPress = () => {
+  // Navigation.navigate(SCREENS.NOTIFICATION_SCREEN);
+  // };
 
   return (
     <View style={{ ...containerStyle, ...styles.container }}>
-      <TouchableOpacity
-        {...touchableProps}
-        style={styles.leftIcon}
-        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-        onPress={handleLeftPress}
-      >
-        <Image
-          style={backButton ? styles.backIcon : styles.menuIcon}
-          resizeMode="contain"
-          source={backButton ? IMAGES.backIcon : IMAGES.menuIcon}
-        />
-      </TouchableOpacity>
-      <Image
-        style={styles.logo}
-        resizeMode="contain"
-        source={IMAGES.logoWhite}
-      />
+      {!back ? (
+        <TouchableOpacity
+          {...touchableProps}
+          style={styles.leftIcon}
+          onPress={handleLeftPress}
+        >
+          <Image
+            style={
+              backButton
+                ? [
+                    styles.backIcon,
+                    {
+                      transform: I18nManager.isRTL
+                        ? [{ rotate: "180deg" }]
+                        : [{ rotate: "0deg" }],
+                    },
+                  ]
+                : styles.menuIcon
+            }
+            resizeMode="contain"
+            source={backButton ? IMAGES.backIcon : ICONS.menuIcon}
+          />
+          {backText && <Text style={styles.backText}>{t("Go back")}</Text>}
+        </TouchableOpacity>
+      ) : null}
+      <Text style={styles.headerText}>{text}</Text>
       <View style={styles.rightRow}>
-        <TouchableOpacity
-          {...touchableProps}
-          style={{
-            ...styles.rightIcon,
-            marginRight: metrix.HorizontalSize(12),
-          }}
-          onPress={handleNotificationPress}
-        >
-          <Image
-            style={styles.menuIcon}
-            resizeMode="contain"
-            source={ICONS.notificationIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          {...touchableProps}
-          style={styles.rightIcon}
-          onPress={handleCartDetailsPress}
-        >
-          <Image
-            style={styles.menuIcon}
-            resizeMode="contain"
-            source={ICONS.cartIcon}
-          />
-        </TouchableOpacity>
-
-        {showSearch && (
+        {/* {showSearch && (
           <TouchableOpacity
             {...touchableProps}
             style={{
               ...styles.rightIcon,
-              marginLeft: Metrix.HorizontalSize(15),
             }}
-            onPress={handleSearchPress}
+            onPress={handleNotificationPress}
           >
             <Image
               style={styles.menuIcon}
               resizeMode="contain"
-              source={IMAGES.searchIcon}
+              source={icon ? ICONS.search : ICONS.notificationIcon}
             />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </View>
   );
@@ -107,12 +119,12 @@ function Index({
 
 const styles = StyleSheet.create({
   container: {
-    height: Metrix.VerticalSize(80),
-    backgroundColor: Colors.Theme_Blue,
+    height: Metrix.VerticalSize(50),
+    backgroundColor: Colors.White,
     flexDirection: "row",
-    justifyContent: "space-around",
-    borderBottomLeftRadius: metrix.HorizontalSize(30),
-    borderBottomRightRadius: metrix.HorizontalSize(30),
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: Metrix.HorizontalSize(25),
   },
   rightRow: {
     flexDirection: "row",
@@ -123,12 +135,23 @@ const styles = StyleSheet.create({
     width: Metrix.HorizontalSize(120),
   },
   backIcon: {
-    height: Metrix.HorizontalSize(15),
-    width: Metrix.HorizontalSize(15),
+    height: Metrix.HorizontalSize(16),
+    width: Metrix.HorizontalSize(16),
+    tintColor: Colors.text,
   },
   menuIcon: {
-    height: Metrix.HorizontalSize(20),
-    width: Metrix.HorizontalSize(20),
+    height: Metrix.HorizontalSize(22),
+    width: Metrix.HorizontalSize(22),
+  },
+  headerText: {
+    fontSize: Metrix.CustomFontSize(20 + 4),
+    fontFamily: Fonts.IR,
+    marginRight: metrix.HorizontalSize(15),
+  },
+  backText: {
+    fontSize: Metrix.CustomFontSize(20 + 2),
+    fontFamily: Fonts.IS,
+    marginLeft: metrix.HorizontalSize(15),
   },
   rightIcon: {
     // position: 'absolute',
@@ -137,6 +160,8 @@ const styles = StyleSheet.create({
   },
   leftIcon: {
     justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

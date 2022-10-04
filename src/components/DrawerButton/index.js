@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import Animated, { acc } from "react-native-reanimated";
-import { useDrawerProgress } from "@react-navigation/drawer";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View, I18nManager } from "react-native";
 import styles from "./styles";
 import { Text } from "..";
-import { ICONS } from "../../assets/icons";
-
-// const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+import Navigator from "../../navigation/root";
+import { t } from "i18next";
 
 const touchableProps = {
   activeOpacity: 0.5,
@@ -49,125 +46,37 @@ const DrawerButton = ({ index, item, ...props }) => {
   const [about, showAbout] = useState(false);
   const [account, showAccount] = useState(false);
 
-  const renderChildren = (item) => {
-    if (item?.name == "Help" && help == true) {
-      return item?.children.map((_item, index) => (
-        <TouchableOpacity
-          key={index.toString()}
-          {...touchableProps}
-          onPress={() => props.onPress(_item?.routeName)}
-          style={[styles.container]}
-        >
-          <View style={styles.drawerItemheight}>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.drawerText, { opacity: 0.7 }]}>
-                {_item.name}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ));
-    } else if (item?.name == "Categories" && categories == true) {
-      return item?.children.map((_item) => (
-        <TouchableOpacity
-          key={index.toString()}
-          {...touchableProps}
-          onPress={() => props.onPress(_item?.routeName)}
-          style={[styles.container]}
-        >
-          <View style={styles.drawerItemheight}>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.drawerText, { opacity: 0.7 }]}>
-                {_item.name}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ));
-    } else if (item?.name == "About" && about == true) {
-      return item?.children.map((_item) => (
-        <TouchableOpacity
-          key={index.toString()}
-          {...touchableProps}
-          onPress={() => props.onPress(_item?.routeName)}
-          style={[styles.container]}
-        >
-          <View style={styles.drawerItemheight}>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.drawerText, { opacity: 0.7 }]}>
-                {_item.name}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ));
-    } else if (item?.name == "My Account" && account == true) {
-      return item?.children.map((_item) => (
-        <TouchableOpacity
-          key={index.toString()}
-          {...touchableProps}
-          onPress={() => props.onPress(_item?.routeName)}
-          style={[styles.container]}
-        >
-          <View style={styles.drawerItemheight}>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.drawerText, { opacity: 0.7 }]}>
-                {_item.name}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ));
-    }
-  };
-
   return (
     <TouchableOpacity
       {...touchableProps}
-      onPress={() => {
-        if (
-          item?.name !== "Customer Care" &&
-          item?.name !== "Help" &&
-          item?.name !== "Categories" &&
-          item?.name !== "About" &&
-          item?.name !== "My Account"
-        ) {
-          props.onPress(item?.routeName, true);
-        } else if (item?.name == "Help") {
-          openHelp(!help);
-        } else if (item?.name == "Categories") {
-          opencategories(!categories);
-        } else if (item?.name == "About") {
-          showAbout(!about);
-        } else if (item?.name == "My Account") {
-          showAccount(!account);
-        }
-      }}
-      style={[
-        styles.container,
-
-        // animatedStyles
-      ]}
+      onPress={() => onPress(item)}
+      style={[styles.container]}
     >
       <View style={styles.drawerItemheight}>
         <View style={styles.rowContainer}>
           <Image
             source={item?.icon}
             resizeMode="contain"
-            style={styles.iconImg}
+            style={[
+              styles.iconImg,
+              {
+                transform: I18nManager.isRTL
+                  ? [
+                      {
+                        rotate:
+                          item?.name == t("Logout") ||
+                          item?.name == t("sign_in")
+                            ? "180deg"
+                            : "0deg",
+                      },
+                    ]
+                  : [{ rotate: "0deg" }],
+              },
+            ]}
           />
           <Text style={styles.drawerText}>{item?.name}</Text>
         </View>
-        {(item?.name == "Customer Care" ||
-          item?.name == "Help" ||
-          item?.name == "Categories" ||
-          item?.name == "About" ||
-          item?.name == "My Account") && (
-          <Image source={ICONS.downarrow} style={styles.downarrowImg} />
-        )}
-        {/* {item?.name == "Support" && renderChildren(item)} */}
       </View>
-      {renderChildren(item)}
     </TouchableOpacity>
   );
 };

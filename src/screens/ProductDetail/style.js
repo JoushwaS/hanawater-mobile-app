@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.IS,
     marginTop: metrix.VerticalSize(10),
 
-    fontSize: metrix.CustomFontSize(16),
+    fontSize: metrix.CustomFontSize(16 + 2),
   },
   printNameButtonStyle: {
     marginBottom: metrix.VerticalSize(30),
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.IS,
     marginTop: metrix.VerticalSize(5),
 
-    fontSize: metrix.CustomFontSize(16),
+    fontSize: metrix.CustomFontSize(16 + 2),
   },
   rowContainer: {
     flexDirection: "row",
@@ -78,12 +78,12 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.IS,
     marginTop: metrix.VerticalSize(5),
     color: Colors.primary,
-    fontSize: metrix.CustomFontSize(16),
+    fontSize: metrix.CustomFontSize(16 + 2),
   },
   description: {
     fontFamily: Fonts.IR,
     lineHeight: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     width: metrix.HorizontalSize(340),
     marginTop: metrix.VerticalSize(10),
   },
@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
     marginTop: metrix.VerticalSize(10),
   },
   tabText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     width: metrix.HorizontalSize(70),
   },
   tab: {
@@ -150,7 +150,7 @@ export const styles = StyleSheet.create({
   },
   productName: {
     fontFamily: Fonts.IS,
-    fontSize: metrix.CustomFontSize(16),
+    fontSize: metrix.CustomFontSize(16 + 2),
   },
   circle: {
     width: metrix.VerticalSize(28.4),

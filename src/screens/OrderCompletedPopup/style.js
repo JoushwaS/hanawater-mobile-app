@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
     zIndex: 10000,
   },
   orderCompletedText: {
-    fontSize: metrix.CustomFontSize(20),
+    fontSize: metrix.CustomFontSize(20 + 2),
   },
   buttonStyle: {
     width: "47%",
@@ -29,13 +29,13 @@ export default styles = StyleSheet.create({
     resizeMode: "contain",
   },
   orderCompletedThanksText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     textAlign: "center",
     marginTop: metrix.VerticalSize(20),
     width: metrix.HorizontalSize(220),
   },
   orderIDText: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(15 + 2),
     marginTop: metrix.VerticalSize(30),
   },
 });

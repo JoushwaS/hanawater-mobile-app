@@ -1,16 +1,20 @@
 export const ICONS = {
+  logo: require("../icons/Logo.png"),
+  locationPicker: require("../icons/locationPicker.png"),
+  detailsIcon: require("../icons/detailsIcon.png"),
   tab1: require("../icons/tab1.png"),
   tab2: require("../icons/tab2.png"),
   tab3: require("../icons/tab3.png"),
   tab4: require("../icons/tab4.png"),
   tab5: require("../icons/tab5.png"),
   plus: require("../icons/plus.png"),
+  plusWhite: require("../icons/plusWhite.png"),
   minus: require("../icons/minus.png"),
   checked: require("../icons/checked.png"),
   location: require("../icons/location.png"),
   call: require("../icons/call.png"),
   clock: require("../icons/clock.png"),
-
+  refershIcon: require("../icons/refreshIcon.png"),
   callfill: require("../icons/callfill.png"),
 
   mail: require("../icons/mail.png"),
@@ -32,6 +36,7 @@ export const ICONS = {
   drawer10: require("../icons/drawer10.png"),
   drawer11: require("../icons/drawer11.png"),
   drawer12: require("../icons/drawer12.png"),
+  calender: require("../icons/calender.png"),
 
   avatar: require("../icons/avatar.png"),
   rightarrowgrey: require("../icons/rightarrowgrey.png"),
@@ -45,7 +50,7 @@ export const ICONS = {
   downarrow: require("../icons/downarrow.png"),
   sort: require("../icons/sort.png"),
   filter: require("../icons/filter.png"),
-  heartfilled: require("../icons/heartfilled.png"),
+  // heartfilled: require("./heartfilled.png"),
   heartunfilled: require("../icons/heartunfilled.png"),
   cartIcon: require("../icons/cart_icon.png"),
   heartIcon: require("../icons/heart_black.png"),
@@ -57,4 +62,5 @@ export const ICONS = {
   locationIcon: require("../icons/locationIcon.png"),
   orderIcon: require("../icons/orderIcon.png"),
   notificationIcon: require("../icons/notificationIcon.png"),
+  menuIcon: require("../icons/menu-icon.png"),
 };

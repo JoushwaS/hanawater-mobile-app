@@ -1,12 +1,9 @@
 import React from "react";
-import { useColorScheme, Image, View } from "react-native";
-
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Colors } from "../../config/theme";
 import metrix from "../../config/metrix";
 import HomeTabNavigator from "../TabNavigator";
 import DrawerContent from "../../components/DrawerContent";
-import { AddMoreAddress } from "../../screens";
 
 const Drawer = createDrawerNavigator();
 
@@ -20,8 +17,8 @@ const DrawerNavigator = (props) => {
         headerShown: false,
         drawerType: "front",
         drawerStyle: {
-          backgroundColor: "#1F336D",
-          width: metrix.HorizontalSize(300),
+          backgroundColor: Colors.primary,
+          width: metrix.HorizontalSize(345),
         },
         sceneContainerStyle: {
           // backgroundColor: "#000000",

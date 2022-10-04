@@ -15,7 +15,12 @@ function Index({
   onPress = () => {},
 }) {
   return (
-    <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+    <TouchableOpacity
+      hitSlop={{ top: 25, bottom: 25, left: 50, right: 50 }}
+      style={buttonStyle}
+      activeOpacity={0.5}
+      onPress={onPress}
+    >
       <Image source={icon} style={[styles.icon, iconStyle]} />
     </TouchableOpacity>
   );

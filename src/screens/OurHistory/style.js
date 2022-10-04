@@ -10,18 +10,18 @@ export const styles = StyleSheet.create({
   headingText: {
     textAlign: "center",
     marginVertical: metrix.VerticalSize(25),
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
   },
   subheadingText: {
-    fontSize: metrix.CustomFontSize(18),
+    fontSize: metrix.CustomFontSize(18 + 2),
     fontFamily: Fonts.IS,
     color: Colors.White,
     marginVertical: metrix.VerticalSize(20),
     marginHorizontal: metrix.HorizontalSize(25),
   },
   descriptionText: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IS,
     marginHorizontal: metrix.HorizontalSize(25),
     color: Colors.White,

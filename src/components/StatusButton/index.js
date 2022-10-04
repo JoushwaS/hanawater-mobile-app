@@ -1,57 +1,72 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  ORDER_STATUS_CANCELLED,
+  ORDER_STATUS_DELIVERED,
+  ORDER_STATUS_NEW,
+  ORDER_STATUS_ONROUTE,
+  ORDER_STATUS_PENDING,
+  ORDER_STATUS_RESCHEDULE,
+} from "../../config/constants";
 import metrix from "../../config/metrix";
 import { Colors, Fonts } from "../../config/theme";
 
-function Index({ children, onPress = () => {}, type = 0 }) {
+function Index({ children, onPress = () => {}, type }) {
   const renderColor = (type) => {
     switch (type) {
-      case 0:
-        return Colors.completed;
-      case 1:
+      case ORDER_STATUS_NEW:
+        return Colors.onhold;
+      case ORDER_STATUS_CANCELLED:
         return Colors.cancelled;
-      case 2:
+      case ORDER_STATUS_ONROUTE:
+        return Colors.onhold;
+      case ORDER_STATUS_RESCHEDULE:
+        return Colors.primary;
+      case ORDER_STATUS_DELIVERED:
+        return Colors.completed;
+      case ORDER_STATUS_PENDING:
         return Colors.pending;
-      case 3:
-        return Colors.onhold;
       default:
-        return Colors.onhold;
+        return Colors.pending;
     }
   };
 
   const renderTextColor = (type) => {
     switch (type) {
-      case 0:
+      case ORDER_STATUS_DELIVERED:
         return Colors.completedText;
-      case 1:
+      case ORDER_STATUS_CANCELLED:
         return Colors.cancelledText;
-      case 2:
+      case ORDER_STATUS_PENDING:
         return Colors.pendingText;
-      case 3:
+      case ORDER_STATUS_NEW:
+        return Colors.onholdText;
+      case ORDER_STATUS_ONROUTE:
         return Colors.onholdText;
       default:
-        return Colors.onholdText;
+        return Colors.pendingText;
     }
   };
 
   const renderText = (type) => {
     switch (type) {
-      case 0:
-        return "Completed";
-      case 1:
-        return "Cancelled";
-      case 2:
-        return "Pending";
-      case 3:
-        return "On Hold";
+      case ORDER_STATUS_DELIVERED:
+        return ORDER_STATUS_DELIVERED;
+      case ORDER_STATUS_CANCELLED:
+        return ORDER_STATUS_CANCELLED;
+      case ORDER_STATUS_PENDING:
+        return ORDER_STATUS_PENDING;
+      case ORDER_STATUS_NEW:
+        return ORDER_STATUS_NEW;
       default:
-        return "On Hold";
+        return ORDER_STATUS_PENDING;
     }
   };
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.5}
+      disabled={true}
       style={[
         styles.button,
         {
@@ -67,7 +82,7 @@ function Index({ children, onPress = () => {}, type = 0 }) {
           },
         ]}
       >
-        {renderText(type)}
+        {type}
       </Text>
     </TouchableOpacity>
   );
@@ -77,17 +92,17 @@ const styles = StyleSheet.create({
   button: {
     textAlign: "center",
     padding: metrix.VerticalSize(5),
-    borderRadius: metrix.VerticalSize(25),
+    borderRadius: metrix.VerticalSize(5),
     alignItems: "center",
     justifyContent: "center",
     height: metrix.VerticalSize(34),
-    width: metrix.HorizontalSize(100),
+    width: metrix.HorizontalSize(105),
   },
   textStyle: {
     textAlign: "center",
     color: Colors.White,
     fontFamily: Fonts.IM,
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(16),
   },
 });
 

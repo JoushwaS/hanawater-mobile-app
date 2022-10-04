@@ -33,12 +33,12 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.White,
   },
   catText: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
     color: Colors.text,
     // textAlign: "center",
   },
   catPrice: {
-    fontSize: metrix.CustomFontSize(13),
+    fontSize: metrix.CustomFontSize(13 + 2),
     color: "#939393",
     marginTop: metrix.VerticalSize(4),
 

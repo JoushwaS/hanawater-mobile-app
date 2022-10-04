@@ -6,6 +6,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTAppSetupUtils.h>
 
+#import "RNSplashScreen.h"
+
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
 #import <React/RCTCxxBridgeDelegate.h>
@@ -29,7 +31,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyA5KgZ7s1iwLfDWbE-Fz8ehAfszLt6U2kM"];
+  [GMSServices provideAPIKey:@"AIzaSyAD_4go-J4inVINwgSN7X84ZnKq_T_k_zw"];
 
   RCTAppSetupPrepareApp(application);
 
@@ -56,6 +58,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [RNSplashScreen show];
   return YES;
 }
 

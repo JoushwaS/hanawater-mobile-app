@@ -19,7 +19,6 @@ const HomeNavigator = () => {
         component={VerificationCode}
       />
 
-      <AuthStack.Screen name={SCREENS.LOGIN_SCREEN} component={LoginScreen} />
       <AuthStack.Screen
         name={SCREENS.FORGOT_PASSWORD}
         component={ForgotPassword}

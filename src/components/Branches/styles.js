@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
     marginLeft: metrix.VerticalSize(10),
     color: Colors.primary,
 
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     fontFamily: Fonts.IS,
   },
   rowContainer: {
@@ -31,7 +31,7 @@ export default styles = StyleSheet.create({
     marginTop: metrix.VerticalSize(10),
   },
   time: {
-    fontSize: metrix.CustomFontSize(14),
+    fontSize: metrix.CustomFontSize(14 + 2),
     marginLeft: metrix.VerticalSize(10),
 
     fontFamily: Fonts.IM,

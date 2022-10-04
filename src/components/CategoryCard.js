@@ -13,10 +13,10 @@ function Index({ data = {}, onPress = () => {}, viewConStyle, imageStyle }) {
   return (
     <TouchableOpacity
       style={[styles.viewCon, viewConStyle]}
-      onPress={() => onPress(data.item.name)}
+      onPress={() => onPress(data?.item?.name)}
     >
-      <Image source={data.item.image} style={[styles.Catimg, imageStyle]} />
-      <Text style={styles.catText}>{data.item.name}</Text>
+      <Image source={data?.item?.image} style={[styles.Catimg, imageStyle]} />
+      <Text style={styles.catText}>{data?.item?.name}</Text>
     </TouchableOpacity>
   );
 }
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     // height: metrix.VerticalSize(100),
   },
   catText: {
-    fontSize: metrix.CustomFontSize(15),
+    fontSize: metrix.CustomFontSize(16),
     fontFamily: Fonts.IR,
     textAlign: "center",
   },
