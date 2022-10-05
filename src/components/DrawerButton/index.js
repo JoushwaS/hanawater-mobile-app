@@ -9,38 +9,7 @@ const touchableProps = {
   activeOpacity: 0.5,
 };
 
-const renderChildren = (item) => {
-  item?.children.map((_item) => (
-    <TouchableOpacity
-      {...touchableProps}
-      onPress={() => props.onPress(item?.routeName)}
-      style={
-        [
-          // styles.container,
-          // animatedStyles
-        ]
-      }
-    >
-      {/* <View style={styles.drawerItemheight}> */}
-      <View style={styles.rowContainer}>
-        <Text style={styles.drawerText}>{_item.name}</Text>
-      </View>
-      {/* </View> */}
-    </TouchableOpacity>
-  ));
-};
-
-const DrawerButton = ({ index, item, ...props }) => {
-  // const progress = useDrawerProgress();
-  // console.log('progress', progress);
-
-  // const translateX = Animated.interpolateNode(progress, {
-  //   inputRange: [0, 1],
-  //   outputRange: [-40 * vw * (index + 1), 0],
-  // });
-  // const animatedStyles = {
-  //   transform: [{translateX}],
-  // };
+const DrawerButton = ({ item, onPress }) => {
   const [help, openHelp] = useState(false);
   const [categories, opencategories] = useState(false);
   const [about, showAbout] = useState(false);

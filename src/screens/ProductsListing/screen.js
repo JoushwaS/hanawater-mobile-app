@@ -273,6 +273,7 @@ function Index(props) {
           setActiveFilters={setActiveFilters}
           activeFilters={activeFilters}
         />
+
         {/* {Header()} */}
         <FlatList
           data={data}

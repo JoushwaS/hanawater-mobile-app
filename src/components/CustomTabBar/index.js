@@ -10,7 +10,7 @@ export default class CustomTabBar extends React.Component {
     };
   }
   render() {
-    console.log("props check", this.props);
+    // console.log("props check", this.props);
     return (
       <View style={styles.container}>
         {this.props.state.routes.map((route, index) => {

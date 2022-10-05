@@ -20,4 +20,5 @@ function Index({ style = {}, size = 20, children, numberOfLines }) {
     </Text>
   );
 }
+
 export default Index;
