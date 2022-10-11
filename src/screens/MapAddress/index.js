@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { add } from "lodash";
 import { SCREENS } from "../../config/constants/screens";
 import { useTranslation } from "react-i18next";
-
+import { debounce } from "lodash";
 // import { SCREENS } from "../../config/constants/screens";
 
 function Index(props) {
@@ -51,11 +51,18 @@ function Index(props) {
   const latitudeDelta = 0.015;
   const longitudeDelta = 0.0121;
   const [region, setRegion] = useState({
-    latitude: 21.4925,
-    longitude: 39.17757,
+    latitude: 24.7290947,
+    longitude: 46.6628716,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   });
+
+  // const [initialRegion, setInitialRegion] = useState({
+  //   latitude: 24.7290947,
+  //   longitude: 46.6628716,
+  //   latitudeDelta: 0.015,
+  //   longitudeDelta: 0.0121,
+  // });
 
   RNLocation.configure({
     desiredAccuracy: {
@@ -135,35 +142,53 @@ function Index(props) {
       1000
     );
   };
+  const getLocationFromMap = async ({
+    latitude,
+    longitude,
+    latitudeDelta,
+    longitudeDelta,
+  }) => {
+    if (
+      latitude &&
+      longitude &&
+      latitude !== region.latitude &&
+      longitude !== region.longitude
+    ) {
+      // console.log(latitude, longitude,latitudeDelta,longitudeDelta, "here are the lat");
+      // console.log('autoCompleteRef', this.autoCompleteRef);
+      try {
+        const googleAddresses = await reverseGeocode(latitude, longitude);
+        console.log("googleAddresses", googleAddresses[0]);
+        if (googleAddresses.length > 0) {
+          const fullAddress = googleAddresses[0]["formatted_address"];
+          const { lat, lng } = googleAddresses[0].geometry.location;
+          const splitAddress = fullAddress.split(",");
 
-  const getLocationFromMap = async ({ latitude, longitude }) => {
-    // console.log('autoCompleteRef', this.autoCompleteRef);
-    try {
-      const googleAddresses = await reverseGeocode(latitude, longitude);
-      console.log("googleAddresses", googleAddresses[0]);
-      if (googleAddresses.length > 0) {
-        const fullAddress = googleAddresses[0]["formatted_address"];
-        const { lat, lng } = googleAddresses[0].geometry.location;
-        const splitAddress = fullAddress.split(",");
-
-        const addressObj = {
-          fullAddress: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
-          area: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
-          city: splitAddress[splitAddress.length - 2],
-          // street: splitAddress[0],
-          // state: splitAddress[1],
-          lat: "" + lat,
-          lng: "" + lng,
-          comment: "Default",
-        };
-        setlatitude(latitude);
-        setlongitude(longitude);
-        setaddressObj(addressObj);
-        setLoading(isLoading);
-        setfromMap(true);
+          const addressObj = {
+            fullAddress: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
+            area: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
+            city: splitAddress[splitAddress.length - 2],
+            // street: splitAddress[0],
+            // state: splitAddress[1],
+            lat: "" + lat,
+            lng: "" + lng,
+            comment: "Default",
+          };
+          setlatitude(latitude);
+          setlongitude(longitude);
+          setRegion({
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: latitudeDelta,
+            longitudeDelta: longitudeDelta,
+          });
+          setaddressObj(addressObj);
+          setLoading(isLoading);
+          setfromMap(true);
+        }
+      } catch (error) {
+        console.log("getLocationFromMap", error.message);
       }
-    } catch (error) {
-      console.log("getLocationFromMap", error.message);
     }
   };
 
@@ -300,6 +325,7 @@ function Index(props) {
   }, []);
 
   const submit = async () => {
+    // console.log("addressObj", addressObj, "addressObj");
     try {
       const { data: _data } = await addAddress(addressObj);
       // console.log("_data_data", _data);
@@ -320,6 +346,14 @@ function Index(props) {
       });
     }
   };
+  // let markers = [
+  //   {
+  //     latitude: 24.8636,
+  //     longitude: 67.0731,
+  //     title: "Foo Place",
+  //     subtitle: "1234 Foo Drive",
+  //   },
+  // ];
 
   return (
     <Fragment>
@@ -336,12 +370,35 @@ function Index(props) {
             ref={mapRef}
             onLayout={onMapLayout}
             loadingEnabled={true}
+            // zoomEnabled
+            followsUserLocation={false}
             provider={PROVIDER_GOOGLE} // remove if not using Google Maps
             style={styles.map}
-            showsUserLocation={false}
+            // showsUserLocation={true}
+            // userLocationUpdateInterval={1}
             loadingIndicatorColor={Colors.primary}
-            onRegionChange={getLocationFromMap}
-            region={region}
+            onRegionChangeComplete={(region) => {
+              debounce(() => getLocationFromMap(region), 2000);
+              // console.log("this is region", region);
+              // setRegion(region);
+              // getLocationFromMap(region);
+              // setRegion(region);
+              // debounce(setRegion(region), 2000);
+            }}
+            // onRegionChange={(region) => {
+            //   console.log("region", region);
+            //   setRegion(region);
+            // }}
+            region={{
+              latitude: parseFloat(region.latitude),
+              longitude: parseFloat(region.longitude),
+              latitudeDelta: parseFloat(region.latitudeDelta),
+              longitudeDelta: parseFloat(region.longitudeDelta),
+            }}
+            // initialRegion={initialRegion}
+            // region={region}
+            // region={region}
+            // annotations={markers}
           >
             <Image
               source={ICONS.location}
