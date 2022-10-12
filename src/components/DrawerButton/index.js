@@ -34,7 +34,7 @@ const DrawerButton = ({ item, onPress }) => {
                       {
                         rotate:
                           item?.name == t("Logout") ||
-                          item?.name == t("sign_in")
+                          item?.name == t("sign_in_register")
                             ? "180deg"
                             : "0deg",
                       },

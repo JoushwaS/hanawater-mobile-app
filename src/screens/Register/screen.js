@@ -54,8 +54,8 @@ function Index(props) {
       });
     } else {
       let userObj = {
-        // phone: "+966" + phone,
-        phone: "+923357503700",
+        phone: "+92" + phone,
+        // phone: "+923357503700",
         // phone: "+923213152067",
 
         //Dummy number

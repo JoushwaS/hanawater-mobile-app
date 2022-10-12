@@ -63,10 +63,12 @@ function Index(props) {
     setRefreshing(true);
     Promise.all([getCities(), getProfile()])
       .then(([{ data: citiess }, { data: profile }]) => {
+        console.log('citiess.data',citiess.data)
+        console.log("profile",profile.data.city)
         setCities(citiess.data);
-        let cityObj = _.find(citiess.data, (i) => i.name == profile.data.city);
+        // let cityObj = _.find(citiess.data, (i) => i.name == profile.data.city);
         setUserObj(profile?.data);
-        setselectedcity(cityObj.name);
+        setselectedcity(profile?.data?.city);
         setName(profile?.data?.firstName);
         setPhone(profile?.data?.phone);
         setEmail(profile?.data?.email);
@@ -178,7 +180,7 @@ function Index(props) {
           }}
         >
           <Text style={styles.emptyText}>Please login to see your profile</Text>
-          <CustomButton onPress={handleLoginPress}>Login</CustomButton>
+          <CustomButton onPress={handleLoginPress}>Register</CustomButton>
         </View>
       )}
     </Fragment>

@@ -70,7 +70,7 @@ const DrawerContent = (props) => {
       icon: ICONS.drawer4,
     },
     {
-      name: isAuthenticated ? t("Logout") : t("sign_in"),
+      name: isAuthenticated ? t("Logout") : t("sign_in_register"),
       routeName: SCREENS.AUTH_STACK,
       icon: ICONS.drawer7,
     },
@@ -83,7 +83,7 @@ const DrawerContent = (props) => {
     },
 
     {
-      name: isAuthenticated ? t("Logout") : t("sign_in"),
+      name: isAuthenticated ? t("Logout") : t("sign_in_register"),
       routeName: SCREENS.AUTH_STACK,
       icon: ICONS.drawer7,
     },
@@ -127,7 +127,7 @@ const DrawerContent = (props) => {
       Navigation.toggleDrawer();
     } else {
       Navigation.closeDrawer();
-      if (item.name == t("sign_in")) {
+      if (item.name == t("sign_in_register")) {
         Navigation.navigate(item.routeName, {
           screen: SCREENS.REGISTER_SCREEN,
           params: {

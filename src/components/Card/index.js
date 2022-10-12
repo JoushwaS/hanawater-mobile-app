@@ -254,17 +254,28 @@ export default function Card({
   };
 
   const renderName = (item) => {
-    if (item.name) return item.name;
-    else {
-      const lang = I18nManager.languages === "en" ? "0" : "1";
-      console.log("lang", common.lang);
-      const name = item?.languages[lang]["ProductLanguage.name"];
+    // console.log(item, "item");
+    console.log('isCart',isCart)
+
+    // if (item.name) return item.name;
+    // else {
+    if (isCart) {
+      const lang = i18n.language === "en" ? "0" : "1";
+      const name = item?.Languages[lang]["ProductLanguage"].name;
+      console.log('name',name)
       return name;
+    } else {
+      const lang = i18n.language === "en" ? "0" : "1";
+      const name = item?.languages[lang]["ProductLanguage.name"];
+      return name; 
     }
+
+    // }
   };
 
   const renderDescription = (item) => {
-    const lang = common?.lang === "en" ? "0" : "1";
+    // console.log(item,'desc item')
+    const lang = i18n.language === "en" ? "0" : "1";
     const description = item?.languages[lang]["ProductLanguage.description"];
     return description;
   };

@@ -35,7 +35,7 @@ import { debounce } from "lodash";
 function Index(props) {
   // const dispatch = useDispatch();
   const mapRef = useRef(null);
-  const autoCompleteRef = useRef(null);
+  let autoCompleteRef = null;
   const { t } = useTranslation();
   // const flatListRef = useRef(null);
   const { customer, codes } = useSelector((state) => state.auth);
@@ -148,17 +148,18 @@ function Index(props) {
     latitudeDelta,
     longitudeDelta,
   }) => {
-    if (
-      latitude &&
-      longitude &&
-      latitude !== region.latitude &&
-      longitude !== region.longitude
-    ) {
+    // if (
+    //   latitude &&
+    //   longitude &&
+    //   latitude !== region.latitude &&
+    //   longitude !== region.longitude
+    // ) {
       // console.log(latitude, longitude,latitudeDelta,longitudeDelta, "here are the lat");
       // console.log('autoCompleteRef', this.autoCompleteRef);
       try {
+        autoCompleteRef.setAddressText("");
         const googleAddresses = await reverseGeocode(latitude, longitude);
-        console.log("googleAddresses", googleAddresses[0]);
+        // console.log("googleAddresses", googleAddresses[0]);
         if (googleAddresses.length > 0) {
           const fullAddress = googleAddresses[0]["formatted_address"];
           const { lat, lng } = googleAddresses[0].geometry.location;
@@ -184,14 +185,15 @@ function Index(props) {
           });
           setaddressObj(addressObj);
           setLoading(isLoading);
+         
           setfromMap(true);
         }
       } catch (error) {
         console.log("getLocationFromMap", error.message);
       }
-    } else {
-      alert("inside the else");
-    }
+    // } else {
+    //   // alert("inside the else");
+    // }
   };
 
   const getLocations = async () => {
@@ -380,7 +382,11 @@ function Index(props) {
             // userLocationUpdateInterval={1}
             loadingIndicatorColor={Colors.primary}
             onRegionChangeComplete={(region) => {
-              debounce(() => getLocationFromMap(region), 2000);
+              // debounce(() => getLocationFromMap(region), 200);
+              // console.log('region',region)
+              getLocationFromMap(region)
+              // console.log('autocomplete',autoCompleteRef)
+              // getLocationFromMap(region)
               // console.log("this is region", region);
               // setRegion(region);
               // getLocationFromMap(region);
@@ -409,10 +415,11 @@ function Index(props) {
             />
           </MapView>
           <View style={styles.searchbox}>
+            {/* {console.log('addressObj.fullAddress',addressObj.fullAddress)} */}
             <GooglePlacesAutocomplete
               editable={true}
               suppressDefaultStyles={false}
-              ref={autoCompleteRef}
+              ref={(ref)=>autoCompleteRef=ref}
               placeholder={addressObj?.fullAddress}
               textInputProps={{
                 placeholderTextColor: "grey",
@@ -435,7 +442,7 @@ function Index(props) {
                 // types: '(cities)' // default: 'geocode'
               }}
               setAddressText={(e) => console.log("setAddressText", e)}
-              debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+              debounce={500} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
               fetchDetails={true}
               renderLeftButton={() => {
                 return (
