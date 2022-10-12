@@ -1,5 +1,5 @@
 import { SET_PROMOTIONS } from "../types";
-import { toggleLoader } from "./common";
+import { toggleLoader, setTermsData } from "./common";
 import {
   setProductsData,
   setMosqueData,
@@ -15,7 +15,7 @@ import {
   getMosqueList,
   getSubscriptionList,
 } from "../../config/api/products";
-import { setItem, showToast } from "../../utils/index";
+import { showToast } from "../../utils/index";
 import { _mergeCart } from "./cart";
 
 const getHomeData = (payload) => async (dispatch) => {
@@ -30,13 +30,14 @@ const getHomeData = (payload) => async (dispatch) => {
       a.MosqueLanguages[0]?.name.localeCompare(b.MosqueLanguages[0]?.name)
     );
     // console.log("mosqueData?.data", mosqueData?.data);
-    // console.log("mosqueData?.data", sorted);
     // dispatch(setPromotionsData(promoData?.data));
     dispatch(setProductsData(productsData?.data));
     dispatch(setMosqueData(sorted));
     dispatch(setSubscriptionData(subscriptionData?.data));
+    dispatch(setTermsData(termsData.data.value));
     dispatch(toggleLoader(false));
-    await setItem("terms", termsData.data.value);
+
+    // await setItem("terms", termsData.data.value);
   } catch (error) {
     console.log("error", error.message);
     dispatch(toggleLoader(false));

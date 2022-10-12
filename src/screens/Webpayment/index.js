@@ -59,6 +59,7 @@ function Index(props) {
         setPaymentUrl(
           config.BASE_URL + "/v1/payment/page/" + response?.data?.data?.id
         );
+        // console.log(url, "url is here");
       })
       .catch((error) => {
         console.log("errorrr", error);
@@ -237,7 +238,7 @@ function Index(props) {
             scalesPageToFit={Platform.OS === "ios" ? false : true}
             style={{
               width: metrix.HorizontalSize(820),
-              position: "absolute",
+              position: "relative",
               // left: -180,
               left: metrix.HorizontalSize(-198),
               right: 0,

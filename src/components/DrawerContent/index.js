@@ -44,10 +44,10 @@ const DrawerContent = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const viewRef = useRef(null);
   const { t, i18n } = useTranslation();
-  const { lang } = useSelector((state) => state.common);
+  const { lang, terms } = useSelector((state) => state.common);
   const { isAuthenticated, customer } = useSelector((state) => state.auth);
-  const [terms, setTerms] = useState("");
-
+  const [term, setTerm] = useState("");
+  console.log("term", term);
   const loggedInrouteOrders = [
     {
       name: t("home"),
@@ -92,14 +92,11 @@ const DrawerContent = (props) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [value, setValue] = useState(new Animated.Value(0));
 
-  const getTerms = async () => {
-    const terms = await getItem("terms");
-    // console.log("terms", terms);
-    setTerms(terms);
-  };
   useEffect(() => {
-    getTerms();
-  }, [lang]);
+    // getTerms();
+    console.log("terms", terms);
+    terms ? setTerm(terms) : null;
+  }, [lang, terms]);
 
   const handleToggle = () => {
     setIsEnabled((prevState) => !prevState);
@@ -114,12 +111,12 @@ const DrawerContent = (props) => {
           duration: 220,
           useNativeDriver: false,
         }).start();
-    dispatch(setLang(i18n.language === "en" ? CONSTANTS.AR : CONSTANTS.EN));
     i18n
       .changeLanguage(i18n.language === "en" ? CONSTANTS.AR : CONSTANTS.EN)
       .then(I18nManager.forceRTL(i18n.language === "ar"))
       .then(() => {
         RNRestart.Restart();
+        dispatch(setLang(i18n.language === "en" ? CONSTANTS.AR : CONSTANTS.EN));
       });
   };
 
@@ -171,7 +168,7 @@ const DrawerContent = (props) => {
                 }}
                 style={{ flexGrow: 1 }}
               >
-                <Text style={[styles.modalText, {}]}>{terms}</Text>
+                <Text style={[styles.modalText, {}]}>{term}</Text>
               </ScrollView>
             </View>
           </View>

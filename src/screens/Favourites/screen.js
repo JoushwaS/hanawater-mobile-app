@@ -49,7 +49,7 @@ function Index(props) {
   const handleCardPress = () => setModalVisible(true);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <FlatList
         data={data}
         numColumns={1}

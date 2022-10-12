@@ -28,9 +28,9 @@ function Index(props) {
   };
 
   const paymentMethods = [
-    {
-      name: "Cash On Delivery",
-    },
+    // {
+    //   name: "Cash On Delivery",
+    // },
     {
       name: "Credit Card / Debit Card",
     },

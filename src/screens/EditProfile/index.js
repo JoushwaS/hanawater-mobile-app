@@ -13,12 +13,13 @@ import axios from "../../config/api/index";
 import { EMAIL_REGEX } from "../../config/constants";
 import { useTranslation } from "react-i18next";
 import metrix from "../../config/metrix";
+import sa from "../../../sa.json";
 import { isEmpty } from "lodash";
 function Index(props) {
   const [isLoading, setLoading] = useState(false);
   const [userObj, setUserObj] = useState({});
   const [isCityOpen, setCityOpen] = useState(false);
-  const [cityList, setCityList] = useState([]);
+  const [cityList, setCityList] = useState();
   const { codes } = useSelector((state) => state.auth);
   const { t } = useTranslation();
 
@@ -35,6 +36,9 @@ function Index(props) {
     // console.log("props.route.params", props.route.params.user);
     setUserObj(props.route?.params?.user);
     setCityList(props.route?.params?.cityList);
+    console.log("props.route?.params?.cityList", props.route?.params?.cityList);
+    // console.log("sa", sa);
+    // setCityList(sa)
   }, [props.route.params]);
 
   const [date, setDate] = useState(new Date());
@@ -208,20 +212,20 @@ function Index(props) {
             style={([styles.cityView], { height: metrix.VerticalSize(100) })}
           >
             <ScrollView style={({ height: "100%" }, [styles.cityView])}>
-              {cityList.map((item, i) => (
+              {sa.map((item, i) => (
                 <TouchableOpacity
                   key={i.toString()}
                   activeOpacity={0.5}
                   onPress={() => {
                     setUserObj({
                       ...userObj,
-                      city: item.name,
+                      city: item,
                     });
                     setCityOpen(false);
                   }}
                 >
                   <Text style={styles.cityText} size={22}>
-                    {item?.name}
+                    {item}
                   </Text>
                 </TouchableOpacity>
               ))}

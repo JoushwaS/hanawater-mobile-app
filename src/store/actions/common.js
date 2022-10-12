@@ -1,4 +1,4 @@
-import { TOGGLE_LOADER, SET_LANG } from "../types";
+import { TOGGLE_LOADER, SET_LANG, SET_TERMS } from "../types";
 
 const toggleLoader = (payload) => {
   return {
@@ -14,4 +14,11 @@ const setLang = (payload) => {
   };
 };
 
-export { toggleLoader, setLang };
+const setTermsData = (payload) => {
+  return {
+    type: SET_TERMS,
+    payload,
+  };
+};
+
+export { toggleLoader, setLang, setTermsData };

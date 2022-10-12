@@ -22,6 +22,7 @@ import { getItems } from "../../utils/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ICONS } from "../../assets/icons";
 import { store } from "../../store";
+import { showToast } from "../../utils";
 import { useTranslation } from "react-i18next";
 
 function Index({
@@ -57,7 +58,7 @@ function Index({
     }
   }, [addressList, couponValid]);
 
-  const [activeindex, setActiveIndex] = useState(0);
+  const [activeindex, setActiveIndex] = useState(1);
   const [addressDetails, setaddressDetails] = useState(null);
 
   const viewRef = useRef(null);
@@ -78,12 +79,8 @@ function Index({
 
   const paymentMethods = [
     {
-      name: t("cash_on_delivery"),
-      id: 0,
-    },
-    {
       name: t("direct_payment"),
-      id: 1,
+      id: 0,
     },
   ];
 
@@ -254,7 +251,7 @@ function Index({
                 onPress={() => {
                   setActiveIndex(index);
                   setTimeout(() => {
-                    if (index === 1) {
+                    if (index === 0) {
                       setCardModal(true);
                     }
                   }, 500);
@@ -363,7 +360,14 @@ function Index({
             </Text>
           </View>
           <CustomButton
-            onPress={() => handlePlaceOrder(addressDetails, activeindex)}
+            onPress={() =>
+              activeindex === 0
+                ? handlePlaceOrder(addressDetails, activeindex)
+                : showToast({
+                    text: "Please Select a Payment Method",
+                    type: "error",
+                  })
+            }
             style={styles.buttonStyle}
             variant="filled"
             type="large"

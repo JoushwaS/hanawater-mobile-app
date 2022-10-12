@@ -23,18 +23,18 @@ import { IMAGES } from "../../assets/images";
 function Index(props) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [phone, setPhone] = useState("");
-  const [terms, setTerms] = useState("");
+  const [term, setTerm] = useState("");
   const [prefix, setPrefix] = useState("+966");
   const [modalVisible, setModalVisible] = useState(false);
   const viewRef = useRef(null);
 
-  const { isLoading } = useSelector((state) => state.common);
+  const { isLoading, terms } = useSelector((state) => state.common);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
-    getTerms();
-  }, []);
+    terms ? setTerm(terms) : null;
+  }, [terms]);
 
   const handleSignUp = () => {
     if (phone == "") {
@@ -54,8 +54,8 @@ function Index(props) {
       });
     } else {
       let userObj = {
-        phone: "+966" + phone,
-        // phone: "+923357503700",
+        // phone: "+966" + phone,
+        phone: "+923357503700",
         // phone: "+923213152067",
 
         //Dummy number
@@ -70,12 +70,6 @@ function Index(props) {
       dispatch(userLogout());
       dispatch(userSignUp(formBody, props, phone));
     }
-  };
-
-  const getTerms = async () => {
-    const terms = await getItem("terms");
-    // console.log("terms", terms);
-    setTerms(terms);
   };
 
   const handleTerms = () => {
@@ -99,12 +93,9 @@ function Index(props) {
               onPress={() => setModalVisible(false)}
             />
             <Text style={styles.modalHeading}>Terms & Conditions</Text>
-            <ScrollView
-              scrollEnabled
-              style={{ height: 100, backgroundColor: "green" }}
-            >
-              <Text style={([styles.modalText], { color: "green" })}>
-                {terms}
+            <ScrollView scrollEnabled style={{ height: 100 }}>
+              <Text style={styles.modalText}>
+                {term}
                 {/* {console.log(terms)} */}
               </Text>
             </ScrollView>

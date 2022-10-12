@@ -189,6 +189,8 @@ function Index(props) {
       } catch (error) {
         console.log("getLocationFromMap", error.message);
       }
+    } else {
+      alert("inside the else");
     }
   };
 

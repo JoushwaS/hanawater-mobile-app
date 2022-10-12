@@ -122,7 +122,7 @@ function Index(props) {
   };
 
   const handlePlaceOrder = async (addressDetails, paymentmode) => {
-    if (paymentmode == 1) {
+    if (paymentmode == 0) {
       Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {
         addressDetails,
         coupon,

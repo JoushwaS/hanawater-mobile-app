@@ -1,8 +1,9 @@
-import { SET_LANG, TOGGLE_LOADER } from "../types";
+import { SET_LANG, SET_TERMS, TOGGLE_LOADER } from "../types";
 
 const initialState = {
   lang: "",
   isLoading: false,
+  terms: "",
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +18,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.payload,
+      };
+    case SET_TERMS:
+      return {
+        ...state,
+        terms: action.payload,
       };
 
     default:

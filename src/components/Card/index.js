@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  I18nManager,
 } from "react-native";
 import { ICONS } from "../../assets/icons";
 import { IMAGES } from "../../assets/images";
@@ -18,7 +19,7 @@ import { store } from "../../store";
 import { addToCart, clearCart } from "../../store/actions";
 import { showToast } from "../../utils";
 import { useTranslation } from "react-i18next";
-
+// import sa from "../../../sa.json";
 export default function Card({
   item = {
     name: "",
@@ -38,7 +39,7 @@ export default function Card({
   showMosque,
   orderDetails,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const touchableProps = {
     activeOpacity: 0.5,
@@ -255,7 +256,8 @@ export default function Card({
   const renderName = (item) => {
     if (item.name) return item.name;
     else {
-      const lang = common?.lang === "en" ? "0" : "1";
+      const lang = I18nManager.languages === "en" ? "0" : "1";
+      console.log("lang", common.lang);
       const name = item?.languages[lang]["ProductLanguage.name"];
       return name;
     }
