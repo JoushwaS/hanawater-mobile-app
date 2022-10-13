@@ -179,8 +179,8 @@ function Index(props) {
             alignItems: "center",
           }}
         >
-          <Text style={styles.emptyText}>Please login to see your profile</Text>
-          <CustomButton onPress={handleLoginPress}>Register</CustomButton>
+          <Text style={styles.emptyText}>Please Register/Sign In to see your profile</Text>
+          <CustomButton onPress={handleLoginPress}>Register/Sign In</CustomButton>
         </View>
       )}
     </Fragment>

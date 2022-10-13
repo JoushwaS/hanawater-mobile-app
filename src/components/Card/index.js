@@ -88,7 +88,8 @@ export default function Card({
               },
             ]}
           >
-            SR {item?.price} <Text style={styles.iVat}>{t("iVAT")}</Text>
+            {/* {console.log('this is cart item', item)} */}
+            SR {item?.price}<Text style={styles.iVat}>{t("iVAT")}</Text>
           </Text>
           {/* {item?.salePrice && item?.salePrice !== "0.00" && (
             <Text style={[styles.cardPriceText]}>SR {item?.salePrice}</Text>
@@ -97,7 +98,7 @@ export default function Card({
       );
     } else {
       let price = item?.salePrice !== "0.00" ? item?.salePrice : item?.price;
-      let total = subscriptions[activeFontIndex]?.noOfMonths * price * 4;
+      let total = (subscriptions[activeFontIndex]?.noOfMonths * price * 4).toFixed(2);
       return (
         <View style={{}}>
           {/* <Text style={styles.cardPriceText}>SR {item?.price}</Text> //change here */}
@@ -180,7 +181,8 @@ export default function Card({
       //Cart page btn
       return (
         <Button
-          buttonStyle={styles.buttonStyle}
+          buttonStyle={{paddingHorizontal: 5, paddingVertical: 10}}
+          textStyle={{fontSize: 15}}
           variant="filled"
           onPress={() => {
             dispatch(
