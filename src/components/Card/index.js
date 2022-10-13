@@ -89,7 +89,8 @@ export default function Card({
             ]}
           >
             {/* {console.log('this is cart item', item)} */}
-            SR {item?.price}<Text style={styles.iVat}>{t("iVAT")}</Text>
+            SR {item?.price}
+            <Text style={styles.iVat}> {t("iVAT")}</Text>
           </Text>
           {/* {item?.salePrice && item?.salePrice !== "0.00" && (
             <Text style={[styles.cardPriceText]}>SR {item?.salePrice}</Text>
@@ -98,12 +99,17 @@ export default function Card({
       );
     } else {
       let price = item?.salePrice !== "0.00" ? item?.salePrice : item?.price;
-      let total = (subscriptions[activeFontIndex]?.noOfMonths * price * 4).toFixed(2);
+      let total = (
+        subscriptions[activeFontIndex]?.noOfMonths *
+        price *
+        4
+      ).toFixed(2);
       return (
         <View style={{}}>
           {/* <Text style={styles.cardPriceText}>SR {item?.price}</Text> //change here */}
           <Text style={styles.cardPriceText}>
-            SR {total} <Text style={styles.iVat}>{t("iVAT")}</Text>
+            SR {total}
+            <Text style={styles.iVat}> {t("iVAT")}</Text>
           </Text>
         </View>
       );
@@ -181,8 +187,8 @@ export default function Card({
       //Cart page btn
       return (
         <Button
-          buttonStyle={{paddingHorizontal: 5, paddingVertical: 10}}
-          textStyle={{fontSize: 15}}
+          buttonStyle={{ paddingHorizontal: 5, paddingVertical: 10 }}
+          textStyle={{ fontSize: 15 }}
           variant="filled"
           onPress={() => {
             dispatch(
@@ -257,19 +263,21 @@ export default function Card({
 
   const renderName = (item) => {
     // console.log(item, "item");
-    console.log('isCart',isCart)
 
     // if (item.name) return item.name;
     // else {
     if (isCart) {
       const lang = i18n.language === "en" ? "0" : "1";
       const name = item?.Languages[lang]["ProductLanguage"].name;
-      console.log('name',name)
+      // console.log("name", name);
       return name;
-    } else {
+    } else if (activeTab == 1 || activeTab == 2) {
       const lang = i18n.language === "en" ? "0" : "1";
       const name = item?.languages[lang]["ProductLanguage.name"];
-      return name; 
+      return name;
+    } else {
+      // console.log(item.name);
+      return item.name;
     }
 
     // }
@@ -277,6 +285,7 @@ export default function Card({
 
   const renderDescription = (item) => {
     // console.log(item,'desc item')
+    // console.log("inside the description", item);
     const lang = i18n.language === "en" ? "0" : "1";
     const description = item?.languages[lang]["ProductLanguage.description"];
     return description;
@@ -469,7 +478,7 @@ export default function Card({
 
           {isCart && (
             <Text style={styles.cardPriceText}>
-              {item?.subscription?.name || ""}
+              {item?.subcription?.name || ""}
             </Text>
           )}
           {activeTab == 2 && (
@@ -509,6 +518,7 @@ export default function Card({
           >
             <Text style={styles.cardPriceText}> {renderPrice(item)}</Text>
             {order ? null : showSubscribe(item)}
+            <Text></Text>
           </View>
         </View>
       </ImageBackground>

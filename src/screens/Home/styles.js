@@ -198,12 +198,14 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
   },
   mosqueName: {
+    padding: metrix.HorizontalSize(4),
     fontSize: metrix.CustomFontSize(20),
     marginBottom: metrix.VerticalSize(14),
     fontFamily: Fonts.IS,
     color: Colors.primary,
   },
   mosqueAddress: {
+    padding: metrix.HorizontalSize(4),
     fontSize: metrix.CustomFontSize(16 + 2),
   },
   inputView: {

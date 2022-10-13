@@ -122,6 +122,8 @@ function Index(props) {
   };
 
   const handlePlaceOrder = async (addressDetails, paymentmode) => {
+    console.log("paymentmode", paymentmode);
+    console.log("addressDetails", addressDetails);
     if (paymentmode == 0) {
       Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {
         addressDetails,
