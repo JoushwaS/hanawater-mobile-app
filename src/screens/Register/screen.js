@@ -54,7 +54,7 @@ function Index(props) {
       });
     } else {
       let userObj = {
-        phone: "+92" + phone,
+        phone: "+966" + phone,
         // phone: "+923357503700",
         // phone: "+923213152067",
 
@@ -112,7 +112,7 @@ function Index(props) {
           onChangeText={(text) => setPhone(text)}
           keyboardType="numeric"
           label={t("mobile_number")}
-          maxLength={10}
+          maxLength={9}
           value={phone}
         />
         <View style={styles.privacyRow}>
