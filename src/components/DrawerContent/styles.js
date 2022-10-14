@@ -50,6 +50,7 @@ export default styles = StyleSheet.create({
     marginBottom: metrix.VerticalSize(10),
   },
   modalText: {
+    textAlign: "justify",
     fontSize: metrix.CustomFontSize(12 + 2),
     // textAlign: "center",
   },

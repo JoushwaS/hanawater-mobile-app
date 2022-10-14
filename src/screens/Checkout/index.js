@@ -120,11 +120,11 @@ function Index(props) {
       // setCouponCode("");
     }
   };
-
   const handlePlaceOrder = async (addressDetails, paymentmode) => {
     console.log("paymentmode", paymentmode);
     console.log("addressDetails", addressDetails);
-    if (paymentmode == 0) {
+    console.log("cardType", cardType);
+    if (paymentmode === 0 || paymentmode === 1 || paymentmode === 2) {
       Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {
         addressDetails,
         coupon,

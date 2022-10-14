@@ -58,7 +58,7 @@ function Index({
     }
   }, [addressList, couponValid]);
 
-  const [activeindex, setActiveIndex] = useState(1);
+  const [activeindex, setActiveIndex] = useState(3);
   const [addressDetails, setaddressDetails] = useState(null);
 
   const viewRef = useRef(null);
@@ -79,8 +79,19 @@ function Index({
 
   const paymentMethods = [
     {
-      name: t("direct_payment"),
+      name: "Visa",
+      type: "visa",
       id: 0,
+    },
+    {
+      name: "MasterCard",
+      type: "master",
+      id: 1,
+    },
+    {
+      name: "mada",
+      type: "mada",
+      id: 2,
     },
   ];
 
@@ -118,7 +129,7 @@ function Index({
         opacity: modalVisible ? 0.3 : 1,
       }}
     >
-      <Modal
+      {/* <Modal
         viewRef={viewRef}
         setModalVisible={setCardModal}
         modalVisible={cardModal}
@@ -151,7 +162,7 @@ function Index({
             </TouchableOpacity>
           ))}
         </View>
-      </Modal>
+      </Modal> */}
       <Modal
         viewRef={viewRef}
         modalVisible={modalVisible}
@@ -244,26 +255,34 @@ function Index({
         )}
         <View>
           <Text style={styles.headingText}>{t("payment_mode")}</Text>
-          {paymentMethods.map((item, index) => (
-            <View key={index.toString()} style={styles.rowContainer}>
-              <TouchableOpacity
-                style={styles.circle}
-                onPress={() => {
-                  setActiveIndex(index);
-                  setTimeout(() => {
-                    if (index === 0) {
-                      setCardModal(true);
-                    }
-                  }, 500);
-                }}
-              >
-                {activeindex === index && (
-                  <View style={styles.innerCircle}></View>
-                )}
-              </TouchableOpacity>
-              <Text style={styles.paymentText}>{item?.name}</Text>
-            </View>
-          ))}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            {paymentMethods.map((item, index) => (
+              <View key={index.toString()} style={styles.rowContainer}>
+                <TouchableOpacity
+                  style={styles.circle}
+                  onPress={() => {
+                    setActiveIndex(index);
+                    setTimeout(() => {
+                      if (index === 0) {
+                        setCardType(item.type);
+                      } else if (index === 1) {
+                        setCardType(item.type);
+                      } else if (index === 2) {
+                        setCardType(item.type);
+                      }
+                    }, 500);
+                  }}
+                >
+                  {activeindex === index && (
+                    <View style={styles.innerCircle}></View>
+                  )}
+                </TouchableOpacity>
+                <Text style={styles.paymentText}>{item?.name}</Text>
+              </View>
+            ))}
+          </View>
           <View style={styles.totalBox}>
             {isLoading ? (
               <ActivityIndicator color={Colors.primary}></ActivityIndicator>
@@ -361,7 +380,7 @@ function Index({
           </View>
           <CustomButton
             onPress={() =>
-              activeindex === 0
+              activeindex === 0 || activeindex === 1 || activeindex === 2
                 ? handlePlaceOrder(addressDetails, activeindex)
                 : showToast({
                     text: "Please Select a Payment Method",

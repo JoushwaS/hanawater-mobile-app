@@ -31,11 +31,18 @@ export default styles = StyleSheet.create({
   modalHeading: {
     fontSize: metrix.CustomFontSize(22 + 2),
     textAlign: "center",
+    fontWeight: "bold",
+    textDecorationLine: "underline",
     marginBottom: metrix.VerticalSize(10),
-    fontFamily: Fonts.IS,
+    // fontSize: metrix.CustomFontSize(22 + 2),
+    // textAlign: "center",
+    // marginBottom: metrix.VerticalSize(10),
+    // fontFamily: Fonts.IS,
   },
   modalText: {
-    fontSize: metrix.CustomFontSize(18 + 2),
+    textAlign: "justify",
+    fontSize: metrix.CustomFontSize(12 + 2),
+    // fontSize: metrix.CustomFontSize(18 + 2),
     // textAlign: "center",
   },
   ContainerPadding: {
