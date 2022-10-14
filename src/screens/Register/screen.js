@@ -103,7 +103,7 @@ function Index(props) {
         </Modal>
         <View style={styles.containerStyle}>
           <Image source={ICONS.logo} style={styles.logo} />
-          <Text style={styles.headingText}>{t("sign_in")}</Text>
+          <Text style={styles.headingText}>{t("sign_in_register")}</Text>
         </View>
         <TextInput
           placeholder="Enter Mobile Number"
