@@ -8,6 +8,7 @@ import { SCREENS } from "../../config/constants/screens";
 import { Colors, Fonts } from "../../config/theme";
 import { useTranslation } from "react-i18next";
 import StepIndicator from "react-native-step-indicator";
+import { showToast } from "../../utils";
 import {
   ORDER_STATUS_NEW,
   ORDER_STATUS_ONROUTE,
@@ -17,29 +18,55 @@ import {
   ORDER_STATUS_PROGRESS,
 } from "../../config/constants";
 import metrix from "../../config/metrix";
+import { getOrderDetail } from "../../config/api/orders";
 
 function Index(props) {
   const { t } = useTranslation();
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [isLoading, setisLoading] = useState(false);
+  const [orderStatusId, setOrderStatusId] = useState("");
+
+  const getRefreshData = async () => {
+    try {
+      const { data } = await getOrderDetail(props.route.params.orderId);
+      setOrderStatusId(data.data.OrderStatusId);
+      // console.log(orderStatusId, "statusid");
+      // console.log(data.data.OrderStatusId, "hi");
+      if (data.data.OrderStatusId == "1") {
+        // console.log("inside", data.data.OrderStatusId);
+        setCurrentPosition(0);
+      }
+      if (data.data.OrderStatusId == "2") {
+        // console.log("inside", data.data.OrderStatusId);
+        setCurrentPosition(2);
+      }
+      if (data.data.OrderStatusId == "5" || data.data.OrderStatusId == "6") {
+        // console.log("inside", data.data.OrderStatusId);
+
+        setCurrentPosition(3);
+      }
+      if (data.data.OrderStatusId == "7") {
+        // console.log("inside", data.data.OrderStatusId);
+
+        setCurrentPosition(1);
+      }
+    } catch (error) {
+      showToast({
+        type: "error",
+        text: error.message,
+      });
+    }
+  };
+  var count = 0;
+  var x = setInterval(() => {
+    getRefreshData();
+    if (count >= 6) clearInterval(x);
+    count++;
+  }, 5000);
 
   useEffect(() => {
-    // console.log("OrderStatusId", props.route?.params?.OrderStatusId);
-    if (props.route?.params?.OrderStatusId == "1") {
-      setCurrentPosition(0);
-    }
-    if (props.route?.params?.OrderStatusId == "2") {
-      setCurrentPosition(2);
-    }
-    if (
-      props.route?.params?.OrderStatusId == "5" ||
-      props.route?.params?.OrderStatusId == "6"
-    ) {
-      setCurrentPosition(3);
-    }
-    if (props.route?.params?.OrderStatusId == "7") {
-      setCurrentPosition(1);
-    }
-  }, [props.route?.params?.OrderStatusId]);
+    getRefreshData();
+  }, []);
 
   const customStyles = {
     stepIndicatorSize: 25,
@@ -70,7 +97,7 @@ function Index(props) {
     "Submitted",
     "Accepted",
     "In Progress",
-    props.route?.params?.OrderStatusId == "6" ? "On Hold" : "Delivered",
+    orderStatusId == "6" ? "On Hold" : "Delivered",
   ];
 
   return (
