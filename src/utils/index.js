@@ -31,7 +31,7 @@ export const mergeCart = (cart, payload) => {
     let indsubscription = cart.findIndex((val) => {
       return val?.subscription;
     });
-    console.log("indind", ind);
+    // console.log("indind", ind);
 
     if (ind > -1 || indsubscription > -1) {
       data.splice(found, data.length);
@@ -41,7 +41,7 @@ export const mergeCart = (cart, payload) => {
           (c.id || c.itemId || c.productId) ==
           (payload.id || payload.productId || payload.itemId)
       );
-      console.log("foundfound", found);
+      // console.log("foundfound", found);
       if (found !== -1) {
         if (payload.quantity === 0) {
           data.splice(found, 1);
