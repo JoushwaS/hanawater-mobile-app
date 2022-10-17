@@ -46,6 +46,21 @@ function Index(props) {
       image: IMAGES.carousel3,
       id: 3,
     },
+    {
+      name: "data4",
+      image: IMAGES.carousel4,
+      id: 4,
+    },
+    {
+      name: "data5",
+      image: IMAGES.carousel5,
+      id: 5,
+    },
+    {
+      name: "data6",
+      image: IMAGES.carousel6,
+      id: 6,
+    },
   ];
   const { promotions, common, products, mosque, subscriptions, cart } =
     useSelector((state) => state);
