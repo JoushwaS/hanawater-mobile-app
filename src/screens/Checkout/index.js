@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react";
+import { NativeModules } from "react-native";
 import Screen from "./screen";
 import { Header } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,6 +114,105 @@ function Index(props) {
     }, [])
   );
 
+  generateCheckoutId = async () =>{
+    let requestObj = {
+      "amount": "1.00",
+      "card_type": "applepay",
+      "address": {
+          "street": "str1",
+          "city": "Jeddah",
+          "state": "stat1"
+      }
+    };
+    let data = await fetch(
+      'http://3.135.102.9:9127/api/v1/payment/request-checkout',{
+             method: "POST",
+             headers: {
+               "content-type": "application/json",
+               "Authorization":"Bearer 214065d12b1fd596c0b38b5d3dc671d45ce21a15"
+             },
+             body: JSON.stringify(requestObj)
+         });
+    let data_json = await data.json();
+    console.log("01 generateCheckoutId() ",data_json);
+    return data_json;
+  }
+
+  onCheckOutApplepay = async () => {
+    try {
+      let checkoutData = await generateCheckoutId();
+    
+      let { data:{id} } = checkoutData;
+      if (id) {
+        const paymentParams = {
+          checkoutID: id,
+          amount: 1.0
+        };
+        console.log(
+          '01',
+          'transactionResult',
+          id,
+          paymentParams,
+          NativeModules.Hyperpay,
+        );
+
+        NativeModules.Hyperpay.applepayPayment(paymentParams)
+          .then(transactionResult => {
+            if (transactionResult) {
+              console.log("02","transactionResult from hyperpay",transactionResult);
+              //resourcePath = "?checkoutId=" + transactionResult.checkoutId + "&cardType="+ this.state.paymentType[3].icon_name;
+              //this.getPaymentStatus(resourcePath);
+             getPaymentStatus(transactionResult.checkoutId);
+              if (transactionResult.status === 'completed') {
+                //resourcePath = encodeURIComponent("?checkoutId=" + transactionResult.checkoutId + "cardType="+ this.state.paymentType[3].icon_name);
+                //this.getPaymentStatus(resourcePath);
+                getPaymentStatus(transactionResult.checkoutId);
+              } else {
+                
+              }
+            }
+          })
+          .catch(err => {
+
+            console.log('05', 'toStringtoString', err);
+          
+          });
+      }
+    } catch (e) {
+      console.log('06', 'error', e);
+    }
+  };
+
+  getPaymentStatus = async resourcePath => {
+    try {
+      console.log('getPaymentStatus', url);
+      let url = "http://3.135.102.9:9127/api/v1/payment/status?checkoutId="+resourcePath+"&cardType=applepay";
+      //let url = "https://dev.hyperpay.com/hyperpay-demo/getpaymentstatus.php?id="+ resourcePath
+      console.log('01', url);
+
+      let response = await fetch(url);
+      let responseJson = await response.json();
+      console.log("02","responseJson",responseJson)
+      const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+      const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
+      const match1 = successPattern.test(responseJson.result.code);
+      const match2 = manuallPattern.test(responseJson.result.code);
+      console.log("03",match1, match2);
+
+      if (match1 || match2) {
+        this.props.navigation.navigate('ThankYou');
+      } else {
+
+      }
+      console.log("04","responseJson", responseJson.result.code, match2, match1)
+
+      console.log("05","responseJson",responseJson.paymentResult)
+    } catch (e) {
+
+      console.log('error',r);
+    }
+  };
+
   const handleApplyCoupon = () => {
     if (coupon.length > 1) {
       setModalVisible(false);
@@ -120,6 +220,7 @@ function Index(props) {
       // setCouponCode("");
     }
   };
+  
   const handlePlaceOrder = async (addressDetails, paymentmode) => {
     console.log("paymentmode", paymentmode);
     console.log("addressDetails", addressDetails);
@@ -130,7 +231,11 @@ function Index(props) {
         coupon,
         cardType,
       });
-    } else {
+    } else if(paymentmode === 3){
+        await onCheckOutApplepay();
+        
+    }
+    else {
       try {
         setOrderLoading(true);
         var isMosque = items.findIndex((val) => {

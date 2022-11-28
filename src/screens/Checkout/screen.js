@@ -93,6 +93,11 @@ function Index({
       type: "mada",
       id: 2,
     },
+    {
+      name: "applepay",
+      type: "applepay",
+      id: 3,
+    },
   ];
 
   const cardTypes = ["master", "visa", "mada"];
@@ -271,6 +276,8 @@ function Index({
                         setCardType(item.type);
                       } else if (index === 2) {
                         setCardType(item.type);
+                      }else if (index === 3) {
+                        setCardType(item.type);
                       }
                     }, 500);
                   }}
@@ -380,7 +387,7 @@ function Index({
           </View>
           <CustomButton
             onPress={() =>
-              activeindex === 0 || activeindex === 1 || activeindex === 2
+              activeindex > 0
                 ? handlePlaceOrder(addressDetails, activeindex)
                 : showToast({
                     text: "Please Select a Payment Method",
