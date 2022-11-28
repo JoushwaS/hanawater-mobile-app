@@ -154,43 +154,43 @@ function Index(props) {
     //   latitude !== region.latitude &&
     //   longitude !== region.longitude
     // ) {
-      // console.log(latitude, longitude,latitudeDelta,longitudeDelta, "here are the lat");
-      // console.log('autoCompleteRef', this.autoCompleteRef);
-      try {
-        autoCompleteRef.setAddressText("");
-        const googleAddresses = await reverseGeocode(latitude, longitude);
-        // console.log("googleAddresses", googleAddresses[0]);
-        if (googleAddresses.length > 0) {
-          const fullAddress = googleAddresses[0]["formatted_address"];
-          const { lat, lng } = googleAddresses[0].geometry.location;
-          const splitAddress = fullAddress.split(",");
+    // console.log(latitude, longitude,latitudeDelta,longitudeDelta, "here are the lat");
+    // console.log('autoCompleteRef', this.autoCompleteRef);
+    try {
+      autoCompleteRef.setAddressText("");
+      const googleAddresses = await reverseGeocode(latitude, longitude);
+      // console.log("googleAddresses", googleAddresses[0]);
+      if (googleAddresses.length > 0) {
+        const fullAddress = googleAddresses[0]["formatted_address"];
+        const { lat, lng } = googleAddresses[0].geometry.location;
+        const splitAddress = fullAddress.split(",");
 
-          const addressObj = {
-            fullAddress: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
-            area: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
-            city: splitAddress[splitAddress.length - 2],
-            // street: splitAddress[0],
-            // state: splitAddress[1],
-            lat: "" + lat,
-            lng: "" + lng,
-            comment: "Default",
-          };
-          setlatitude(latitude);
-          setlongitude(longitude);
-          setRegion({
-            latitude: latitude,
-            longitude: longitude,
-            latitudeDelta: latitudeDelta,
-            longitudeDelta: longitudeDelta,
-          });
-          setaddressObj(addressObj);
-          setLoading(isLoading);
-         
-          setfromMap(true);
-        }
-      } catch (error) {
-        console.log("getLocationFromMap", error.message);
+        const addressObj = {
+          fullAddress: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
+          area: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
+          city: splitAddress[splitAddress.length - 2],
+          // street: splitAddress[0],
+          // state: splitAddress[1],
+          lat: "" + lat,
+          lng: "" + lng,
+          comment: "Default",
+        };
+        setlatitude(latitude);
+        setlongitude(longitude);
+        setRegion({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: latitudeDelta,
+          longitudeDelta: longitudeDelta,
+        });
+        setaddressObj(addressObj);
+        setLoading(isLoading);
+
+        setfromMap(true);
       }
+    } catch (error) {
+      console.log("getLocationFromMap", error.message);
+    }
     // } else {
     //   // alert("inside the else");
     // }
@@ -384,7 +384,7 @@ function Index(props) {
             onRegionChangeComplete={(region) => {
               // debounce(() => getLocationFromMap(region), 200);
               // console.log('region',region)
-              getLocationFromMap(region)
+              getLocationFromMap(region);
               // console.log('autocomplete',autoCompleteRef)
               // getLocationFromMap(region)
               // console.log("this is region", region);
@@ -419,7 +419,7 @@ function Index(props) {
             <GooglePlacesAutocomplete
               editable={true}
               suppressDefaultStyles={false}
-              ref={(ref)=>autoCompleteRef=ref}
+              ref={(ref) => (autoCompleteRef = ref)}
               placeholder={addressObj?.fullAddress}
               textInputProps={{
                 placeholderTextColor: "grey",
@@ -441,7 +441,9 @@ function Index(props) {
                 radius: "100000",
                 // types: '(cities)' // default: 'geocode'
               }}
-              setAddressText={(e) => console.log("setAddressText", e)}
+              setAddressText={(e) => {
+                console.log("setAddressText", e);
+              }}
               debounce={500} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
               fetchDetails={true}
               renderLeftButton={() => {

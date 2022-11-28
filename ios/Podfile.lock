@@ -339,7 +339,7 @@ PODS:
     - React
   - react-native-maps (0.31.1):
     - React-Core
-  - react-native-netinfo (9.3.0):
+  - react-native-netinfo (9.3.6):
     - React-Core
   - react-native-restart (0.0.24):
     - React-Core
@@ -728,7 +728,7 @@ SPEC CHECKSUMS:
   react-native-google-maps: 8231ffa015bf8b222c2e2661fa9163cdb609a224
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-maps: 8b8bfada2c86205a7f5a07dd1f92f29b33ea83aa
-  react-native-netinfo: 129bd99f607a2dc5bb096168f3e5c150fd1f1c95
+  react-native-netinfo: f80db8cac2151405633324cb645c60af098ee461
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
   react-native-safe-area-context: ebf8c413eb8b5f7c392a036a315eb7b46b96845f
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
