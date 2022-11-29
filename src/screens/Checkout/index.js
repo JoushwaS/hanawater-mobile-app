@@ -30,6 +30,8 @@ function Index(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [addressList, setaddressList] = useState([]);
   const [cardModal, setCardModal] = useState(false);
+  const [transactionResultResponse, settransactionResultResponse] =
+    useState("");
 
   const [totalData, setTotal] = useState({
     freeDelivery: {
@@ -114,102 +116,227 @@ function Index(props) {
     }, [])
   );
 
-  generateCheckoutId = async () =>{
+  generateCheckoutId = async () => {
+    const cartTotal = parseFloat(
+      store.getState().cart.total[store.getState().cart.total.length - 1]?.price
+    );
     let requestObj = {
-      "amount": "1.00",
-      "card_type": "applepay",
-      "address": {
-          "street": "str1",
-          "city": "Jeddah",
-          "state": "stat1"
-      }
+      amount:
+        store.getState().cart.total[store.getState().cart.total.length - 1]
+          ?.price,
+      card_type: "applepay",
+      address: {
+        street: "str1",
+        city: "Jeddah",
+        state: "stat1",
+      },
     };
     let data = await fetch(
-      'http://3.135.102.9:9127/api/v1/payment/request-checkout',{
-             method: "POST",
-             headers: {
-               "content-type": "application/json",
-               "Authorization":"Bearer 214065d12b1fd596c0b38b5d3dc671d45ce21a15"
-             },
-             body: JSON.stringify(requestObj)
-         });
-    let data_json = await data.json();
-    console.log("01 generateCheckoutId() ",data_json);
-    return data_json;
-  }
-
-  onCheckOutApplepay = async () => {
-    try {
-      let checkoutData = await generateCheckoutId();
-    
-      let { data:{id} } = checkoutData;
-      if (id) {
-        const paymentParams = {
-          checkoutID: id,
-          amount: 1.0
-        };
-        console.log(
-          '01',
-          'transactionResult',
-          id,
-          paymentParams,
-          NativeModules.Hyperpay,
-        );
-
-        NativeModules.Hyperpay.applepayPayment(paymentParams)
-          .then(transactionResult => {
-            if (transactionResult) {
-              console.log("02","transactionResult from hyperpay",transactionResult);
-              //resourcePath = "?checkoutId=" + transactionResult.checkoutId + "&cardType="+ this.state.paymentType[3].icon_name;
-              //this.getPaymentStatus(resourcePath);
-             getPaymentStatus(transactionResult.checkoutId);
-              if (transactionResult.status === 'completed') {
-                //resourcePath = encodeURIComponent("?checkoutId=" + transactionResult.checkoutId + "cardType="+ this.state.paymentType[3].icon_name);
-                //this.getPaymentStatus(resourcePath);
-                getPaymentStatus(transactionResult.checkoutId);
-              } else {
-                
-              }
-            }
-          })
-          .catch(err => {
-
-            console.log('05', 'toStringtoString', err);
-          
-          });
+      "http://3.135.102.9:9127/api/v1/payment/request-checkout",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer 214065d12b1fd596c0b38b5d3dc671d45ce21a15",
+        },
+        body: JSON.stringify(requestObj),
       }
-    } catch (e) {
-      console.log('06', 'error', e);
-    }
+    );
+    let data_json = await data.json();
+    console.log("01 generateCheckoutId() ", data_json);
+    return data_json;
   };
-
-  getPaymentStatus = async resourcePath => {
+  const getPaymentStatus = async (resourcePath) => {
     try {
-      console.log('getPaymentStatus', url);
-      let url = "http://3.135.102.9:9127/api/v1/payment/status?checkoutId="+resourcePath+"&cardType=applepay";
+      console.log("resourcePath", resourcePath);
+      let url =
+        "http://3.135.102.9:9127/api/v1/payment/status?checkoutId=" +
+        resourcePath +
+        "&cardType=applepay";
       //let url = "https://dev.hyperpay.com/hyperpay-demo/getpaymentstatus.php?id="+ resourcePath
-      console.log('01', url);
+      console.log("01", url);
 
       let response = await fetch(url);
       let responseJson = await response.json();
-      console.log("02","responseJson",responseJson)
+      console.log("02", "responseJson", responseJson);
+      settransactionResultResponse(responseJson);
       const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
       const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
       const match1 = successPattern.test(responseJson.result.code);
       const match2 = manuallPattern.test(responseJson.result.code);
-      console.log("03",match1, match2);
+      console.log("03", match1, match2);
 
       if (match1 || match2) {
-        this.props.navigation.navigate('ThankYou');
+        this.props.navigation.navigate("ThankYou");
       } else {
-
       }
-      console.log("04","responseJson", responseJson.result.code, match2, match1)
+      // console.log(
+      //   "04",
+      //   "responseJson",
+      //   responseJson.result.code,
+      //   match2,
+      //   match1
+      // );
 
-      console.log("05","responseJson",responseJson.paymentResult)
+      return JSON.stringify(responseJson);
     } catch (e) {
+      console.log("error", r);
+    }
+  };
+  onCheckOutApplepay = async (addressDetails) => {
+    try {
+      let checkoutData = await generateCheckoutId();
 
-      console.log('error',r);
+      let {
+        data: { id },
+      } = checkoutData;
+      if (id) {
+        // console.log("cart total>>",)
+        const cartTotal = parseFloat(
+          store.getState().cart.total[store.getState().cart.total.length - 1]
+            ?.price
+        );
+
+        const paymentParams = {
+          checkoutID: id,
+          amount:
+            store.getState().cart.total[store.getState().cart.total.length - 1]
+              ?.price,
+        };
+        // console.log(
+        //   "01",
+        //   "transactionResult",
+        //   id,
+        //   paymentParams,
+        //   NativeModules.Hyperpay
+        // );
+
+        NativeModules.Hyperpay.applepayPayment(paymentParams)
+          .then(async (transactionResult) => {
+            if (transactionResult) {
+              // console.log(
+              //   "02",
+              //   "transactionResult from hyperpay",
+              //   transactionResult
+              // );
+              console.log(" trans_result>>", transactionResult);
+              //resourcePath = "?checkoutId=" + transactionResult.checkoutId + "&cardType="+ this.state.paymentType[3].icon_name;
+              //this.getPaymentStatus(resourcePath);
+              const resultPayStatus = await getPaymentStatus(
+                transactionResult.checkoutId
+              );
+
+              const { merchantTransactionId } = JSON.parse(resultPayStatus);
+              console.log("merchantTransactionId>>", merchantTransactionId);
+              if (transactionResult.status === "completed") {
+                const trackID =
+                  merchantTransactionId + "::" + transactionResult.checkoutId;
+                console.log("trackID>>>>", trackID);
+                // console.log("here");
+                // return;
+                let orderObj = {
+                  customerId: customer.id,
+                  order: {
+                    firstName: customer.firstName || "-",
+                    lastName: customer.lastName || "-",
+                    email: customer.email || "-",
+                    phone: customer.phone || "-",
+                    paymentMethod: "apple-pay",
+                    deliveryTime: "Morning",
+                    comments: "Order Placed from Mobile app",
+                    orderStatusId: 1,
+                    trackId: trackID,
+                    orderTotals: store.getState().cart.total,
+                    shippingAddress: {
+                      fullAddress: addressDetails?.fullAddress,
+                      lat: addressDetails?.lat,
+                      lng: addressDetails?.lng,
+                      area: addressDetails?.area,
+                      city: addressDetails?.city,
+                      comment: "",
+                    },
+                    paymentAddress: {
+                      fullAddress: addressDetails?.fullAddress,
+                      lat: addressDetails?.lat,
+                      lng: addressDetails?.lng,
+                      area: addressDetails?.area,
+                      city: addressDetails?.city,
+                      comment: "",
+                    },
+                  },
+                };
+                let cartItems = [];
+                items.map((item) => {
+                  console.log("bulk add item", item);
+                  if (item.id || item?.itemId) {
+                    if (item?.subscription) {
+                      cartItems.push({
+                        itemId: item.id,
+                        quantity: item.quantity,
+                        customFields: {
+                          subscription: item?.subscription,
+                        },
+                      });
+                    } else {
+                      cartItems.push({
+                        itemId: item.id,
+                        quantity: item.quantity,
+                      });
+                    }
+                  }
+                });
+
+                // console.log("itemsitems==", cartItems);
+
+                const { data: _data } = await addCartBulk(
+                  customer?.id,
+                  { items: cartItems },
+                  codes.accessToken
+                );
+
+                console.log("codes.accessToken", codes.accessToken);
+                // return;
+                const { data } = await checkout(orderObj, codes.accessToken);
+                // .then((res) => {
+
+                // })
+                // .catch((err) => {
+                //   console.log("err>>>>>", err);
+                //   setOrderLoading(false);
+                //   showToast({
+                //     text: err?.response?.data?.message || err.message,
+                //     type: "error",
+                //   });
+                // });
+                console.log("data>>>>>", data.data);
+                setOrderLoading(false);
+                dispatch(clearCart());
+                showToast({
+                  text: t("Order Placed Successfully"),
+                  type: "success",
+                });
+                if (data?.success) {
+                  Navigator.navigate(SCREENS.THANK_YOU, {
+                    orderId: data?.data?.id || "",
+                  });
+                }
+                console.log("_data==>", data);
+                // console.log("data==>", data);
+
+                //resourcePath = encodeURIComponent("?checkoutId=" + transactionResult.checkoutId + "cardType="+ this.state.paymentType[3].icon_name);
+                //this.getPaymentStatus(resourcePath);
+
+                // getPaymentStatus(transactionResult.checkoutId);
+              } else {
+              }
+            }
+          })
+          .catch((err) => {
+            console.log("05", "toStringtoString", err);
+          });
+      }
+    } catch (e) {
+      console.log("06", "error", e);
     }
   };
 
@@ -220,7 +347,7 @@ function Index(props) {
       // setCouponCode("");
     }
   };
-  
+
   const handlePlaceOrder = async (addressDetails, paymentmode) => {
     console.log("paymentmode", paymentmode);
     console.log("addressDetails", addressDetails);
@@ -231,11 +358,9 @@ function Index(props) {
         coupon,
         cardType,
       });
-    } else if(paymentmode === 3){
-        await onCheckOutApplepay();
-        
-    }
-    else {
+    } else if (paymentmode === 3) {
+      await onCheckOutApplepay(addressDetails);
+    } else {
       try {
         setOrderLoading(true);
         var isMosque = items.findIndex((val) => {
