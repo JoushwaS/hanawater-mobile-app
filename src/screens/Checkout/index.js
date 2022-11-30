@@ -151,7 +151,7 @@ function Index(props) {
       paymentMethod = 'cod';
       successCheckout = { trackId : "N/A"};
     }
-    successCheckout = { trackId: "delibrately checkout" }
+    //successCheckout = { trackId: "delibrately checkout" }
     if(successCheckout){
       let successOrder = await placeOrder(successCheckout.trackId,paymentMethod,addressDetails);
 
