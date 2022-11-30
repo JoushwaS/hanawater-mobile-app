@@ -253,10 +253,10 @@ function Index(props) {
       
       const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
       const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
-      const match1 = successPattern.test(responseJson.result.code);
-      const match2 = manuallPattern.test(responseJson.result.code);
+      const match1 = successPattern.test(responseJson.data.result.code);
+      const match2 = manuallPattern.test(responseJson.data.result.code);
      
-      let isSuccess = match1 || match2;
+      let isSuccess = responseJson.success //match1 || match2;
 
       console.log("Payment status : ", isSuccess, responseJson);
       return isSuccess;
