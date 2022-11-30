@@ -135,15 +135,15 @@ function Index(props) {
     let successCheckout = false;
     let paymentMethod = null;
     if (paymentmode === 0 || paymentmode === 1 || paymentmode === 2) {
+      paymentMethod = 'credit_card';
       successCheckout = await new Promise((resolve, reject)=>{
-        paymentMethod = 'cc';
         Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {addressDetails,coupon,cardType, callback: (result)=>{
            resolve(result);
         }});
       });
 
     } else if (paymentmode === 3) {
-      paymentMethod = 'cc';
+      paymentMethod = 'applepay';
       successCheckout = await onCheckOutApplepay(addressDetails);
 
     } else {
@@ -264,6 +264,7 @@ function Index(props) {
 
   //Fifth Step - Final
   const placeOrder = async (trackId,paymentMethod,addressDetails) =>{
+    console.log("IN placeOrder",trackId,paymentMethod,addressDetails);
     try {
       setOrderLoading(true);
       var isMosque = items.findIndex((val) => {
@@ -310,11 +311,11 @@ function Index(props) {
             lastName: customer.lastName || "-",
             email: customer.email || "-",
             phone: customer.phone || "-",
-            paymentMethod: "cod",
+            paymentMethod: paymentMethod,
             deliveryTime: "Morning",
             comments: "Order Placed from Mobile app",
             orderStatusId: 1,
-            trackId: "",
+            trackId: trackId,
             orderTotals: store.getState().cart.total,
             shippingAddress: {
               fullAddress: addressDetails?.fullAddress,
