@@ -269,7 +269,7 @@ function Index(props) {
       
         let isSuccess = responseJson.data.data.success? true : false; //match1 || match2;
 
-      
+        //Make is Success true to Place order
         return { success: isSuccess, data : responseJson.data.data} //isSuccess;
       } catch (e){
         console.log("Error in checkPaymentStatus",e.message);
@@ -386,7 +386,8 @@ function Index(props) {
       setOrderLoading(false);
       dispatch(clearCart());
       
-      let orderId = checkoutResponse.data.id;
+      let orderId = checkoutResponse.data.data.id;
+      console.log("New orderId",orderId);
       return { orderId };
     } 
     catch (error) {
