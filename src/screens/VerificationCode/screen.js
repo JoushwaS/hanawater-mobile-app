@@ -29,7 +29,7 @@ function Index(props) {
   const code2Ref = useRef();
   const code3Ref = useRef();
   const code4Ref = useRef();
-  console.log(t, "this is adfdafdaf");
+
   const [resendCode, setResendCode] = useState(false);
   const [resendLoader, setResendLoader] = useState(false);
 

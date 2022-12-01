@@ -8,8 +8,8 @@ const Endpoints = {
   GET_CART_TOTAL: "/v1/cart/calculate_total",
   ADD_CART_BULK: "/v1/cart/add_bulk",
 
-  REQUEST_CHECKOUT: "/api/v1/payment/request-checkout",
-  PAYMENT_STATUS: "/api/v1/payment/status",
+  REQUEST_CHECKOUT: "/v1/payment/request-checkout",
+  PAYMENT_STATUS: "/v1/payment/status",
 
   LOGIN_USER: "/v2/customer/signin",
   VERIFY_OTP: "/v1/customer/otp",

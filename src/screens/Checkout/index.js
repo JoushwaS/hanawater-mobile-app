@@ -200,7 +200,13 @@ function Index(props) {
 
         const paymentStatus = await checkPaymentStatus(transactionResult.checkoutId);
 
-        const { merchantTransactionId } = paymentStatus;
+        const { success, data } = paymentStatus;
+        if(!success){
+          //Failed
+          showToast({ text:t("Applepay : Unable to process Payment"), type:"error" });
+          return null;
+        }
+        const { merchantTransactionId } = data;
 
         if(!merchantTransactionId){
           //Failed
@@ -208,9 +214,9 @@ function Index(props) {
           return null;
         }
 
-        let statusCode = paymentStatus.result.code;
-        let description = paymentStatus.result.description;
-        let trackId =  paymentStatus.result.id;
+        let statusCode = paymentStatus.data.code;
+        let description = paymentStatus.data.description;
+        let trackId =  paymentStatus.data.id;
         
         return { status: 'success', statusCode, description, trackId};
       }
@@ -223,43 +229,52 @@ function Index(props) {
 
   //Third Step
   let createPaymentSession = async (cardType,amount,addressDetails) => {
-    const splitAddress = addressDetails.area.split(",");
-    let requestObj = {
-      amount:amount,
-      card_type: cardType,
-      address: {
-        city: addressDetails?.city || "N/A",
-        street: splitAddress[splitAddress.length - 1] || "N/A",
-        state: splitAddress[splitAddress.length - 1] || "N/A",
-      },
-    };
-    let result = await requestCheckoutID(requestObj,cardType);
+    try {
+      const splitAddress = addressDetails.area.split(",");
 
-    if(!result.success){
-      console.log("Payment session error",result.error);
+      let requestObj = {
+        amount:amount,
+        card_type: cardType,
+        address: {
+          city: addressDetails?.city || "N/A",
+          street: splitAddress[splitAddress.length - 1] || "N/A",
+          state: splitAddress[splitAddress.length - 1] || "N/A",
+        },
+      };
+
+      let result = await requestCheckoutID(requestObj,cardType);
+
+      if(!result.data.success){
+        console.log("Payment session error",result.data.error);
+        return null;
+      }
+      
+    
+      return result.data.data;
+    } catch (e){
+      console.log("Error in createPaymentSession", e.message);
       return null;
     }
-    
-    console.log("Payment session", result.data);
-    return result.data;
   };
 
   //Fourth Step
   const checkPaymentStatus = async (checkoutId) => {
-  
-      let responseJson = await getPaymentStatus(checkoutId,'applepay');
-   
-      settransactionResultResponse(responseJson);
+      try {
+        let responseJson = await getPaymentStatus(checkoutId,'applepay');
+    
+        settransactionResultResponse(responseJson.data);
+        
+        const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+        const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
       
-      const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
-      const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
-      const match1 = successPattern.test(responseJson.data.result.code);
-      const match2 = manuallPattern.test(responseJson.data.result.code);
-     
-      let isSuccess = responseJson.success //match1 || match2;
+        let isSuccess = responseJson.data.data.success? true : false; //match1 || match2;
 
-      console.log("Payment status : ", isSuccess, responseJson);
-      return isSuccess;
+      
+        return { success: isSuccess, data : responseJson.data.data} //isSuccess;
+      } catch (e){
+        console.log("Error in checkPaymentStatus",e.message);
+        return false;
+      }
   };
 
   //Fifth Step - Final
