@@ -386,13 +386,15 @@ function Index({
             </Text>
           </View>
           <CustomButton
-            onPress={() =>
-              activeindex > 0
-                ? handlePlaceOrder(addressDetails, activeindex)
-                : showToast({
-                    text: "Please Select a Payment Method",
-                    type: "error",
-                  })
+            onPress={() =>{
+              console.log("activeindex",activeindex);
+                if( activeindex >= 0){
+                  handlePlaceOrder(addressDetails, activeindex)
+                }
+                else {
+                  showToast({ text: t("Please Select a Payment Method"),type: "error"})
+                }
+            }
             }
             style={styles.buttonStyle}
             variant="filled"

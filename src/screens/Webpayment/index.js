@@ -128,7 +128,7 @@ function Index(props) {
     <View style={styles.container}>
       <Header text="Payment" backButton />
       <View style={{ flex: 1 }}>
-        <Text>{url}</Text>
+       
         {url && !paymentResult && (
           <WebView
             startInLoadingState={true}

@@ -117,24 +117,24 @@ function Index(props) {
     }, [])
   );
   //First Step
-  const handlePlaceOrder = async (addressDetails, paymentmode) => {
+  const handlePlaceOrder = async (addressDetails, paymentmethodIndex) => {
     if(!addressDetails){
       //
       showToast({ text:t("No Address Selected"), type:"error" });
       return;
     }
-    if(!paymentmode){
+    if(!(paymentmethodIndex >= 0)){
       showToast({ text:t("No Payment Method Selected"), type:"error" });
       return;
     }
 
-    console.log("paymentmode", paymentmode);
+    console.log("paymentmode", paymentmethodIndex);
     console.log("addressDetails", addressDetails);
     console.log("cardType", cardType);
 
     let successCheckout = false;
     let paymentMethod = null;
-    if (paymentmode === 0 || paymentmode === 1 || paymentmode === 2) {
+    if (paymentmethodIndex === 0 || paymentmethodIndex === 1 || paymentmethodIndex === 2) {
       paymentMethod = 'credit_card';
       successCheckout = await new Promise((resolve, reject)=>{
         Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {addressDetails,coupon,cardType, callback: (result)=>{
@@ -142,7 +142,7 @@ function Index(props) {
         }});
       });
 
-    } else if (paymentmode === 3) {
+    } else if (paymentmethodIndex === 3) {
       paymentMethod = 'applepay';
       successCheckout = await onCheckOutApplepay(addressDetails);
 
