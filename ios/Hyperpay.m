@@ -24,12 +24,13 @@ RCT_EXPORT_MODULE(Hyperpay)
 
 -(instancetype)init
 {
+  
     self = [super init];
     if (self) {
       #ifdef DEBUG
-        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];
+        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeTest
      #else
-        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];
+        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeTest
      #endif
     }
     
@@ -51,14 +52,14 @@ RCT_EXPORT_MODULE(Hyperpay)
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion {
    OPPApplePayPaymentParams *params = [OPPApplePayPaymentParams applePayPaymentParamsWithCheckoutID:applepayCheckoutId tokenData:payment.token.paymentData error:nil];
   
-  params.shopperResultURL = @"mosab.hyperpay://result";
+  params.shopperResultURL = @"com.apps.hanawater://result";
     
     //submit transaction
     [provider submitTransaction:[OPPTransaction transactionWithPaymentParams:params] completionHandler: ^(OPPTransaction *transaction, NSError *error){
       
       if(error){
         
-        NSLog(@"%@", error.localizedDescription);
+        NSLog(@"Error Hyperpay %@", error.localizedDescription);
 
         completion(PKPaymentAuthorizationStatusFailure);
                transactionResult = @{
@@ -323,7 +324,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
       
       applepayCheckoutId =[options valueForKey:@"checkoutID"] ;
       
-      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.sunbonn.hanaWater1" countryCode:@"SA"];
+      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.apps.hanawater" countryCode:@"SA"];
 
      // PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.Hyperpay.reactNative1" countryCode:@"SA"];
 
@@ -350,7 +351,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
        
       BOOL ss = [OPPPaymentProvider canSubmitPaymentRequest:request];
       
-      if (true) {
+      if (ss) {
             PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
         
  
