@@ -179,7 +179,10 @@ function Index(props) {
       }
       const paymentParams = {
         checkoutID: paymentSession.id,
-        amount:amount
+        amount: '0.65',
+        countryCode:'',
+        merchantId:'merchant.com.apps.hanawater',
+        currencyCode:'SAR'
       };
    
 

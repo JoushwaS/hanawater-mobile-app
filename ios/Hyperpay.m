@@ -17,7 +17,7 @@ NSDictionary *transactionResult;
 RCTPromiseResolveBlock resolveG;
 NSString *CheckoutId;
 NSString *isRedirect;
-
+NSDictionary *hyperpayResult;
 
 
 RCT_EXPORT_MODULE(Hyperpay)
@@ -28,9 +28,9 @@ RCT_EXPORT_MODULE(Hyperpay)
     self = [super init];
     if (self) {
       #ifdef DEBUG
-        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeTest
+        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];//OPPProviderModeTest
      #else
-        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeTest
+        provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];//OPPProviderModeLive
      #endif
     }
     
@@ -302,17 +302,16 @@ RCT_EXPORT_METHOD(stcpayPayment: (NSDictionary*)options resolver:(RCTPromiseReso
 RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
   
   
-  resolveG = resolve;
+    resolveG = resolve;
   
     
     NSError * _Nullable error;
    
-  for (NSString *key in options) {
+    for (NSString *key in options) {
         NSLog(@"key: %@, value: %@ \n", key, [options valueForKey:key]);
     }
   
- 
-  
+
     if (error) {
       NSLog(@"%s", "error");
 
@@ -320,11 +319,19 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
     } else {
     
       NSDictionary *transactionResult;
-
       
       applepayCheckoutId =[options valueForKey:@"checkoutID"] ;
+      NSString *countryCode =[options valueForKey:@"countryCode"] ; //@"SA"
+      NSString *merchantId =[options valueForKey:@"merchantId"] ; //@"merchant.com.apps.hanawater"
+      NSString *currencyCode =[options valueForKey:@"currencyCode"] ; //@"SAR"
       
-      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.apps.hanawater" countryCode:@"SA"];
+      
+      
+      OPPCheckoutSettings *checkoutSettings = [[OPPCheckoutSettings alloc] init];
+      checkoutSettings.shopperResultURL = @"com.apps.hanawater.payments://result";
+
+      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.sunbonn.hanaWater1" countryCode:@"SA"];
+      
 
      // PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.Hyperpay.reactNative1" countryCode:@"SA"];
 
@@ -349,33 +356,53 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
 
        request.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:@"Hyperpay" amount:amount1]];
        
-      BOOL ss = [OPPPaymentProvider canSubmitPaymentRequest:request];
+      checkoutSettings.applePayPaymentRequest = request;
       
-      if (ss) {
-            PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
+      OPPCheckoutProvider *checkoutProvider = [OPPCheckoutProvider checkoutProviderWithPaymentProvider:provider
+                                                                                            checkoutID:applepayCheckoutId
+                                                                                              settings:checkoutSettings];
         
- 
-        
-        vc.delegate = self;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-          
-          
-          UIViewController *rootViewController = RCTPresentedViewController();
-
-
-            [rootViewController presentViewController: vc animated: YES completion:nil];
-           });
-        } else {
+      [checkoutProvider presentCheckoutWithPaymentBrand:@"APPLEPAY"
+        loadingHandler:^(BOOL inProgress) {
+          // Executed whenever SDK sends request to the server or receives the response.
+          // You can start or stop loading animation based on inProgress parameter.
+      } completionHandler:^(OPPTransaction * _Nullable transaction, NSError * _Nullable error) {
+          if (error) {
+              // See code attribute (OPPErrorCode) and NSLocalizedDescription to identify the reason of failure.
             NSLog(@"Apple Pay not supported.");
-          transactionResult = @{
-          @"status":@"error",
-          @"checkoutId":applepayCheckoutId
+            NSLog(@"Error : %@",error.localizedDescription);
+            hyperpayResult = @{
+              @"status":@"error",
+              @"message":error.localizedDescription
+            };
+            resolve(transactionResult);
+          } else {
+              if (transaction.redirectURL) {
+                  // Shopper was redirected to the issuer web page.
+                  // Request payment status when shopper returns to the app using transaction.resourcePath or just checkout id.
+                NSLog(@"Shopper was redirected to the issuer web page..");
+              } else {
+                  // Request payment status for the synchronous transaction from your server using transactionPath.resourcePath or just checkout id
+               
+                hyperpayResult = @{
+                  @"status":@"success",
+                  @"checkoutId":transaction.resourcePath
+                };
+                resolve(transactionResult);
+              }
+          }
+      } cancelHandler:^{
+          // Executed if the shopper closes the payment page prematurely.
+         
+          hyperpayResult = @{
+            @"status":@"error",
+            @"message":@"Payment Cancelled",
+            @"checkoutId":applepayCheckoutId
+        
           };
           resolve(transactionResult);
+      }];
 
-        }
-      
       
    
     }
