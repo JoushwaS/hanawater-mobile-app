@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StatusBar } from "react-native";
+import { ActivityIndicator, StatusBar,Linking } from "react-native";
 import MainNavigation from "./navigation";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 function App() {
   const [isNetworkConnected, setisNetworkConnected] = useState(null);
   const { t } = useTranslation();
-
+  
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       setisNetworkConnected(state.isConnected);
