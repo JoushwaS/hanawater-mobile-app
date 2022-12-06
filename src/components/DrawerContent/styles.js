@@ -26,6 +26,12 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: metrix.VerticalSize(19),
   },
+  bottomTextmt0: {
+    fontSize: metrix.CustomFontSize(18 + 2),
+    color: Colors.White,
+    // marginTop: metrix.VerticalSize(20),
+    fontFamily: Fonts.IR,
+  },
   closeIcon: {
     alignSelf: "flex-end",
     tintColor: "#414141",

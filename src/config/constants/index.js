@@ -7,7 +7,7 @@ const Endpoints = {
   ADD_PROMOTION_CART: "/v1/promotion/add_cart/",
   GET_CART_TOTAL: "/v1/cart/calculate_total",
   ADD_CART_BULK: "/v1/cart/add_bulk",
-
+  GET_RETURN_POLICY: "/v1/misc/return_policy",
   REQUEST_CHECKOUT: "/v1/payment/request-checkout",
   PAYMENT_STATUS: "/v1/payment/status",
 
