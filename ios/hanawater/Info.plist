@@ -24,15 +24,22 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
+			<key>CFBundleURLName</key>
+			<string>com.apps.hanawater.payments</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.apps.hanawater.payments</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>com.apps.hanawater.payments</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -89,9 +96,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>LSApplicationQueriesSchemes</key>
-  <array>
-      <string>com.apps.hanawater.payments</string>
-  </array>
 </dict>
 </plist>
