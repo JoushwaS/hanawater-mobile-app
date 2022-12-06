@@ -12,3 +12,6 @@ export const addPromotionInCart = (id) => {
 export const getTerms = () => {
   return axios.get(Endpoints.GET_TERMS);
 };
+export const getReturnPolicy = () => {
+  return axios.get(Endpoints.GET_RETURN_POLICY);
+};

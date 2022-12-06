@@ -1,5 +1,5 @@
 import { SET_PROMOTIONS } from "../types";
-import { toggleLoader, setTermsData } from "./common";
+import { toggleLoader, setTermsData, setReturnPolicyData } from "./common";
 import {
   setProductsData,
   setMosqueData,
@@ -9,6 +9,7 @@ import {
   getPromotionsList,
   addPromotionInCart,
   getTerms,
+  getReturnPolicy,
 } from "../../config/api/promotions";
 import {
   getProductsList,
@@ -26,15 +27,18 @@ const getHomeData = (payload) => async (dispatch) => {
     const { data: mosqueData } = await getMosqueList();
     const { data: subscriptionData } = await getSubscriptionList();
     const { data: termsData } = await getTerms();
+    const { data: returnPolData } = await getReturnPolicy();
+    console.log("returnPolData>>>", returnPolData);
     const sorted = mosqueData?.data.sort((a, b) =>
       a.MosqueLanguages[0]?.name.localeCompare(b.MosqueLanguages[0]?.name)
     );
-    // console.log("mosqueData?.data", mosqueData?.data);
-    // dispatch(setPromotionsData(promoData?.data));
+
     dispatch(setProductsData(productsData?.data));
     dispatch(setMosqueData(sorted));
     dispatch(setSubscriptionData(subscriptionData?.data));
     dispatch(setTermsData(termsData.data.value));
+    dispatch(setReturnPolicyData(returnPolData.data.value));
+
     dispatch(toggleLoader(false));
 
     // await setItem("terms", termsData.data.value);
