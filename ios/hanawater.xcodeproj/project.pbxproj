@@ -13,11 +13,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18A4F35B489DCDD306B5DE55 /* libPods-hanawater-hanawaterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED00997ECF1DDC77F7E1BA1 /* libPods-hanawater-hanawaterTests.a */; };
 		1C01C9182935185C00D6F45D /* Hyperpay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C01C9162935185C00D6F45D /* Hyperpay.m */; };
-		1C2D5BCD293E1E95003BB9BE /* ipworks3ds_sdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BC9293E0AF8003BB9BE /* ipworks3ds_sdk.xcframework */; };
-		1C2D5BCE293E1E95003BB9BE /* ipworks3ds_sdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BC9293E0AF8003BB9BE /* ipworks3ds_sdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C2D5BCF293E1E97003BB9BE /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */; };
 		1C2D5BD0293E1E97003BB9BE /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C2D5BD2293EAA79003BB9BE /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */; };
+		1C2D5BD7293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */; };
+		1C2D5BD8293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8FB24DF0A4A24126907343DC /* PTSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56FD45978C794019B46B5B77 /* PTSans-Regular.ttf */; };
 		AE420652703CAC020B00ADF8 /* libPods-hanawater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E55E45D132C5E9DDD6A066 /* libPods-hanawater.a */; };
@@ -43,7 +43,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1C2D5BCE293E1E95003BB9BE /* ipworks3ds_sdk.xcframework in Embed Frameworks */,
+				1C2D5BD8293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Embed Frameworks */,
 				1C2D5BD0293E1E97003BB9BE /* OPPWAMobile.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -65,9 +65,9 @@
 		1C01C9162935185C00D6F45D /* Hyperpay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hyperpay.m; sourceTree = "<group>"; };
 		1C01C9172935185C00D6F45D /* Hyperpay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hyperpay.h; sourceTree = "<group>"; };
 		1C01C9192935228C00D6F45D /* hanawater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = hanawater.entitlements; path = hanawater/hanawater.entitlements; sourceTree = "<group>"; };
-		1C2D5BC9293E0AF8003BB9BE /* ipworks3ds_sdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk.xcframework; sourceTree = "<group>"; };
 		1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OPPWAMobile.xcframework; sourceTree = "<group>"; };
 		1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk_deploy.xcframework; sourceTree = "<group>"; };
 		1F035F49CCCD7013C7EB56F1 /* Pods-hanawater-hanawaterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater-hanawaterTests.debug.xcconfig"; path = "Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		22CA4D83A528B0E77E688FD1 /* Pods-hanawater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater.debug.xcconfig"; path = "Target Support Files/Pods-hanawater/Pods-hanawater.debug.xcconfig"; sourceTree = "<group>"; };
 		22DA086758DC4BDFBBA9260D /* Lato-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Medium.ttf"; path = "../src/assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; };
@@ -105,8 +105,8 @@
 			files = (
 				1C2D5BD2293EAA79003BB9BE /* SafariServices.framework in Frameworks */,
 				1C2D5BCF293E1E97003BB9BE /* OPPWAMobile.xcframework in Frameworks */,
+				1C2D5BD7293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Frameworks */,
 				AE420652703CAC020B00ADF8 /* libPods-hanawater.a in Frameworks */,
-				1C2D5BCD293E1E95003BB9BE /* ipworks3ds_sdk.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,8 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */,
-				1C2D5BC9293E0AF8003BB9BE /* ipworks3ds_sdk.xcframework */,
 				1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */,
+				1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				67E55E45D132C5E9DDD6A066 /* libPods-hanawater.a */,
 				8ED00997ECF1DDC77F7E1BA1 /* libPods-hanawater-hanawaterTests.a */,
@@ -568,7 +568,7 @@
 				CODE_SIGN_ENTITLEMENTS = hanawater/hanawater.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 95MF69YKQY;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -675,7 +675,7 @@
 				CODE_SIGN_ENTITLEMENTS = hanawater/hanawater.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 95MF69YKQY;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

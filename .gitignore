@@ -57,3 +57,4 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+ios/ipworks3ds_sdk_deploy.xcframework
