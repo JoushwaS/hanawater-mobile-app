@@ -28,9 +28,9 @@ RCT_EXPORT_MODULE(Hyperpay)
   self = [super init];
   if (self) {
 #ifdef DEBUG
-    provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];//OPPProviderModeTest
+    provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeTest
 #else
-    provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];//OPPProviderModeLive
+    provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeLive];//OPPProviderModeLive
 #endif
   }
   
@@ -64,7 +64,7 @@ RCT_EXPORT_MODULE(Hyperpay)
       completion(PKPaymentAuthorizationStatusFailure);
       transactionResult = @{
         @"status":@"error",
-        @"checkoutId":applepayCheckoutId
+        @"checkoutID":applepayCheckoutId
       };
       resolveG(transactionResult);
       
@@ -75,7 +75,7 @@ RCT_EXPORT_MODULE(Hyperpay)
       completion(PKPaymentAuthorizationStatusSuccess);
       transactionResult = @{
         @"status":@"completed",
-        @"checkoutId":applepayCheckoutId
+        @"checkoutID":applepayCheckoutId
       };
       resolveG(transactionResult);
     }
@@ -86,7 +86,7 @@ RCT_EXPORT_MODULE(Hyperpay)
   [controller dismissViewControllerAnimated:YES completion:nil];
   transactionResult = @{
     @"status":@"error",
-    @"checkoutId":applepayCheckoutId
+    @"checkoutID":applepayCheckoutId
   };
   //  resolveG(transactionResult);
 }
@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(readyuiPayment: (NSDictionary*)options resolver:(RCTPromiseRes
     
     provider = [OPPPaymentProvider paymentProviderWithMode:OPPProviderModeTest];
     OPPCheckoutSettings *checkoutSettings = [[OPPCheckoutSettings alloc] init];
-    PKPaymentRequest *paymentRequest = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.sunbonn.hanaWater1" countryCode:@"SA"];
+    PKPaymentRequest *paymentRequest = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.apps.hanawater" countryCode:@"SA"];
     if (@available(iOS 12.1.1, *)) {
       paymentRequest.supportedNetworks = @ [ PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkMada ];
     } else {
@@ -179,7 +179,7 @@ RCT_EXPORT_METHOD(readyuiPayment: (NSDictionary*)options resolver:(RCTPromiseRes
           NSLog(@"%s", "sync");
           transactionResult = @{
             @"status":@"sync",
-            @"checkoutId":transaction.paymentParams.checkoutID
+            @"checkoutID":transaction.paymentParams.checkoutID
           };
           resolve(transactionResult);
         } else if (transaction.type == OPPTransactionTypeAsynchronous) {
@@ -199,7 +199,7 @@ RCT_EXPORT_METHOD(readyuiPayment: (NSDictionary*)options resolver:(RCTPromiseRes
                 NSLog(@"%s", "sync");
                 transactionResult = @{
                   @"status":@"completed",
-                  @"checkoutId":transaction.paymentParams.checkoutID
+                  @"checkoutID":transaction.paymentParams.checkoutID
                 };
                 resolve(transactionResult);
                 
@@ -274,14 +274,14 @@ RCT_EXPORT_METHOD(stcpayPayment: (NSDictionary*)options resolver:(RCTPromiseReso
         transactionResult = @{
           @"redirectURL":transaction.redirectURL.absoluteString,
           @"status":@"pending",
-          @"checkoutId":transaction.paymentParams.checkoutID
+          @"checkoutID":transaction.paymentParams.checkoutID
         };
         resolve(transactionResult);
       }  else if (transaction.type == OPPTransactionTypeSynchronous) {
         NSLog(@"%s", "sync");
         transactionResult = @{
           @"status":@"completed",
-          @"checkoutId":transaction.paymentParams.checkoutID
+          @"checkoutID":transaction.paymentParams.checkoutID
         };
         resolve(transactionResult);
       } else {
@@ -356,7 +356,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
       
       
       
-      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.sunbonn.hanaWater1" countryCode:@"SA"];
+      PKPaymentRequest *request = [OPPPaymentProvider paymentRequestWithMerchantIdentifier:@"merchant.com.apps.hanawater" countryCode:@"SA"];
       
       // Set currency.
       request.currencyCode = @"SAR";
@@ -368,7 +368,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
       
       // Create total item. Label should represent your company.
       // It will be prepended with the word "Pay" (i.e. "Pay Sportswear $100.00")
-      request.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:@"Hyperpay" amount:amount1]];
+      request.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:@"Hana Water" amount:amount1]];
       
       if (@available(iOS 12.1.1, *)) {
         request.supportedNetworks = [NSArray arrayWithObjects: PKPaymentNetworkMada,PKPaymentNetworkVisa,PKPaymentNetworkMasterCard, nil];
@@ -419,7 +419,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
                 NSLog(@"resolved asyn");
                 hyperpayResult = @{
                   @"status":@"redirected",
-                  @"checkoutId":transaction.resourcePath
+                  @"checkoutID":transaction.resourcePath
                 };
                 resolveG(hyperpayResult);
               } else {
@@ -427,7 +427,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
                 
                 hyperpayResult = @{
                   @"status":@"success",
-                  @"checkoutId":transaction.resourcePath
+                  @"checkoutID":transaction.resourcePath
                 };
                 resolveG(hyperpayResult);
               }
@@ -438,7 +438,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
             hyperpayResult = @{
               @"status":@"error",
               @"message":@"Payment Cancelled",
-              @"checkoutId":applepayCheckoutId
+              @"checkoutID":applepayCheckoutId
               
             };
             resolveG(hyperpayResult);
@@ -451,7 +451,7 @@ RCT_EXPORT_METHOD(applepayPayment: (NSDictionary*)options resolver:(RCTPromiseRe
         NSLog(@"Apple Pay not supported.");
         transactionResult = @{
           @"status":@"error",
-          @"checkoutId":applepayCheckoutId
+          @"checkoutID":applepayCheckoutId
         };
         resolve(transactionResult);
       }
@@ -501,14 +501,14 @@ RCT_EXPORT_METHOD(transactionPayment: (NSDictionary*)options resolver:(RCTPromis
            transactionResult = @{
           @"redirectURL":transaction.redirectURL.absoluteString,
           @"status":@"pending",
-          @"checkoutId":transaction.paymentParams.checkoutID
+          @"checkoutID":transaction.paymentParams.checkoutID
           };
           resolve(transactionResult);
         }  else if (transaction.type == OPPTransactionTypeSynchronous) {
           NSLog(@"%s", "sync");
           transactionResult = @{
           @"status":@"completed",
-          @"checkoutId":transaction.paymentParams.checkoutID
+          @"checkoutID":transaction.paymentParams.checkoutID
           };
           resolve(transactionResult);
         } else {

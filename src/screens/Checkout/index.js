@@ -253,11 +253,9 @@ function Index(props) {
       }
       const paymentParams = {
         checkoutID: paymentSession.id,
-        amount: "0.65",
-        countryCode: "",
-        merchantId: "merchant.com.apps.hanawater",
-        currencyCode: "SAR",
-        paymentType: "apple_pay",
+        amount: `${amount}`,
+        countryCode:''
+        
       };
       setHyperPayContent({
         checkoutID: paymentSession.id,
@@ -272,25 +270,29 @@ function Index(props) {
       if (transactionResult.status === "redirected")
         return { status: "waiting" };
 
-      if (transactionResult.status === "success")
-        return after3dCheckPaymentStatus(transactionResult);
+      if(transactionResult.status === 'success')
+        return after3dCheckPaymentStatus({ checkoutID: paymentSession.id, status: 'success'});
+      
+
+      
     } catch (e) {
       console.log("06", "error", e);
       showToast({ text: t("Unable to create Payment Session"), type: "error" });
       return null;
     }
-  };
+  };``
 
   const after3dCheckPaymentStatus = async (transactionResult) => {
     /* 
     transactionResult {
       status:success,
-      checkoutId:''
+      checkoutID:''
     }
     */
     if (transactionResult) {
-      console.log("Apple pay result ", transactionResult);
-      //resourcePath = "?checkoutId=" + transactionResult.checkoutId + "&cardType="+ this.state.paymentType[3].icon_name;
+
+      console.log("Apple pay result ", transactionResult);;
+      //resourcePath = "?checkoutID=" + transactionResult.checkoutID + "&cardType="+ this.state.paymentType[3].icon_name;
       //this.getPaymentStatus(resourcePath);
 
       if (transactionResult.status !== "success") {
@@ -299,10 +301,8 @@ function Index(props) {
         return null;
       }
 
-      console.log("transactionResult.checkoutId", transactionResult.checkoutID);
-      const paymentStatus = await checkPaymentStatus(
-        transactionResult.checkoutID
-      );
+      console.log("transactionResult.checkoutID",transactionResult.checkoutID);
+      const paymentStatus = await checkPaymentStatus(transactionResult.checkoutID);
 
       console.log("result from checkPaymentStatus", paymentStatus);
       const { success } = paymentStatus;
@@ -352,15 +352,15 @@ function Index(props) {
   };
 
   //Fourth Step
-  const checkPaymentStatus = async (checkoutId) => {
-    try {
-      let responseJson = await getPaymentStatus(checkoutId, "applepay");
-
-      console.log("checkPaymentStatus responseJson", responseJson);
-      const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
-      const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
-
-      let isSuccess = responseJson.data.success ? true : false; //match1 || match2;
+  const checkPaymentStatus = async (checkoutID) => {
+      try {
+        let responseJson = await getPaymentStatus(checkoutID,'applepay');
+  
+        console.log("checkPaymentStatus responseJson",responseJson);
+        const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+        const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
+      
+        let isSuccess = responseJson.data.success? true : false; //match1 || match2;
 
       //Make is Success true to Place order
       return { success: isSuccess, data: responseJson.data.data }; //isSuccess;
