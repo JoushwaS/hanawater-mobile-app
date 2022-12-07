@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  Platform,
 } from "react-native";
 import { Text, IconButton, CustomButton } from "../../components";
 import { styles } from "./style";
@@ -17,6 +18,7 @@ import { Colors } from "../../config/theme";
 import { SCREENS } from "../../config/constants/screens";
 import { Modal } from "../../components";
 import { IMAGES } from "../../assets/images";
+// import { ICONS} from "../../assets/icons";
 // import { BlurView, VibrancyView } from "@react-native-community/blur";
 import { getItems } from "../../utils/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -77,26 +79,30 @@ function Index({
     },
   };
 
-  const paymentMethods = [
+  let paymentMethods = [
     {
       name: "Visa",
       type: "visa",
       id: 0,
+      icon: ICONS.visaIcon,
     },
     {
       name: "MasterCard",
       type: "master",
       id: 1,
+      icon: ICONS.mastarcardIcon,
     },
     {
       name: "mada",
       type: "mada",
       id: 2,
+      icon: ICONS.madaIcon,
     },
     {
       name: "applepay",
       type: "applepay",
       id: 3,
+      icon: ICONS.applePayIcon,
     },
   ];
 
@@ -124,6 +130,18 @@ function Index({
       return true;
     }
   };
+
+  useEffect(() => {
+    if (Platform.OS !== "ios") {
+      paymentMethods = paymentMethods.filter((a) => {
+        if (a.name == "applepay") {
+          return a;
+        }
+      });
+    } else {
+      console.log("paymentMethods>>>>>>", paymentMethods);
+    }
+  }, [Platform.OS]);
 
   return (
     <View
@@ -267,6 +285,31 @@ function Index({
               <View key={index.toString()} style={styles.rowContainer}>
                 <TouchableOpacity
                   style={styles.circle}
+                  // onPress={() => {
+                  //   setActiveIndex(index);
+                  //   setTimeout(() => {
+                  //     if (index === 0) {
+                  //       setCardType(item.type);
+                  //     } else if (index === 1) {
+                  //       setCardType(item.type);
+                  //     } else if (index === 2) {
+                  //       setCardType(item.type);
+                  //     } else if (index === 3) {
+                  //       setCardType(item.type);
+                  //     }
+                  //   }, 500);
+                  // }}
+                >
+                  {activeindex === index && (
+                    <View style={styles.innerCircle}></View>
+                  )}
+                </TouchableOpacity>
+
+                <IconButton
+                  paymentIcon={true}
+                  buttonStyle={styles.paymentIcon}
+                  icon={item.icon}
+                  iconStyle={{ fontSize: "5rem !important" }}
                   onPress={() => {
                     setActiveIndex(index);
                     setTimeout(() => {
@@ -276,17 +319,13 @@ function Index({
                         setCardType(item.type);
                       } else if (index === 2) {
                         setCardType(item.type);
-                      }else if (index === 3) {
+                      } else if (index === 3) {
                         setCardType(item.type);
                       }
                     }, 500);
                   }}
-                >
-                  {activeindex === index && (
-                    <View style={styles.innerCircle}></View>
-                  )}
-                </TouchableOpacity>
-                <Text style={styles.paymentText}>{item?.name}</Text>
+                />
+                {/* <Text style={styles.paymentText}>{item?.name}</Text> */}
               </View>
             ))}
           </View>
@@ -386,16 +425,17 @@ function Index({
             </Text>
           </View>
           <CustomButton
-            onPress={() =>{
-              console.log("activeindex",activeindex);
-                if( activeindex >= 0){
-                  handlePlaceOrder(addressDetails, activeindex)
-                }
-                else {
-                  showToast({ text: t("Please Select a Payment Method"),type: "error"})
-                }
-            }
-            }
+            onPress={() => {
+              console.log("activeindex", activeindex);
+              if (activeindex >= 0) {
+                handlePlaceOrder(addressDetails, activeindex);
+              } else {
+                showToast({
+                  text: t("Please Select a Payment Method"),
+                  type: "error",
+                });
+              }
+            }}
             style={styles.buttonStyle}
             variant="filled"
             type="large"

@@ -13,6 +13,7 @@ function Index({
   icon = {},
   iconStyle = {},
   onPress = () => {},
+  paymentIcon,
 }) {
   return (
     <TouchableOpacity
@@ -21,7 +22,10 @@ function Index({
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <Image source={icon} style={[styles.icon, iconStyle]} />
+      <Image
+        source={icon}
+        style={[iconStyle, paymentIcon ? styles.paymentIcon : styles.icon]}
+      />
     </TouchableOpacity>
   );
 }

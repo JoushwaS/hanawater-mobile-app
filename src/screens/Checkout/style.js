@@ -119,6 +119,11 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-end",
     tintColor: "#414141",
   },
+  paymentIcon: {
+    alignSelf: "flex-end",
+    fontSize: "5rem !important",
+    // tintColor: "#414141",
+  },
   checkBox: {
     width: metrix.VerticalSize(18),
     height: metrix.VerticalSize(18),

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react";
-import { NativeModules,Linking } from "react-native";
+import { NativeModules, Linking } from "react-native";
 import Screen from "./screen";
 import { Header } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,8 @@ function Index(props) {
   const [addressList, setaddressList] = useState([]);
   const [hyperPayContent, setHyperPayContent] = useState([]);
   const [cardModal, setCardModal] = useState(false);
-  const [transactionResultResponse, settransactionResultResponse] = useState("");
+  const [transactionResultResponse, settransactionResultResponse] =
+    useState("");
 
   const [totalData, setTotal] = useState({
     freeDelivery: {
@@ -45,10 +46,6 @@ function Index(props) {
   });
   const { items, totals } = useSelector((state) => state.cart);
   const { customer, codes } = useSelector((state) => state.auth);
-
-
-  
-
 
   const getData = async (coupon) => {
     try {
@@ -121,60 +118,62 @@ function Index(props) {
     }, [])
   );
 
-  const callback = async (res)=>{
-    
+  const callback = async (res) => {
     const result = await NativeModules.Hyperpay.closeSafari(res);
-    console.log("Result of safari close",result, res);
-    
-    if(result.status === 'success'){
+    console.log("Result of safari close", result, res);
+
+    if (result.status === "success") {
       let { checkoutID, addressDetails, paymentMethod } = hyperPayContent;
-      console.log("hyperPayContent in callback", hyperPayContent)
+      console.log("hyperPayContent in callback", hyperPayContent);
       console.log("calling after3dCheckPaymentStatus function from callback");
-      let paymentStatus = await after3dCheckPaymentStatus({ status:'success', checkoutID:  checkoutID });
- 
-      if(paymentStatus){
+      let paymentStatus = await after3dCheckPaymentStatus({
+        status: "success",
+        checkoutID: checkoutID,
+      });
+
+      if (paymentStatus) {
         let { trackId } = paymentStatus;
-        let successOrder = await placeOrder(trackId, paymentMethod ,addressDetails);
-  
-          if(successOrder){
-            showToast({text: t("Order Placed Successfully"),type: "success",});
-  
-            Navigator.navigate(SCREENS.THANK_YOU, {orderId: successOrder.orderId});
-          } else {
-            showToast({text: t("Unable to place order"),type: "error"});
-          }
+        let successOrder = await placeOrder(
+          trackId,
+          paymentMethod,
+          addressDetails
+        );
+
+        if (successOrder) {
+          showToast({ text: t("Order Placed Successfully"), type: "success" });
+
+          Navigator.navigate(SCREENS.THANK_YOU, {
+            orderId: successOrder.orderId,
+          });
+        } else {
+          showToast({ text: t("Unable to place order"), type: "error" });
+        }
       }
     }
-  
-  }
+  };
 
+  useEffect(() => {
+    //Waiting for callback to execute from Ios Native
+    //LinkingIOS
+    console.log("useEffect called");
+    Linking.removeAllListeners("url");
+    Linking.addEventListener("url", callback);
 
-  useEffect(()=>{
-      //Waiting for callback to execute from Ios Native
-      //LinkingIOS
-      console.log("useEffect called");
-      Linking.removeAllListeners('url');
-      Linking.addEventListener('url', callback);
-
-      //Return a function to remove a listener
-      //return ()=> Linking.removeAllListeners();
-  
-    },[hyperPayContent]); //
-
+    //Return a function to remove a listener
+    //return ()=> Linking.removeAllListeners();
+  }, [hyperPayContent]); //
 
   //First Step
   const handlePlaceOrder = async (addressDetails, paymentmethodIndex) => {
-    if(!addressDetails){
+    if (!addressDetails) {
       //
-      showToast({ text:t("No Address Selected"), type:"error" });
+      showToast({ text: t("No Address Selected"), type: "error" });
       return;
     }
-    if(!(paymentmethodIndex >= 0)){
-      showToast({ text:t("No Payment Method Selected"), type:"error" });
+    if (!(paymentmethodIndex >= 0)) {
+      showToast({ text: t("No Payment Method Selected"), type: "error" });
       return;
     }
-
-    
 
     console.log("paymentmode", paymentmethodIndex);
     console.log("addressDetails", addressDetails);
@@ -182,86 +181,107 @@ function Index(props) {
 
     let successCheckout = false;
     let paymentMethod = null;
-    if (paymentmethodIndex === 0 || paymentmethodIndex === 1 || paymentmethodIndex === 2) {
-      paymentMethod = 'credit_card';
-      successCheckout = await new Promise((resolve, reject)=>{
-        Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {addressDetails,coupon,cardType, callback: (result)=>{
-           resolve(result);
-        }});
+    if (
+      paymentmethodIndex === 0 ||
+      paymentmethodIndex === 1 ||
+      paymentmethodIndex === 2
+    ) {
+      paymentMethod = "credit_card";
+      successCheckout = await new Promise((resolve, reject) => {
+        Navigator.navigate(SCREENS.WEBPAYMENT_SCREEN, {
+          addressDetails,
+          coupon,
+          cardType,
+          callback: (result) => {
+            resolve(result);
+          },
+        });
       });
-
     } else if (paymentmethodIndex === 3) {
-      paymentMethod = 'apple_pay';
-      
-      successCheckout = await onCheckOutApplepay(addressDetails);
+      paymentMethod = "apple_pay";
 
+      successCheckout = await onCheckOutApplepay(addressDetails);
     } else {
       //cash on delivery
-      paymentMethod = 'cod';
-      successCheckout = { trackId : "N/A"};
+      paymentMethod = "cod";
+      successCheckout = { trackId: "N/A" };
     }
     //successCheckout = { trackId: "delibrately checkout" }
-    if(successCheckout){
-
-      if(successCheckout.status == 'waiting'){
+    if (successCheckout) {
+      if (successCheckout.status == "waiting") {
         //Do nothing
         //we will wait for a callback to occur then we will proceed to place order
-      }else{
-        let successOrder = await placeOrder(successCheckout.trackId,paymentMethod,addressDetails);
+      } else {
+        let successOrder = await placeOrder(
+          successCheckout.trackId,
+          paymentMethod,
+          addressDetails
+        );
 
-        if(successOrder){
-          showToast({text: t("Order Placed Successfully"),type: "success",});
+        if (successOrder) {
+          showToast({ text: t("Order Placed Successfully"), type: "success" });
 
-          Navigator.navigate(SCREENS.THANK_YOU, {orderId: successOrder.orderId});
+          Navigator.navigate(SCREENS.THANK_YOU, {
+            orderId: successOrder.orderId,
+          });
         } else {
-          showToast({text: t("Unable to place order"),type: "error"});
+          showToast({ text: t("Unable to place order"), type: "error" });
         }
       }
-      
     }
-
   };
-  
+
   //Second Step
   const onCheckOutApplepay = async (addressDetails) => {
     try {
-      let amount = store.getState().cart.total[store.getState().cart.total.length - 1]?.price;
-      let paymentSession = await createPaymentSession('applepay',amount,addressDetails);
-
-      if(!paymentSession){
+      let amount =
+        store.getState().cart.total[store.getState().cart.total.length - 1]
+          ?.price;
+      let paymentSession = await createPaymentSession(
+        "applepay",
+        amount,
+        addressDetails
+      );
+      console.log({ paymentSession });
+      if (!paymentSession) {
         //Error
-        showToast({ text:t("Unable to create Payment Session"), type:"error" });
+        showToast({
+          text: t("Unable to create Payment Session"),
+          type: "error",
+        });
         return null;
       }
       const paymentParams = {
         checkoutID: paymentSession.id,
-        amount: '0.65',
-        countryCode:'',
-        merchantId:'merchant.com.apps.hanawater',
-        currencyCode:'SAR',
-        paymentType:'apple_pay'
-        
+        amount: "0.65",
+        countryCode: "",
+        merchantId: "merchant.com.apps.hanawater",
+        currencyCode: "SAR",
+        paymentType: "apple_pay",
       };
-      setHyperPayContent({ checkoutID: paymentSession.id, paymentMethod:'apple_pay',addressDetails })
+      setHyperPayContent({
+        checkoutID: paymentSession.id,
+        paymentMethod: "apple_pay",
+        addressDetails,
+      });
       //Async Call
-      let transactionResult = await NativeModules.Hyperpay.applepayPayment(paymentParams)
-      console.log("transactionResult from NativeModules", transactionResult )
-      if(transactionResult.status === 'redirected')
-        return { status: 'waiting'};
+      let transactionResult = await NativeModules.Hyperpay.applepayPayment(
+        paymentParams
+      );
+      console.log("transactionResult from NativeModules", transactionResult);
+      if (transactionResult.status === "redirected")
+        return { status: "waiting" };
 
-      if(transactionResult.status === 'success')
+      if (transactionResult.status === "success")
         return after3dCheckPaymentStatus(transactionResult);
-      
-
-      
     } catch (e) {
       console.log("06", "error", e);
-      showToast({ text:t("Unable to create Payment Session"), type:"error" });
+      showToast({ text: t("Unable to create Payment Session"), type: "error" });
       return null;
     }
   };
 
-  const after3dCheckPaymentStatus = async (transactionResult) =>{
+  const after3dCheckPaymentStatus = async (transactionResult) => {
     /* 
     transactionResult {
       status:success,
@@ -269,43 +289,46 @@ function Index(props) {
     }
     */
     if (transactionResult) {
-
-      console.log("Apple pay result ", transactionResult);;
+      console.log("Apple pay result ", transactionResult);
       //resourcePath = "?checkoutId=" + transactionResult.checkoutId + "&cardType="+ this.state.paymentType[3].icon_name;
       //this.getPaymentStatus(resourcePath);
-    
-      
+
       if (transactionResult.status !== "success") {
         //Failed
-        showToast({ text:t("Applepay : Unable to process"), type:"error" });
+        showToast({ text: t("Applepay : Unable to process"), type: "error" });
         return null;
       }
 
-      console.log("transactionResult.checkoutId",transactionResult.checkoutID);
-      const paymentStatus = await checkPaymentStatus(transactionResult.checkoutID);
+      console.log("transactionResult.checkoutId", transactionResult.checkoutID);
+      const paymentStatus = await checkPaymentStatus(
+        transactionResult.checkoutID
+      );
 
-      console.log("result from checkPaymentStatus", paymentStatus)
+      console.log("result from checkPaymentStatus", paymentStatus);
       const { success } = paymentStatus;
-      if(!success){
+      if (!success) {
         //Failed
-        showToast({ text:t("Applepay : Unable to process Payment"), type:"error" });
+        showToast({
+          text: t("Applepay : Unable to process Payment"),
+          type: "error",
+        });
         return null;
       }
-    
+
       let statusCode = paymentStatus.data.result.code;
       let description = paymentStatus.data.result.description;
-      let trackId =  paymentStatus.data.ndc;
-      
-      return { status: 'success', statusCode, description, trackId};
+      let trackId = paymentStatus.data.ndc;
+
+      return { status: "success", statusCode, description, trackId };
     }
-  }
+  };
   //Third Step
-  const createPaymentSession = async (cardType,amount,addressDetails) => {
+  const createPaymentSession = async (cardType, amount, addressDetails) => {
     try {
       const splitAddress = addressDetails.area.split(",");
 
       let requestObj = {
-        amount:amount,
+        amount: amount,
         card_type: cardType,
         address: {
           city: addressDetails?.city || "N/A",
@@ -314,16 +337,15 @@ function Index(props) {
         },
       };
 
-      let result = await requestCheckoutID(requestObj,cardType);
+      let result = await requestCheckoutID(requestObj, cardType);
 
-      if(!result.data.success){
-        console.log("Payment session error",result.data.error);
+      if (!result.data.success) {
+        console.log("Payment session error", result.data.error);
         return null;
       }
-      
-    
+
       return result.data.data;
-    } catch (e){
+    } catch (e) {
       console.log("Error in createPaymentSession", e.message);
       return null;
     }
@@ -331,26 +353,26 @@ function Index(props) {
 
   //Fourth Step
   const checkPaymentStatus = async (checkoutId) => {
-      try {
-        let responseJson = await getPaymentStatus(checkoutId,'applepay');
-  
-        console.log("checkPaymentStatus responseJson",responseJson);
-        const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
-        const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
-      
-        let isSuccess = responseJson.data.success? true : false; //match1 || match2;
+    try {
+      let responseJson = await getPaymentStatus(checkoutId, "applepay");
 
-        //Make is Success true to Place order
-        return { success: isSuccess, data : responseJson.data.data} //isSuccess;
-      } catch (e){
-        console.log("Error in checkPaymentStatus",e.message);
-        return false;
-      }
+      console.log("checkPaymentStatus responseJson", responseJson);
+      const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+      const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
+
+      let isSuccess = responseJson.data.success ? true : false; //match1 || match2;
+
+      //Make is Success true to Place order
+      return { success: isSuccess, data: responseJson.data.data }; //isSuccess;
+    } catch (e) {
+      console.log("Error in checkPaymentStatus", e.message);
+      return false;
+    }
   };
 
   //Fifth Step - Final
-  const placeOrder = async (trackId,paymentMethod,addressDetails) =>{
-    console.log("IN placeOrder",trackId,paymentMethod,addressDetails);
+  const placeOrder = async (trackId, paymentMethod, addressDetails) => {
+    console.log("IN placeOrder", trackId, paymentMethod, addressDetails);
     try {
       setOrderLoading(true);
       var isMosque = items.findIndex((val) => {
@@ -453,21 +475,19 @@ function Index(props) {
       );
 
       const checkoutResponse = await checkout(orderObj, codes.accessToken);
-      console.log("checkoutResponse",checkoutResponse.data);
+      console.log("checkoutResponse", checkoutResponse.data);
       setOrderLoading(false);
       dispatch(clearCart());
-      
+
       let orderId = checkoutResponse.data.data.id;
-      console.log("New orderId",orderId);
+      console.log("New orderId", orderId);
       return { orderId };
-    } 
-    catch (error) {
+    } catch (error) {
       console.log("Place order Exception", error);
       setOrderLoading(false);
       return false;
     }
-  }
-  
+  };
 
   const handleApplyCoupon = () => {
     if (coupon.length > 1) {
@@ -476,8 +496,6 @@ function Index(props) {
       // setCouponCode("");
     }
   };
-
-  
 
   return (
     <Fragment>

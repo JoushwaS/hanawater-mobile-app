@@ -63,4 +63,9 @@ export const ICONS = {
   orderIcon: require("../icons/orderIcon.png"),
   notificationIcon: require("../icons/notificationIcon.png"),
   menuIcon: require("../icons/menu-icon.png"),
+
+  applePayIcon: require("../icons/apple-pay-logo.png"),
+  madaIcon: require("../icons/mada_logo.png"),
+  mastarcardIcon: require("../icons/mastercard-logo.png"),
+  visaIcon: require("../icons/visa_logo.png"),
 };
