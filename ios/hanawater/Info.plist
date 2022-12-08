@@ -53,12 +53,14 @@
 			</dict>
 		</dict>
 	</dict>
+  <key>NSCameraUsageDescription</key>
+  <string>Hanawater app requires access to your phone’s camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Always use is required for background location tracking for better user experience</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Your location is required</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Your location will be displayed on the Map and used for directions</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Medium.ttf</string>
