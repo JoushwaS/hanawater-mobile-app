@@ -57,13 +57,15 @@ function Index(props) {
       });
     }
   };
+  /* 
+  Removed retry
   var count = 0;
   var x = setInterval(() => {
     getRefreshData();
     if (count >= 6) clearInterval(x);
     count++;
   }, 5000);
-
+ */
   useEffect(() => {
     getRefreshData();
   }, []);

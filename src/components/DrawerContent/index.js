@@ -60,7 +60,7 @@ const DrawerContent = (props) => {
   const [textTrans, settextTrans] = useState("");
   const [returnPolicy, setReturnPolicy] = useState("");
   const [detectLanguageKey, setdetectLanguageKey] = useState("");
-  console.log("returnPolicies joushwa >>>>>>", returnPolicies);
+
   const loggedInrouteOrders = [
     {
       name: t("home"),
@@ -101,7 +101,6 @@ const DrawerContent = (props) => {
       icon: ICONS.drawer7,
     },
   ];
-  console.log("returnPolicies>>>", returnPolicies);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [value, setValue] = useState(new Animated.Value(0));
