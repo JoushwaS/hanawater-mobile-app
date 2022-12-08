@@ -141,7 +141,7 @@ export const styles = StyleSheet.create({
   },
   paymentText: {
     textAlign: "left",
-    marginLeft: metrix.HorizontalSize(20),
+    marginLeft: metrix.HorizontalSize(4),
     fontSize: metrix.CustomFontSize(15 + 2),
   },
   input: {

@@ -46,6 +46,7 @@ function Index({
   setCardType = () => {},
   couponValid,
   setCouponValid = () => {},
+  paymentTypes,
   cardType,
   cardModal = false,
   setCardModal = () => {},
@@ -78,8 +79,7 @@ function Index({
       right: 20,
     },
   };
-
-  let paymentMethods = [
+  /* let paymentMethods = [
     {
       name: "Visa",
       type: "visa",
@@ -104,9 +104,36 @@ function Index({
       id: 3,
       icon: ICONS.applePayIcon,
     },
-  ];
+  ]; */
+  
+  
+  let paymentMethods = paymentTypes.map(pt =>{
+    const { name ,status, type, id } = pt ;
 
-  const cardTypes = ["master", "visa", "mada"];
+    let icon;
+    switch(type){
+      case 'visa':
+        icon= ICONS.visaIcon;
+        break;
+      case 'master':
+        icon= ICONS.mastarcardIcon;
+        break;
+      case 'mada':
+        icon= ICONS.madaIcon;
+        break;
+      case 'applepay':
+        icon= ICONS.applePayIcon;
+        break;
+      default:
+        icon = null
+    }
+
+    if(status !== 'active'){
+      return;
+    }
+    return { id, name, type, icon } 
+  })
+
 
   const [addressIndex, setAddress] = useState(0);
 
@@ -285,47 +312,34 @@ function Index({
               <View key={index.toString()} style={styles.rowContainer}>
                 <TouchableOpacity
                   style={styles.circle}
-                  // onPress={() => {
-                  //   setActiveIndex(index);
-                  //   setTimeout(() => {
-                  //     if (index === 0) {
-                  //       setCardType(item.type);
-                  //     } else if (index === 1) {
-                  //       setCardType(item.type);
-                  //     } else if (index === 2) {
-                  //       setCardType(item.type);
-                  //     } else if (index === 3) {
-                  //       setCardType(item.type);
-                  //     }
-                  //   }, 500);
-                  // }}
+                  onPress={() => {
+                    setActiveIndex(index);
+                  }}
                 >
                   {activeindex === index && (
                     <View style={styles.innerCircle}></View>
                   )}
                 </TouchableOpacity>
 
-                <IconButton
+                {
+                  item.icon &&  <IconButton
                   paymentIcon={true}
                   buttonStyle={styles.paymentIcon}
                   icon={item.icon}
                   iconStyle={{ fontSize: "5rem !important" }}
                   onPress={() => {
                     setActiveIndex(index);
-                    setTimeout(() => {
-                      if (index === 0) {
-                        setCardType(item.type);
-                      } else if (index === 1) {
-                        setCardType(item.type);
-                      } else if (index === 2) {
-                        setCardType(item.type);
-                      } else if (index === 3) {
-                        setCardType(item.type);
-                      }
-                    }, 500);
+                    setCardType(item.type);
                   }}
                 />
-                {/* <Text style={styles.paymentText}>{item?.name}</Text> */}
+                }
+               
+                    {  !item.icon &&  <TouchableOpacity
+                     onPress={() => {
+                      setActiveIndex(index);
+                      setCardType(item.type);
+                    }}
+                    ><Text style={styles.paymentText}>Cash</Text></TouchableOpacity>  }
               </View>
             ))}
           </View>

@@ -9,6 +9,7 @@ const Endpoints = {
   ADD_CART_BULK: "/v1/cart/add_bulk",
   GET_RETURN_POLICY: "/v1/misc/return_policy",
   REQUEST_CHECKOUT: "/v1/payment/request-checkout",
+  PAYMENT_TYPES: "/v1/payment/types",
   PAYMENT_STATUS: "/v1/payment/status",
 
   LOGIN_USER: "/v2/customer/signin",

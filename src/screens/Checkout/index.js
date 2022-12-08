@@ -5,7 +5,7 @@ import { Header } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../utils";
 import { getCartTotal } from "../../config/api/cart";
-import { getPaymentStatus, requestCheckoutID } from "../../config/api/payment";
+import { getPaymentStatus, requestCheckoutID,requestPaymentTypes } from "../../config/api/payment";
 import Navigator from "../../navigation/root";
 import { SCREENS } from "../../config/constants/screens";
 import { checkout } from "../../config/api/orders";
@@ -31,6 +31,7 @@ function Index(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [addressList, setaddressList] = useState([]);
   const [hyperPayContent, setHyperPayContent] = useState([]);
+  const [paymentTypes, setPaymentTypes ] = useState([]);
   const [cardModal, setCardModal] = useState(false);
   const [transactionResultResponse, settransactionResultResponse] =
     useState("");
@@ -47,8 +48,20 @@ function Index(props) {
   const { items, totals } = useSelector((state) => state.cart);
   const { customer, codes } = useSelector((state) => state.auth);
 
+
+
+  const getPaymentTypes = async () =>{ 
+    try {
+      const result = await requestPaymentTypes();
+      setPaymentTypes(result.data.data);
+      console.log("getPaymentTypes() result",result);
+    }catch(e){
+      showToast({ text: t("Payment Options Not Available"), type: "error" });
+    }
+  }
   const getData = async (coupon) => {
     try {
+      
       const body = {
         items: items.map((i) => {
           if (i?.subscription) {
@@ -115,6 +128,7 @@ function Index(props) {
   useFocusEffect(
     useCallback(() => {
       getData();
+      getPaymentTypes();
     }, [])
   );
 
@@ -156,15 +170,16 @@ function Index(props) {
     //Waiting for callback to execute from Ios Native
     //LinkingIOS
     console.log("useEffect called");
-    Linking.removeAllListeners("url");
+    
     Linking.addEventListener("url", callback);
 
     //Return a function to remove a listener
-    //return ()=> Linking.removeAllListeners();
+    return ()=> Linking.removeAllListeners('url');
   }, [hyperPayContent]); //
 
   //First Step
   const handlePlaceOrder = async (addressDetails, paymentmethodIndex) => {
+    //paymentmethodIndex = 4; //Remove on Production cod
     if (!addressDetails) {
       //
       showToast({ text: t("No Address Selected"), type: "error" });
@@ -217,7 +232,7 @@ function Index(props) {
           paymentMethod,
           addressDetails
         );
-
+        console.log("handlePlaceOrder() successOrder",successOrder);
         if (successOrder) {
           showToast({ text: t("Order Placed Successfully"), type: "success" });
 
@@ -519,6 +534,7 @@ function Index(props) {
         orderLoading={orderLoading}
         cardType={cardType}
         setCardType={setCardType}
+        paymentTypes={paymentTypes}
         couponValid={couponValid}
         setCouponValid={setCouponValid}
         cardModal={cardModal}

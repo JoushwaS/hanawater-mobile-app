@@ -16,3 +16,7 @@ export const requestCheckoutID = (body, cardType) => {
     }
   );
 };
+
+export const requestPaymentTypes = () => {
+  return axios.get(`${Endpoints.PAYMENT_TYPES}`);
+};
