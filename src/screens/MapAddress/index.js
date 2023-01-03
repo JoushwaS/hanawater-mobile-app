@@ -157,14 +157,15 @@ function Index(props) {
     // console.log(latitude, longitude,latitudeDelta,longitudeDelta, "here are the lat");
     // console.log('autoCompleteRef', this.autoCompleteRef);
     try {
-      autoCompleteRef.setAddressText("");
       const googleAddresses = await reverseGeocode(latitude, longitude);
       // console.log("googleAddresses", googleAddresses[0]);
       if (googleAddresses.length > 0) {
         const fullAddress = googleAddresses[0]["formatted_address"];
         const { lat, lng } = googleAddresses[0].geometry.location;
         const splitAddress = fullAddress.split(",");
-
+        // autoCompleteRef.setAddressText(
+        //   `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`
+        // );
         const addressObj = {
           fullAddress: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
           area: `${splitAddress[0]},${splitAddress[1]},${splitAddress[2]}`,
@@ -237,6 +238,8 @@ function Index(props) {
           longitude: 39.17757,
         });
         setaddressObj(stateAddress);
+
+        console.log("setaddressObj", setaddressObj);
         setfromMap(true);
       } else {
         Geolocation.getCurrentPosition(

@@ -5,7 +5,11 @@ import { Header } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../utils";
 import { getCartTotal } from "../../config/api/cart";
-import { getPaymentStatus, requestCheckoutID,requestPaymentTypes } from "../../config/api/payment";
+import {
+  getPaymentStatus,
+  requestCheckoutID,
+  requestPaymentTypes,
+} from "../../config/api/payment";
 import Navigator from "../../navigation/root";
 import { SCREENS } from "../../config/constants/screens";
 import { checkout } from "../../config/api/orders";
@@ -31,7 +35,7 @@ function Index(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [addressList, setaddressList] = useState([]);
   const [hyperPayContent, setHyperPayContent] = useState([]);
-  const [paymentTypes, setPaymentTypes ] = useState([]);
+  const [paymentTypes, setPaymentTypes] = useState([]);
   const [cardModal, setCardModal] = useState(false);
   const [transactionResultResponse, settransactionResultResponse] =
     useState("");
@@ -48,20 +52,17 @@ function Index(props) {
   const { items, totals } = useSelector((state) => state.cart);
   const { customer, codes } = useSelector((state) => state.auth);
 
-
-
-  const getPaymentTypes = async () =>{ 
+  const getPaymentTypes = async () => {
     try {
       const result = await requestPaymentTypes();
       setPaymentTypes(result.data.data);
-      console.log("getPaymentTypes() result",result);
-    }catch(e){
+      console.log("getPaymentTypes() result", result);
+    } catch (e) {
       showToast({ text: t("Payment Options Not Available"), type: "error" });
     }
-  }
+  };
   const getData = async (coupon) => {
     try {
-      
       const body = {
         items: items.map((i) => {
           if (i?.subscription) {
@@ -170,11 +171,11 @@ function Index(props) {
     //Waiting for callback to execute from Ios Native
     //LinkingIOS
     console.log("useEffect called");
-    
+
     Linking.addEventListener("url", callback);
 
     //Return a function to remove a listener
-    return ()=> Linking.removeAllListeners('url');
+    return () => Linking.removeAllListeners("url");
   }, [hyperPayContent]); //
 
   //First Step
@@ -232,7 +233,7 @@ function Index(props) {
           paymentMethod,
           addressDetails
         );
-        console.log("handlePlaceOrder() successOrder",successOrder);
+        console.log("handlePlaceOrder() successOrder", successOrder);
         if (successOrder) {
           showToast({ text: t("Order Placed Successfully"), type: "success" });
 
@@ -269,8 +270,7 @@ function Index(props) {
       const paymentParams = {
         checkoutID: paymentSession.id,
         amount: `${amount}`,
-        countryCode:''
-        
+        countryCode: "",
       };
       setHyperPayContent({
         checkoutID: paymentSession.id,
@@ -285,17 +285,18 @@ function Index(props) {
       if (transactionResult.status === "redirected")
         return { status: "waiting" };
 
-      if(transactionResult.status === 'success')
-        return after3dCheckPaymentStatus({ checkoutID: paymentSession.id, status: 'success'});
-      
-
-      
+      if (transactionResult.status === "success")
+        return after3dCheckPaymentStatus({
+          checkoutID: paymentSession.id,
+          status: "success",
+        });
     } catch (e) {
       console.log("06", "error", e);
       showToast({ text: t("Unable to create Payment Session"), type: "error" });
       return null;
     }
-  };``
+  };
+  ``;
 
   const after3dCheckPaymentStatus = async (transactionResult) => {
     /* 
@@ -305,8 +306,7 @@ function Index(props) {
     }
     */
     if (transactionResult) {
-
-      console.log("Apple pay result ", transactionResult);;
+      console.log("Apple pay result ", transactionResult);
       //resourcePath = "?checkoutID=" + transactionResult.checkoutID + "&cardType="+ this.state.paymentType[3].icon_name;
       //this.getPaymentStatus(resourcePath);
 
@@ -316,8 +316,10 @@ function Index(props) {
         return null;
       }
 
-      console.log("transactionResult.checkoutID",transactionResult.checkoutID);
-      const paymentStatus = await checkPaymentStatus(transactionResult.checkoutID);
+      console.log("transactionResult.checkoutID", transactionResult.checkoutID);
+      const paymentStatus = await checkPaymentStatus(
+        transactionResult.checkoutID
+      );
 
       console.log("result from checkPaymentStatus", paymentStatus);
       const { success } = paymentStatus;
@@ -341,12 +343,12 @@ function Index(props) {
   const createPaymentSession = async (cardType, amount, addressDetails) => {
     try {
       const splitAddress = addressDetails.area.split(",");
-
+      // console.log();
       let requestObj = {
         amount: amount,
         card_type: cardType,
         address: {
-          city: addressDetails?.city || "N/A",
+          city: addressDetails.city || "N/A",
           street: splitAddress[splitAddress.length - 1] || "N/A",
           state: splitAddress[splitAddress.length - 1] || "N/A",
         },
@@ -368,14 +370,14 @@ function Index(props) {
 
   //Fourth Step
   const checkPaymentStatus = async (checkoutID) => {
-      try {
-        let responseJson = await getPaymentStatus(checkoutID,'applepay');
-  
-        console.log("checkPaymentStatus responseJson",responseJson);
-        const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
-        const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
-      
-        let isSuccess = responseJson.data.success? true : false; //match1 || match2;
+    try {
+      let responseJson = await getPaymentStatus(checkoutID, "applepay");
+
+      console.log("checkPaymentStatus responseJson", responseJson);
+      const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+      const manuallPattern = /^(000\.400\.0[^3]|000\.400\.100)/;
+
+      let isSuccess = responseJson.data.success ? true : false; //match1 || match2;
 
       //Make is Success true to Place order
       return { success: isSuccess, data: responseJson.data.data }; //isSuccess;

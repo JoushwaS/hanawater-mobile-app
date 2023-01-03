@@ -8,9 +8,9 @@ rn_maps_path = '../node_modules/react-native-maps'
 pod 'react-native-google-maps', :path => rn_maps_path
 pod 'GoogleMaps'
 pod 'Google-Maps-iOS-Utils'
-pod 'React', :path => '../node_modules/react-native', :subspecs => [
-   'RCTLinkingIOS'
- ]
+# pod 'React', :path => '../node_modules/react-native', :subspecs => [
+#    'RCTLinkingIOS'
+#  ]
 target 'hanawater' do
   
   config = use_native_modules!
@@ -21,7 +21,8 @@ target 'hanawater' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => flags[:hermes_enabled],
+    # :hermes_enabled => flags[:hermes_enabled],
+    :hermes_enabled => true,
     :fabric_enabled => flags[:fabric_enabled],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
@@ -48,7 +49,7 @@ target 'hanawater' do
 
   post_install do |installer|
     react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    # __apply_Xcode_12_5_M1_post_install_workaround(installer)
       installer.pods_project.build_configurations.each do |config| 
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64" 
       end 

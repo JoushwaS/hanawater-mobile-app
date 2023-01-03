@@ -160,7 +160,7 @@ instance.interceptors.response.use(
         });
       }
     } else {
-      console.log("src/utils/AxiosInstance.js:115", error);
+      console.log("src/utils/AxiosInstance.js:115", error.response);
       return Promise.reject(error);
     }
   }

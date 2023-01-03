@@ -115,6 +115,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     top: metrix.VerticalSize(10),
+    backgroundColor: "transparent",
   },
   badge: {
     backgroundColor: Colors.BadgeRed,

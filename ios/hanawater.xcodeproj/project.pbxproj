@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* hanawaterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* hanawaterTests.m */; };
+		0BE88BCBBFAACA9056EBFC76 /* libPods-hanawater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF8B706F48E0984328EB775 /* libPods-hanawater.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1C01C9182935185C00D6F45D /* Hyperpay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C01C9162935185C00D6F45D /* Hyperpay.m */; };
-		1C2D5BCF293E1E97003BB9BE /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */; };
-		1C2D5BD0293E1E97003BB9BE /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C2D5BD2293EAA79003BB9BE /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */; };
-		1C2D5BD7293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */; };
 		1C2D5BD8293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		31BA472DDD302E82C7DD6B06 /* libPods-hanawater-hanawaterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 300EDF1C3A46C25B5F34920B /* libPods-hanawater-hanawaterTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8FB24DF0A4A24126907343DC /* PTSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56FD45978C794019B46B5B77 /* PTSans-Regular.ttf */; };
 		AEB9AEE11D184962BC8A8C02 /* PTSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D538428245848799EB649B5 /* PTSans-BoldItalic.ttf */; };
 		AFA30C6F727C422EA61A07F5 /* PTSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E356CF04E3C42938D3A6699 /* PTSans-Italic.ttf */; };
 		B0604D0958B64718AF48A4C6 /* PTSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4233256657304EE0AAE8D46D /* PTSans-Bold.ttf */; };
+		FA1324A72962EC6300D748F0 /* ipworks3ds_sdk_deploy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */; };
+		FA1324AD2962ED9800D748F0 /* hermes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1324AB2962EC8D00D748F0 /* hermes.xcframework */; };
+		FA1324AF2962ED9B00D748F0 /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA15CCE52962E9AF00E87B90 /* OPPWAMobile.xcframework */; };
+		FA1324B02962ED9B00D748F0 /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA15CCE52962E9AF00E87B90 /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA15CCE72962E9AF00E87B90 /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA15CCE52962E9AF00E87B90 /* OPPWAMobile.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +45,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FA1324B02962ED9B00D748F0 /* OPPWAMobile.xcframework in Embed Frameworks */,
 				1C2D5BD8293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Embed Frameworks */,
-				1C2D5BD0293E1E97003BB9BE /* OPPWAMobile.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,39 +57,40 @@
 		00E356EE1AD99517003FC87E /* hanawaterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hanawaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* hanawaterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hanawaterTests.m; sourceTree = "<group>"; };
+		0595847DB6785CA8788DE0A2 /* Pods-hanawater-hanawaterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater-hanawaterTests.release.xcconfig"; path = "Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* hanawater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hanawater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = hanawater/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = hanawater/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = hanawater/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = hanawater/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = hanawater/main.m; sourceTree = "<group>"; };
-		1579196AE1FD8D7606E0396B /* libPods-hanawater-hanawaterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hanawater-hanawaterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19046EF31D8443239301EF0D /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		1C01C9162935185C00D6F45D /* Hyperpay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hyperpay.m; sourceTree = "<group>"; };
 		1C01C9172935185C00D6F45D /* Hyperpay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hyperpay.h; sourceTree = "<group>"; };
 		1C01C9192935228C00D6F45D /* hanawater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = hanawater.entitlements; path = hanawater/hanawater.entitlements; sourceTree = "<group>"; };
-		1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OPPWAMobile.xcframework; sourceTree = "<group>"; };
 		1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk_deploy.xcframework; sourceTree = "<group>"; };
 		22DA086758DC4BDFBBA9260D /* Lato-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Medium.ttf"; path = "../src/assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; };
 		2B8DB974242E429F81009C57 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		300EDF1C3A46C25B5F34920B /* libPods-hanawater-hanawaterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hanawater-hanawaterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4233256657304EE0AAE8D46D /* PTSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PTSans-Bold.ttf"; path = "../src/assets/fonts/PTSans-Bold.ttf"; sourceTree = "<group>"; };
-		46B2CA8191CDF64FC170F2E3 /* Pods-hanawater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater.debug.xcconfig"; path = "Target Support Files/Pods-hanawater/Pods-hanawater.debug.xcconfig"; sourceTree = "<group>"; };
-		49BEAF4F580A0CB09E66D620 /* Pods-hanawater-hanawaterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater-hanawaterTests.debug.xcconfig"; path = "Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4ECBA363CF1043A182A332BC /* Lato-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Light.ttf"; path = "../src/assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
 		56FD45978C794019B46B5B77 /* PTSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PTSans-Regular.ttf"; path = "../src/assets/fonts/PTSans-Regular.ttf"; sourceTree = "<group>"; };
 		5E356CF04E3C42938D3A6699 /* PTSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PTSans-Italic.ttf"; path = "../src/assets/fonts/PTSans-Italic.ttf"; sourceTree = "<group>"; };
+		731A90A1074BB790ECA27C53 /* Pods-hanawater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater.release.xcconfig"; path = "Target Support Files/Pods-hanawater/Pods-hanawater.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = hanawater/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		895CA7B6B02547DAB797A3DE /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../src/assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		9D538428245848799EB649B5 /* PTSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PTSans-BoldItalic.ttf"; path = "../src/assets/fonts/PTSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		B16FB4C055D24F0C80998B2A /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
+		B5275740DB88A69E4E9D89BF /* Pods-hanawater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater.debug.xcconfig"; path = "Target Support Files/Pods-hanawater/Pods-hanawater.debug.xcconfig"; sourceTree = "<group>"; };
 		B540A082B06A45879502A17D /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		BAF8B706F48E0984328EB775 /* libPods-hanawater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hanawater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7460B4A98C12A2FFA5DE858 /* Pods-hanawater-hanawaterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater-hanawaterTests.debug.xcconfig"; path = "Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF9FEE81F4F647419C03703A /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
-		D148526798245493CE9AA3BC /* Pods-hanawater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater.release.xcconfig"; path = "Target Support Files/Pods-hanawater/Pods-hanawater.release.xcconfig"; sourceTree = "<group>"; };
-		DD3F55DED6A922C6ABB671AC /* libPods-hanawater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hanawater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E06DBE84DDDDE7FC36FA6BF5 /* Pods-hanawater-hanawaterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hanawater-hanawaterTests.release.xcconfig"; path = "Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F684CA7123544DE995BDC1CE /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../src/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
+		FA1324AB2962EC8D00D748F0 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
+		FA15CCE52962E9AF00E87B90 /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OPPWAMobile.xcframework; path = "../../../../../../Downloads/Hyperpay SDK v4.5.0 2/iOS_Frameworks_4.5.0/OPPWAMobile.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31BA472DDD302E82C7DD6B06 /* libPods-hanawater-hanawaterTests.a in Frameworks */,
+				FA15CCE72962E9AF00E87B90 /* OPPWAMobile.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,9 +107,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA1324A72962EC6300D748F0 /* ipworks3ds_sdk_deploy.xcframework in Frameworks */,
+				FA1324AF2962ED9B00D748F0 /* OPPWAMobile.xcframework in Frameworks */,
 				1C2D5BD2293EAA79003BB9BE /* SafariServices.framework in Frameworks */,
-				1C2D5BCF293E1E97003BB9BE /* OPPWAMobile.xcframework in Frameworks */,
-				1C2D5BD7293F594A003BB9BE /* ipworks3ds_sdk_deploy.xcframework in Frameworks */,
+				0BE88BCBBFAACA9056EBFC76 /* libPods-hanawater.a in Frameworks */,
+				FA1324AD2962ED9800D748F0 /* hermes.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,12 +154,13 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA1324AB2962EC8D00D748F0 /* hermes.xcframework */,
 				1C2D5BD1293EAA79003BB9BE /* SafariServices.framework */,
-				1C2D5BCB293E0B00003BB9BE /* OPPWAMobile.xcframework */,
 				1C2D5BD5293F5931003BB9BE /* ipworks3ds_sdk_deploy.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DD3F55DED6A922C6ABB671AC /* libPods-hanawater.a */,
-				1579196AE1FD8D7606E0396B /* libPods-hanawater-hanawaterTests.a */,
+				FA15CCE52962E9AF00E87B90 /* OPPWAMobile.xcframework */,
+				BAF8B706F48E0984328EB775 /* libPods-hanawater.a */,
+				300EDF1C3A46C25B5F34920B /* libPods-hanawater-hanawaterTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,10 +220,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				46B2CA8191CDF64FC170F2E3 /* Pods-hanawater.debug.xcconfig */,
-				D148526798245493CE9AA3BC /* Pods-hanawater.release.xcconfig */,
-				49BEAF4F580A0CB09E66D620 /* Pods-hanawater-hanawaterTests.debug.xcconfig */,
-				E06DBE84DDDDE7FC36FA6BF5 /* Pods-hanawater-hanawaterTests.release.xcconfig */,
+				B5275740DB88A69E4E9D89BF /* Pods-hanawater.debug.xcconfig */,
+				731A90A1074BB790ECA27C53 /* Pods-hanawater.release.xcconfig */,
+				C7460B4A98C12A2FFA5DE858 /* Pods-hanawater-hanawaterTests.debug.xcconfig */,
+				0595847DB6785CA8788DE0A2 /* Pods-hanawater-hanawaterTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -225,12 +235,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "hanawaterTests" */;
 			buildPhases = (
-				5A54E9518C878D197E5F9170 /* [CP] Check Pods Manifest.lock */,
+				B77205DFF9CBBB16ED634BA3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				F3EAB99E141662922B7704AC /* [CP] Embed Pods Frameworks */,
-				6B03A81F72532A30E23379CB /* [CP] Copy Pods Resources */,
+				4033BAF8FBA8A627D60A3DB9 /* [CP] Embed Pods Frameworks */,
+				65C4920526361597C1289605 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,15 +256,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hanawater" */;
 			buildPhases = (
-				A6A3E928629291B209BA32BB /* [CP] Check Pods Manifest.lock */,
+				F324A190F45C6AE246D62450 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				1C01C9152935183D00D6F45D /* Embed Frameworks */,
-				8F45B96A8DC5C8030B7603F2 /* [CP] Embed Pods Frameworks */,
-				BB5D406D2CFC2ACDC75D384D /* [CP] Copy Pods Resources */,
+				C65013A77B83A0BCCB5E5412 /* [CP] Embed Pods Frameworks */,
+				F1569E4F32FE0DBF86E11389 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -339,7 +349,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		5A54E9518C878D197E5F9170 /* [CP] Check Pods Manifest.lock */ = {
+		4033BAF8FBA8A627D60A3DB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65C4920526361597C1289605 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B77205DFF9CBBB16ED634BA3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,24 +405,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B03A81F72532A30E23379CB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F45B96A8DC5C8030B7603F2 /* [CP] Embed Pods Frameworks */ = {
+		C65013A77B83A0BCCB5E5412 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -395,7 +422,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A6A3E928629291B209BA32BB /* [CP] Check Pods Manifest.lock */ = {
+		F1569E4F32FE0DBF86E11389 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F324A190F45C6AE246D62450 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -415,40 +459,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB5D406D2CFC2ACDC75D384D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater/Pods-hanawater-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F3EAB99E141662922B7704AC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hanawater-hanawaterTests/Pods-hanawater-hanawaterTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -504,7 +514,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49BEAF4F580A0CB09E66D620 /* Pods-hanawater-hanawaterTests.debug.xcconfig */;
+			baseConfigurationReference = C7460B4A98C12A2FFA5DE858 /* Pods-hanawater-hanawaterTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 95MF69YKQY;
@@ -532,7 +542,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E06DBE84DDDDE7FC36FA6BF5 /* Pods-hanawater-hanawaterTests.release.xcconfig */;
+			baseConfigurationReference = 0595847DB6785CA8788DE0A2 /* Pods-hanawater-hanawaterTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -557,14 +567,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46B2CA8191CDF64FC170F2E3 /* Pods-hanawater.debug.xcconfig */;
+			baseConfigurationReference = B5275740DB88A69E4E9D89BF /* Pods-hanawater.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = hanawater/hanawater.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95MF69YKQY;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -642,12 +652,13 @@
 				);
 				INFOPLIST_FILE = hanawater/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Hana Water";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -665,14 +676,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D148526798245493CE9AA3BC /* Pods-hanawater.release.xcconfig */;
+			baseConfigurationReference = 731A90A1074BB790ECA27C53 /* Pods-hanawater.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = hanawater/hanawater.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95MF69YKQY;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -749,12 +760,13 @@
 				);
 				INFOPLIST_FILE = hanawater/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Hana Water";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -802,7 +814,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -873,7 +885,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -914,7 +926,7 @@
 				00E356F71AD99517003FC87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hanawater" */ = {
 			isa = XCConfigurationList;
@@ -923,7 +935,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "hanawater" */ = {
 			isa = XCConfigurationList;
@@ -932,7 +944,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
