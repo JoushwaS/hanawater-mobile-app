@@ -237,6 +237,7 @@ android {
             }
         }
     }
+    namespace 'com.hanawater'
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
