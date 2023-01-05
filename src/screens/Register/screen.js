@@ -106,7 +106,7 @@ function Index(props) {
           <Text style={styles.headingText}>{t("sign_in_register")}</Text>
         </View>
         <TextInput
-          placeholder="Enter Mobile Number"
+          // placeholder="Enter Mobile Number"
           containLabel
           auth
           onChangeText={(text) => setPhone(text)}
