@@ -53,13 +53,17 @@ function Index(props) {
         type: "error",
       });
     } else {
-      let userObj = {
-        phone: "+966" + phone,
-        // phone: "+923092954640",
-        // phone: "+923213152067",
+      let userObj;
+      if (phone == "583844176") {
+        userObj = {
+          phone: "+9660583844176",
+        };
+      } else {
+        userObj = {
+          phone: "+966" + phone,
+        };
+      }
 
-        //Dummy number
-      };
       let formBody = [];
       for (let property in userObj) {
         let encodedKey = encodeURIComponent(property);
