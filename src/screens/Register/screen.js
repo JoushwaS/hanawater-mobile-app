@@ -53,16 +53,18 @@ function Index(props) {
         type: "error",
       });
     } else {
-      let userObj;
-      if (phone == "583844176") {
-        userObj = {
-          phone: "+9660583844176",
-        };
-      } else {
-        userObj = {
-          phone: "+966" + phone,
-        };
-      }
+      let userObj = {
+        phone: "+966" + phone,
+      };
+      // if (phone == "583844176") {
+      //   userObj = {
+      //     phone: "+9660583844176",
+      //   };
+      // } else {
+      //   userObj = {
+      //     phone: "+966" + phone,
+      //   };
+      // }
 
       let formBody = [];
       for (let property in userObj) {

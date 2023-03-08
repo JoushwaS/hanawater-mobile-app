@@ -21,6 +21,7 @@ const userSignUp = (payload, props, phone) => async (dispatch) => {
     const { codes, customer } = customerData.data;
     dispatch(toggleLoader(false));
     dispatch(setUserData({ codes, customer, isAuthenticated: false }));
+    console.log("customerData>>>>>", customerData);
     // return;
     Navigation.navigate(SCREENS.VERIFICATION_CODE, {
       cart: props.route.params?.cart,

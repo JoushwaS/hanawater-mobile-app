@@ -28,7 +28,7 @@ const getHomeData = (payload) => async (dispatch) => {
     const { data: subscriptionData } = await getSubscriptionList();
     const { data: termsData } = await getTerms();
     const { data: returnPolData } = await getReturnPolicy();
-    console.log("returnPolData>>>", returnPolData);
+
     const sorted = mosqueData?.data.sort((a, b) =>
       a.MosqueLanguages[0]?.name.localeCompare(b.MosqueLanguages[0]?.name)
     );

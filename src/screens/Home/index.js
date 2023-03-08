@@ -109,7 +109,7 @@ function Index(props) {
   //   setActiveFont(index);
   //   setSubscriptionModal(false);
   // };
-
+  console.log("subscriptions>>>", subscriptions);
   return (
     <View style={styles.container}>
       <Modal
@@ -249,7 +249,7 @@ function Index(props) {
             )}
           />
         </View>
-      ) : (
+      ) : activeTab === 1 ? (
         <FlatList
           refreshControl={
             <RefreshControl
@@ -258,7 +258,7 @@ function Index(props) {
             />
           }
           activeIndex={activeIndex}
-          data={activeTab === 1 ? products : activeTab === 2 ? products : []}
+          data={activeTab === 1 ? (products ? products : []) : []}
           numColumns={1}
           style={{ paddingBottom: metrix.VerticalSize(50) }}
           showsHorizontalScrollIndicator={false}
@@ -266,10 +266,56 @@ function Index(props) {
             paddingBottom: metrix.VerticalSize(50),
           }}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <Card item={item} activeTab={activeTab} subItems={subscriptions} />
-          )}
+          renderItem={({ item, index }) => {
+            return (
+              <Card
+                item={item}
+                activeTab={activeTab}
+                subItems={subscriptions}
+              />
+            );
+          }}
         />
+      ) : activeTab === 2 && subscriptions?.length != 0 ? (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={common.isLoading}
+              onRefresh={() => dispatch(getHomeData())}
+            />
+          }
+          activeIndex={activeIndex}
+          data={activeTab === 2 ? (products ? products : []) : []}
+          numColumns={1}
+          style={{ paddingBottom: metrix.VerticalSize(50) }}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: metrix.VerticalSize(50),
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => {
+            return (
+              <Card
+                item={item}
+                activeTab={activeTab}
+                subItems={subscriptions}
+              />
+            );
+          }}
+        />
+      ) : (
+        <View>
+          <Text
+            style={{
+              marginTop: 50,
+              textAlign: "center",
+              // fontSize: Metrix.FontMedium,
+              color: Colors.Black,
+            }}
+          >
+            No Data Found...
+          </Text>
+        </View>
       )}
     </View>
   );
