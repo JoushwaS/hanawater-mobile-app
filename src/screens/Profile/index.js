@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from "react";
+import React, { Fragment, useState, useCallback, useRef } from "react";
 import {
   Image,
   TouchableOpacity,
@@ -6,7 +6,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { Text, TextInput, Header, CustomButton } from "../../components";
+import { Text, TextInput, Header, Modal, CustomButton } from "../../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { styles } from "./style";
 import { ICONS } from "../../assets/icons";
@@ -15,6 +15,8 @@ import { SCREENS } from "../../config/constants/screens";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile, getCities, deleteProfile } from "../../config/api/auth";
 import _ from "lodash";
+import { Colors, Fonts } from "../../config/theme";
+
 import { userLogout } from "../../store/actions";
 // import DatePicker from "react-native-date-picker";
 // import moment from "moment";
@@ -42,10 +44,12 @@ function Index(props) {
   const [selectedcity, setselectedcity] = useState("");
   const [userObj, setUserObj] = useState({});
   const { t } = useTranslation();
+  const deleteUserModalRef = useRef(null);
 
   const [dob, setDob] = useState("");
   const [modalVisible, setModalvisible] = useState(false);
-
+  const [deleteAccountModalVisible, setdeleteAccountModalVisible] =
+    useState(false);
   const touchableProps = {
     activeOpacity: 0.5,
     hitSlop: {
@@ -109,12 +113,14 @@ function Index(props) {
       .then((res) => {
         console.log("delete account success >", res);
         if (res.status >= 200) {
-          dispatch(userLogout());
-
           showToast({
             type: "success",
             text: t("Account Deleted Successfully"),
           });
+          setTimeout(() => {
+            setdeleteAccountModalVisible(false);
+            dispatch(userLogout());
+          }, 1000);
         }
       })
       .catch((error) => {
@@ -124,6 +130,50 @@ function Index(props) {
   return (
     <Fragment>
       <Header text={t("profile")} />
+      <Modal
+        viewRef={deleteUserModalRef}
+        setModalVisible={setdeleteAccountModalVisible}
+        modalVisible={deleteAccountModalVisible}
+      >
+        <View style={styles.modalView}>
+          <View>
+            <Text style={styles.modalHeading}> {t("delete_account")}</Text>
+            <Text style={{ textAlign: "center" }}>
+              {t("You'll Permanently lose your")}
+            </Text>
+            <View
+              style={{
+                alignItems: "center",
+                padding: 10,
+              }}
+            >
+              <Text>- {t("profile")}</Text>
+              <Text>- {t("Order History")}</Text>
+            </View>
+          </View>
+          <View style={styles.bottomRow}>
+            <CustomButton
+              onPress={() => {
+                setdeleteAccountModalVisible(false);
+              }}
+              style={styles.buttonStyle}
+              textStyle={{ color: Colors.primary }}
+              variant="outlined"
+            >
+              {t("Cancel")}
+            </CustomButton>
+            <CustomButton
+              onPress={() => {
+                handleDeleteAccount();
+              }}
+              style={styles.buttonStyle}
+              variant="filled"
+            >
+              {t("Confirm")}
+            </CustomButton>
+          </View>
+        </View>
+      </Modal>
       {isAuthenticated ? (
         <KeyboardAwareScrollView
           style={styles.container}
@@ -198,7 +248,8 @@ function Index(props) {
               type="large"
               onPress={() => {
                 // Navigation.goBack();
-                handleDeleteAccount();
+                // handleDeleteAccount();
+                setdeleteAccountModalVisible(!deleteAccountModalVisible);
               }}
               variant="filled"
             >

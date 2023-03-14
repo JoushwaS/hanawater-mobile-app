@@ -44,7 +44,7 @@ function Index(props) {
       });
     } else if (phone.length < 9) {
       showToast({
-        text: t("Input Validation failed"),
+        text: t("Phone number should contain 9 digits"),
         type: "error",
       });
     } else if (!toggleCheckBox) {
@@ -140,7 +140,9 @@ function Index(props) {
             style={{
               marginHorizontal: metrix.HorizontalSize(10),
             }}
-            onPress={handleTerms}
+            onPress={() => {
+              setToggleCheckBox(!toggleCheckBox);
+            }}
             activeOpacity={0.5}
           >
             <Text style={styles.subHeading}>

@@ -15,6 +15,38 @@ export const styles = StyleSheet.create({
     tintColor: Colors.primary,
     alignSelf: "flex-end",
   },
+  modalView: {
+    width: metrix.HorizontalSize(370),
+    height: metrix.VerticalSize(300),
+    backgroundColor: Colors.White,
+    borderRadius: metrix.VerticalSize(10),
+    paddingVertical: metrix.VerticalSize(25),
+    paddingHorizontal: metrix.HorizontalSize(35),
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
+    justifyContent: "center",
+
+    elevation: 5,
+  },
+  bottomRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // alignItems: "center",
+    width: metrix.HorizontalSize(270),
+
+    // paddingBottom: metrix.VerticalSize(50),
+  },
+  modalHeading: {
+    fontSize: metrix.CustomFontSize(24 + 2),
+    textAlign: "center",
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    marginBottom: metrix.VerticalSize(10),
+  },
+  modalText: {
+    textAlign: "center",
+  },
   sortOption: {
     marginVertical: metrix.VerticalSize(5),
     paddingVertical: metrix.VerticalSize(5),
@@ -32,9 +64,9 @@ export const styles = StyleSheet.create({
     marginTop: metrix.VerticalSize(25),
   },
   buttonStyle: {
-    alignSelf: "center",
+    // alignSelf: "center",
     marginTop: metrix.VerticalSize(25),
-    width: metrix.HorizontalSize(100),
+    width: metrix.HorizontalSize(70),
   },
   text: {
     fontSize: metrix.CustomFontSize(14 + 2),
