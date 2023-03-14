@@ -313,7 +313,7 @@ function Index(props) {
               color: Colors.Black,
             }}
           >
-            No Data Found...
+            {t("No_Data")}
           </Text>
         </View>
       )}

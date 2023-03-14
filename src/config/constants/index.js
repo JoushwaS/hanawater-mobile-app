@@ -13,6 +13,7 @@ const Endpoints = {
   PAYMENT_STATUS: "/v1/payment/status",
 
   LOGIN_USER: "/v2/customer/signin",
+  DELETE_CUSTOMER: "/v1/customer/",
   VERIFY_OTP: "/v1/customer/otp",
   ADD_ADDRESS: "/v1/address",
   REFRESH_TOKEN: "/v1/oauth/refresh",

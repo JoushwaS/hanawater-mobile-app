@@ -54,3 +54,11 @@ export const updateProfile = (customerId, user, token) => {
     },
   });
 };
+export const deleteProfile = (customerId, token) => {
+  return axios.delete(`${Endpoints.DELETE_CUSTOMER}/${customerId}`, {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

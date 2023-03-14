@@ -13,20 +13,23 @@ import { ICONS } from "../../assets/icons";
 import Navigator from "../../navigation/root";
 import { SCREENS } from "../../config/constants/screens";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile, getCities } from "../../config/api/auth";
+import { getProfile, getCities, deleteProfile } from "../../config/api/auth";
 import _ from "lodash";
+import { userLogout } from "../../store/actions";
 // import DatePicker from "react-native-date-picker";
 // import moment from "moment";
 import { store } from "../../store";
 import { t } from "i18next";
 import { useFocusEffect } from "@react-navigation/native";
 import { updateUserData } from "../../store/actions";
+import { showToast } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 function Index(props) {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { customer } = useSelector((state) => state.auth.customer);
-  const { codes } = useSelector((state) => state.auth.codes);
+  const { codes } = useSelector((state) => state.auth);
 
   const [refreshing, setRefreshing] = useState(true);
   const [cities, setCities] = useState([]);
@@ -38,6 +41,7 @@ function Index(props) {
   const [email, setEmail] = useState("");
   const [selectedcity, setselectedcity] = useState("");
   const [userObj, setUserObj] = useState({});
+  const { t } = useTranslation();
 
   const [dob, setDob] = useState("");
   const [modalVisible, setModalvisible] = useState(false);
@@ -63,8 +67,8 @@ function Index(props) {
     setRefreshing(true);
     Promise.all([getCities(), getProfile()])
       .then(([{ data: citiess }, { data: profile }]) => {
-        console.log('citiess.data',citiess.data)
-        console.log("profile",profile.data.city)
+        console.log("citiess.data", citiess.data);
+        console.log("profile", profile.data.city);
         setCities(citiess.data);
         // let cityObj = _.find(citiess.data, (i) => i.name == profile.data.city);
         setUserObj(profile?.data);
@@ -98,7 +102,25 @@ function Index(props) {
       },
     });
   };
+  const handleDeleteAccount = async () => {
+    const customerID = userObj?.id;
 
+    await deleteProfile(customerID, codes.accessToken)
+      .then((res) => {
+        console.log("delete account success >", res);
+        if (res.status >= 200) {
+          dispatch(userLogout());
+
+          showToast({
+            type: "success",
+            text: t("Account Deleted Successfully"),
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(" delete account failed!", error);
+      });
+  };
   return (
     <Fragment>
       <Header text={t("profile")} />
@@ -170,6 +192,19 @@ function Index(props) {
               label="City"
             />
           </TouchableOpacity>
+          <View style={{ padding: 10 }}>
+            <CustomButton
+              style={{ alignSelf: "center" }}
+              type="large"
+              onPress={() => {
+                // Navigation.goBack();
+                handleDeleteAccount();
+              }}
+              variant="filled"
+            >
+              {t("delete_account")}
+            </CustomButton>
+          </View>
         </KeyboardAwareScrollView>
       ) : (
         <View
@@ -179,8 +214,12 @@ function Index(props) {
             alignItems: "center",
           }}
         >
-          <Text style={styles.emptyText}>Please Register/Sign In to see your profile</Text>
-          <CustomButton onPress={handleLoginPress}>Register/Sign In</CustomButton>
+          <Text style={styles.emptyText}>
+            Please Register/Sign In to see your profile
+          </Text>
+          <CustomButton onPress={handleLoginPress}>
+            Register/Sign In
+          </CustomButton>
         </View>
       )}
     </Fragment>
