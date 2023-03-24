@@ -65,7 +65,7 @@ function Index(props) {
       //     phone: "+966" + phone,
       //   };
       // }
-
+      console.log("user Obj>>", userObj);
       let formBody = [];
       for (let property in userObj) {
         let encodedKey = encodeURIComponent(property);

@@ -149,7 +149,7 @@ function Index(props) {
       if (paymentStatus) {
         let { trackId } = paymentStatus;
         console.log(" js dev here>>", paymentStatus);
-        return;
+        // return;
         let successOrder = await placeOrder(
           trackId,
           paymentMethod,

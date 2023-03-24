@@ -65,6 +65,8 @@ function Index(props) {
           }
         }),
       });
+
+      console.log("cartData here>>", cartData.data);
       const { freeDelivery, totals } = cartData?.data;
       // console.log("cartData?.data", cartData?.data.items);
       const mappedData = cartData?.data.items.map((item, i) => {
