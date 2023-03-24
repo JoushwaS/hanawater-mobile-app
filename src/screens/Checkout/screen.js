@@ -63,7 +63,7 @@ function Index({
 
   const [activeindex, setActiveIndex] = useState(3);
   const [addressDetails, setaddressDetails] = useState(null);
-
+  const [paymentMethodList, setpaymentMethodList] = useState([]);
   const viewRef = useRef(null);
 
   const touchableProps = {
@@ -105,35 +105,39 @@ function Index({
       icon: ICONS.applePayIcon,
     },
   ]; */
-  
-  
-  let paymentMethods = paymentTypes.map(pt =>{
-    const { name ,status, type, id } = pt ;
 
+  let paymentMethods = paymentTypes.map((pt) => {
+    const { name, status, type, id } = pt;
+    console.log("payment Types here>>", paymentTypes);
     let icon;
-    switch(type){
-      case 'visa':
-        icon= ICONS.visaIcon;
+    switch (type) {
+      case "visa":
+        icon = ICONS.visaIcon;
         break;
-      case 'master':
-        icon= ICONS.mastarcardIcon;
+      case "master":
+        icon = ICONS.mastarcardIcon;
         break;
-      case 'mada':
-        icon= ICONS.madaIcon;
+      case "mada":
+        icon = ICONS.madaIcon;
         break;
-      case 'applepay':
-        icon= ICONS.applePayIcon;
+      case "applepay":
+        icon = ICONS.applePayIcon;
         break;
       default:
-        icon = null
+        icon = null;
     }
 
-    if(status !== 'active'){
+    if (status != "active") {
       return;
     }
-    return { id, name, type, icon } 
-  })
 
+    // Exclude apple pay if Platform.OS is android
+    // if (Platform.OS === "android" && type == "applepay") {
+    //   return;
+    // }
+
+    return { id, name, type, icon };
+  });
 
   const [addressIndex, setAddress] = useState(0);
 
@@ -159,15 +163,18 @@ function Index({
   };
 
   useEffect(() => {
-    if (Platform.OS !== "ios") {
-      paymentMethods = paymentMethods.filter((a) => {
-        if (a.name == "applepay") {
-          return a;
-        }
-      });
-    } else {
-      console.log("paymentMethods>>>>>>", paymentMethods);
-    }
+    console.log("Platform.OS>>", Platform.OS);
+    // if (Platform.OS != "ios") {
+    //   paymentMethods = paymentMethods.filter((a) => {
+    //     if (a.name != "applepay") {
+    //       return a;
+    //     }
+    //   });
+
+    //   console.log("filter payment methods>>", paymentMethods);
+    // } else {
+    //   console.log("paymentMethods>>>>>>", paymentMethods);
+    // }
   }, [Platform.OS]);
 
   return (
@@ -321,25 +328,29 @@ function Index({
                   )}
                 </TouchableOpacity>
 
-                {
-                  item.icon &&  <IconButton
-                  paymentIcon={true}
-                  buttonStyle={styles.paymentIcon}
-                  icon={item.icon}
-                  iconStyle={{ fontSize: "5rem !important" }}
-                  onPress={() => {
-                    setActiveIndex(index);
-                    setCardType(item.type);
-                  }}
-                />
-                }
-               
-                    {  !item.icon &&  <TouchableOpacity
-                     onPress={() => {
+                {item.icon && (
+                  <IconButton
+                    paymentIcon={true}
+                    buttonStyle={styles.paymentIcon}
+                    icon={item.icon}
+                    iconStyle={{ fontSize: "5rem !important" }}
+                    onPress={() => {
                       setActiveIndex(index);
                       setCardType(item.type);
                     }}
-                    ><Text style={styles.paymentText}>Cash</Text></TouchableOpacity>  }
+                  />
+                )}
+
+                {!item.icon && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setActiveIndex(index);
+                      setCardType(item.type);
+                    }}
+                  >
+                    <Text style={styles.paymentText}>Cash</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             ))}
           </View>

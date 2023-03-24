@@ -11,6 +11,8 @@
   "Cancel": "يلغي",
   "Confirm": "يتأكد",
   "Incomplete Delivery": "تسليم غير مكتمل",
+  "Unable to place order": "غير قادر على تقديم الطلب",
+  "Payment Failed": "عملية الدفع فشلت",
   "Damaged Package": "الحزمة التالفة",
   "Mosque Products Details": "تفاصيل منتجات المسجد",
   "hello": "أهلاً بالعالم",

@@ -148,6 +148,8 @@ function Index(props) {
 
       if (paymentStatus) {
         let { trackId } = paymentStatus;
+        console.log(" js dev here>>", paymentStatus);
+        return;
         let successOrder = await placeOrder(
           trackId,
           paymentMethod,
@@ -226,22 +228,40 @@ function Index(props) {
     if (successCheckout) {
       if (successCheckout.status == "waiting") {
         //Do nothing
-        //we will wait for a callback to occur then we will proceed to place order
+        //we will wait for a callback to occur then
+        // we will proceed to place order
       } else {
-        let successOrder = await placeOrder(
-          successCheckout.trackId,
-          paymentMethod,
-          addressDetails
-        );
-        console.log("handlePlaceOrder() successOrder", successOrder);
-        if (successOrder) {
-          showToast({ text: t("Order Placed Successfully"), type: "success" });
+        console.log("js dev final here >>>", successCheckout);
+        const paymentStatus = checkSuccessPayment(successCheckout?.statusCode);
 
-          Navigator.navigate(SCREENS.THANK_YOU, {
-            orderId: successOrder.orderId,
-          });
+        console.log("paymentStatus>>>>>", paymentStatus);
+        // return;
+        if (paymentStatus) {
+          let successOrder = await placeOrder(
+            successCheckout.trackId,
+            paymentMethod,
+            addressDetails
+          );
+          console.log("handlePlaceOrder() successOrder", successOrder);
+          if (successOrder) {
+            showToast({
+              text: t("Order Placed Successfully"),
+              type: "success",
+            });
+
+            Navigator.navigate(SCREENS.THANK_YOU, {
+              orderId: successOrder.orderId,
+            });
+          } else {
+            showToast({ text: t("Unable to place order"), type: "error" });
+          }
         } else {
-          showToast({ text: t("Unable to place order"), type: "error" });
+          showToast({
+            text: successCheckout
+              ? successCheckout?.description
+              : t("Payment Failed"),
+            type: "error",
+          });
         }
       }
     }
@@ -368,6 +388,10 @@ function Index(props) {
     }
   };
 
+  const checkSuccessPayment = (statusCode) => {
+    const successPattern = /^(000\.000\.|000\.100\.1|000\.[36])/;
+    return successPattern.test(statusCode);
+  };
   //Fourth Step
   const checkPaymentStatus = async (checkoutID) => {
     try {

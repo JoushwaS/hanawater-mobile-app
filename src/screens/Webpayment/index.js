@@ -69,10 +69,8 @@ function Index(props) {
   }, []);
 
   let paymentResult = null;
-  
 
-  
-  const handleWebViewNavigationStateChange =  (newNavState) => {
+  const handleWebViewNavigationStateChange = (newNavState) => {
     console.log("Function call - handleWebViewNavigationStateChange()");
     // newNavState : {
     //   url?: string;
@@ -82,67 +80,70 @@ function Index(props) {
     //   canGoForward?: boolean;
     // }
     const { url } = newNavState;
-    
 
-    console.log("Final payment status URL", url);   
+    console.log("Final payment status URL", url);
 
-    if(paymentResult){
+    if (paymentResult) {
       return;
     }
 
     if (url.includes("error")) {
-      let delimeter = "/error/"
-      paymentResult = transformPaymentResultFromURL(delimeter,url);
-      showToast({type: "error",text: paymentResult.statusCode +" | "+t(paymentResult.description)});
+      let delimeter = "/error/";
+      paymentResult = transformPaymentResultFromURL(delimeter, url);
+      showToast({
+        type: "error",
+        text: paymentResult.statusCode + " | " + t(paymentResult.description),
+      });
+
+      console.log("error payment Result>>>>>>>", paymentResult);
     }
 
     if (url.includes("thankyou")) {
-      let delimeter = "/thankyou/"
-      paymentResult = transformPaymentResultFromURL(delimeter,url); 
+      let delimeter = "/thankyou/";
+      paymentResult = transformPaymentResultFromURL(delimeter, url);
       //decode the response
-      showToast({type: "success",text: t("Payment successfull")});
+      showToast({ type: "success", text: t("Payment successfull") });
     }
 
-    if(paymentResult){
-      props.route.params.callback(paymentResult)
+    // return;
+    if (paymentResult) {
+      props.route.params.callback(paymentResult);
       Navigation.goBack();
     }
-
-  
   };
 
-  const transformPaymentResultFromURL = (delimeter,url) =>{
+  const transformPaymentResultFromURL = (delimeter, url) => {
     const temp_arr = url.split(delimeter);
-    console.log("temp_arr",temp_arr);
+    console.log("temp_arr", temp_arr);
     const str_response = base64.decode(temp_arr[1]);
     const response = JSON.parse(str_response);
 
     const statusCode = response.data.hyperpayResult.result.code;
-    const trackId = response.data.hyperpayResult.ndc;  
+    const trackId = response.data.hyperpayResult.ndc;
     const description = response.data.hyperpayResult.result.description;
 
-    return { statusCode, trackId, description}
-  }
+    return { statusCode, trackId, description };
+  };
 
   return (
     <View style={styles.container}>
       <Header text="Payment" backButton />
       <View style={{ flex: 1 }}>
-       
         {url && !paymentResult && (
           <WebView
             startInLoadingState={true}
             ref={webview}
-            scalesPageToFit={Platform.OS === "ios" ? false : true}
-            style={{
-              width: metrix.HorizontalSize(820),
-              position: "relative",
-              // left: -180,
-              left: metrix.HorizontalSize(-198),
-              right: 0,
-              top: 0,
-              bottom: 0,
-            }}
+            scalesPageToFit={false}
+            // scalesPageToFit={Platform.OS === "ios" ? false : true}
+            // style={{
+            //   width: metrix.HorizontalSize(820),
+            //   position: "relative",
+            //   // left: -180,
+            //   left: metrix.HorizontalSize(-198),
+            //   right: 0,
+            //   top: 0,
+            //   bottom: 0,
+            // }}
             // scalesPageToFit={true}
             // onError={(syntheticEvent) => {
             //   const { nativeEvent } = syntheticEvent;
