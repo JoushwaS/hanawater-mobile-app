@@ -1,9 +1,11 @@
 package com.hanawater;
-
+import io.xogus.reactnative.versioncheck.RNVersionCheckPackage; 
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.apsl.versionnumber.RNVersionNumberPackage;
+import io.xogus.reactnative.versioncheck.RNVersionCheckPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;

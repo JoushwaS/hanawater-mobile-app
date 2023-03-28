@@ -138,7 +138,7 @@ android {
         applicationId "com.hanawater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12
+        versionCode 14
         versionName "1.8"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
@@ -269,6 +269,8 @@ android {
 }
 
 dependencies {
+       implementation project(':react-native-version-check')
+
     implementation project(':react-native-splash-screen')
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])

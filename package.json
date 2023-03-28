@@ -53,6 +53,8 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-step-indicator": "^1.0.3",
+    "react-native-version-check": "^3.4.7",
+    "react-native-version-number": "^0.3.6",
     "react-native-webview": "^11.22.7",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",

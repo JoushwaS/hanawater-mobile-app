@@ -86,6 +86,7 @@ function Index(props) {
       });
       setLoading(false);
     } catch (error) {
+      console.log("error here>>", error);
       showToast({
         text: error?.response?.data?.message || error.message,
         type: "error",

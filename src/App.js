@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StatusBar,Linking } from "react-native";
+import { ActivityIndicator, StatusBar, Linking } from "react-native";
 import MainNavigation from "./navigation";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
@@ -13,12 +13,29 @@ import "./translations";
 import NetInfo from "@react-native-community/netinfo";
 import { showToast } from "./utils";
 import { useTranslation } from "react-i18next";
+import VersionCheck from "react-native-version-check";
+import VersionNumber from "react-native-version-number";
+import { Platform } from "react-native";
 
 function App() {
   const [isNetworkConnected, setisNetworkConnected] = useState(null);
   const { t } = useTranslation();
-  
+
   useEffect(() => {
+    VersionCheck.getLatestVersion({
+      packageName:
+        Platform.OS === "android" ? "com.hanawater" : "com.apps.hanawater", // Replace with your app's package name
+    })
+      .then((latestVersion) => {
+        console.log("Latest version:>>", latestVersion);
+        console.log(VersionNumber.appVersion);
+
+        console.log(VersionNumber.buildVersion);
+        console.log(VersionNumber.bundleIdentifier);
+      })
+      .catch((error) => {
+        console.log("Error checking for latest version:", error);
+      });
     const unsubscribe = NetInfo.addEventListener((state) => {
       setisNetworkConnected(state.isConnected);
     });

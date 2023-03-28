@@ -215,6 +215,48 @@ function Index(props) {
           },
         });
       });
+      if (successCheckout) {
+        if (successCheckout.status == "waiting") {
+          //Do nothing
+          //we will wait for a callback to occur then
+          // we will proceed to place order
+        } else {
+          console.log("js dev final here >>>", successCheckout);
+          const paymentStatus = checkSuccessPayment(
+            successCheckout?.statusCode
+          );
+
+          console.log("paymentStatus>>>>>", paymentStatus);
+          // return;
+          if (paymentStatus) {
+            let successOrder = await placeOrder(
+              successCheckout.trackId,
+              paymentMethod,
+              addressDetails
+            );
+            console.log("handlePlaceOrder() successOrder", successOrder);
+            if (successOrder) {
+              showToast({
+                text: t("Order Placed Successfully"),
+                type: "success",
+              });
+
+              Navigator.navigate(SCREENS.THANK_YOU, {
+                orderId: successOrder.orderId,
+              });
+            } else {
+              showToast({ text: t("Unable to place order"), type: "error" });
+            }
+          } else {
+            showToast({
+              text: successCheckout
+                ? successCheckout?.description
+                : t("Payment Failed"),
+              type: "error",
+            });
+          }
+        }
+      }
     } else if (paymentmethodIndex === 3) {
       paymentMethod = "apple_pay";
 
@@ -223,48 +265,26 @@ function Index(props) {
       //cash on delivery
       paymentMethod = "cod";
       successCheckout = { trackId: "N/A" };
-    }
-    //successCheckout = { trackId: "delibrately checkout" }
-    if (successCheckout) {
-      if (successCheckout.status == "waiting") {
-        //Do nothing
-        //we will wait for a callback to occur then
-        // we will proceed to place order
+      let successOrder = await placeOrder(
+        successCheckout.trackId,
+        paymentMethod,
+        addressDetails
+      );
+      console.log("handlePlaceOrder() cod order>>>", successOrder);
+      if (successOrder) {
+        showToast({
+          text: t("Order Placed Successfully"),
+          type: "success",
+        });
+
+        Navigator.navigate(SCREENS.THANK_YOU, {
+          orderId: successOrder.orderId,
+        });
       } else {
-        console.log("js dev final here >>>", successCheckout);
-        const paymentStatus = checkSuccessPayment(successCheckout?.statusCode);
-
-        console.log("paymentStatus>>>>>", paymentStatus);
-        // return;
-        if (paymentStatus) {
-          let successOrder = await placeOrder(
-            successCheckout.trackId,
-            paymentMethod,
-            addressDetails
-          );
-          console.log("handlePlaceOrder() successOrder", successOrder);
-          if (successOrder) {
-            showToast({
-              text: t("Order Placed Successfully"),
-              type: "success",
-            });
-
-            Navigator.navigate(SCREENS.THANK_YOU, {
-              orderId: successOrder.orderId,
-            });
-          } else {
-            showToast({ text: t("Unable to place order"), type: "error" });
-          }
-        } else {
-          showToast({
-            text: successCheckout
-              ? successCheckout?.description
-              : t("Payment Failed"),
-            type: "error",
-          });
-        }
+        showToast({ text: t("Unable to place order"), type: "error" });
       }
     }
+    //successCheckout = { trackId: "delibrately checkout" }
   };
 
   //Second Step

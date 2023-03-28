@@ -90,10 +90,10 @@ function Index(props) {
     if (url.includes("error")) {
       let delimeter = "/error/";
       paymentResult = transformPaymentResultFromURL(delimeter, url);
-      showToast({
-        type: "error",
-        text: paymentResult.statusCode + " | " + t(paymentResult.description),
-      });
+      // showToast({
+      //   type: "error",
+      //   text: paymentResult.statusCode + " | " + t(paymentResult.description),
+      // });
 
       console.log("error payment Result>>>>>>>", paymentResult);
     }

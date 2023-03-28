@@ -63,6 +63,7 @@ function Index({
 
   const [activeindex, setActiveIndex] = useState(3);
   const [addressDetails, setaddressDetails] = useState(null);
+  const [isSubmitting, setisSubmitting] = useState(false);
   const [paymentMethodList, setpaymentMethodList] = useState([]);
   const viewRef = useRef(null);
 
@@ -450,9 +451,11 @@ function Index({
             </Text>
           </View>
           <CustomButton
+            disabled={isSubmitting}
             onPress={() => {
               console.log("activeindex", activeindex);
               if (activeindex >= 0) {
+                setisSubmitting(true);
                 handlePlaceOrder(addressDetails, activeindex);
               } else {
                 showToast({

@@ -6,6 +6,7 @@ install! 'cocoapods', :deterministic_uuids => false
 
 rn_maps_path = '../node_modules/react-native-maps'
 pod 'react-native-google-maps', :path => rn_maps_path
+pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
 pod 'GoogleMaps'
 pod 'Google-Maps-iOS-Utils'
 # pod 'React', :path => '../node_modules/react-native', :subspecs => [
@@ -33,6 +34,10 @@ target 'hanawater' do
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
+
+  pod 'react-native-version-number', :path => '../node_modules/react-native-version-number'
 
   target 'hanawaterTests' do
     inherit! :complete
