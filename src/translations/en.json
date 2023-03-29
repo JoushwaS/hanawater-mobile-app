@@ -101,6 +101,12 @@
   "profile": "Profile",
   "address": "Address",
   "delete_account": "Delete Account",
+
+  "new_version_available": "New Version Available!",
+  "new_version_available_text": "We've released a new version of the app. Please update to ensure you have the latest features and improvements.",
+  "update_now": "Update Now",
+  "later": "Later",
+
   "Account Deleted Successfully": "Account Deleted Successfully",
   "Terms_and_conditions": "Terms & Conditions",
   "name": "Name",
